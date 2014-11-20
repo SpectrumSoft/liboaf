@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+	<oaf:class cid="OAF/IO/CFactory:1.0" type="dll" location="oaf-io-1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IGenericFactory"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="I/O objects factory"/>
+		<oaf:attribute name="description" type="string" value="I/O objects factory"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/IO/CDeviceFile:1.0" type="factory" location="OAF/IO/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IIODevice"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="File I/O device"/>
+		<oaf:attribute name="description" type="string" value="File I/O device"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/IO/CDeviceBuffer:1.0" type="factory" location="OAF/IO/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IIODevice"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Raw I/O device"/>
+		<oaf:attribute name="description" type="string" value="Raw I/O device"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/IO/CDeviceGIT:1.0" type="factory" location="OAF/IO/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IIODevice"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="GIT VCS I/O device"/>
+		<oaf:attribute name="description" type="string" value="GIT VCS I/O device"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/IO/CMonikerIO:1.0" type="factory" location="OAF/IO/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IMoniker"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="I/O moniker"/>
+		<oaf:attribute name="description" type="string" value="I/O moniker"/>
+		<oaf:attribute name="monikers" type="stringv">
+			<oaf:item value="file:"/>
+			<oaf:item value="raw:"/>
+			<oaf:item value="git:"/>
+		</oaf:attribute>
+	</oaf:class>
+</oaf:info>

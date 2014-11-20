@@ -1,0 +1,1815 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Предметный указатель
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Компонентная модель OAF
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+OAF - расшифровывается как Object Activation Framework.
+ Это название оставлено как ссылка на использованную в качестве прототипа
+ библиотеку BonoboActivation, ранее носившую это название
+\end_layout
+
+\end_inset
+
+/Qt4
+\end_layout
+
+\begin_layout Author
+Sergey N. Yatskevich <syatskevich@gmail.com>
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Назначение"
+
+\end_inset
+
+Назначение
+\end_layout
+
+\begin_layout Standard
+Компонентная модель OAF/Qt4 предназначена для поддержки разделения сложных
+ программ на набор слабосвязанных и динамически линкуемых модулей.
+ Компонентом в OAF/Qt4 называется разделяемая библиотека (*.so), экспортирующая
+ один или несколько OAF-классов
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Здесь и далее под OAF-классом понимается класс C++, о котором известен только
+ набор экспортирумых им интерфейсов и протоколов взаимодействия, но неизвестны
+ никакие детали реализации
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Одной из важных задач данной модели, является поддержка глобального пространства
+ имён объектов (см.
+ раздел 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Глобальное-пространство-имён"
+
+\end_inset
+
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Моникеры
+\begin_inset Quotes erd
+\end_inset
+
+).
+ Такое пространство имён позволяет хранить стандартизованные текстовые ссылки
+ на другие объекты системы и получать по ним ссылки на соответствующие программн
+ые объекты непосредственно в процессе работы программы с автоматической
+ инициализацией всей необходимой для функционирования этих объектов инфраструкту
+рой.
+\end_layout
+
+\begin_layout Standard
+Ключевыми особенностями компонентной модели OAF/Qt4 являются:
+\end_layout
+
+\begin_layout Itemize
+выделение разработки интерфейсов, протоколов и описаний OAF-классов в самостояте
+льную задачу, решаемую архитектором приложения;
+\end_layout
+
+\begin_layout Itemize
+реализация поиска подходящих OAF-классов по их описаниям с помощью языка
+ запросов;
+\end_layout
+
+\begin_layout Itemize
+поддержка глобального пространства имён объектов (моникеров).
+\end_layout
+
+\begin_layout Standard
+Язык запросов и глобальное пространство имён объектов обеспечивают возможность
+ создания объекта не только через явное задание его OAF-класса, но и через
+ описание желаемой функциональности, которую он должен реализовывать.
+ То есть по сути OAF/Qt4 является расширением RTTI языка C++, реализующим
+ дополнительные способы создания C++ объектов, реализация которых размещена
+ во внешних библиотеках.
+ Наличие описаний OAF-классов позволяет реализовать загрузку компонентов
+ и создание объектов по требованию, а не в процессе начальной загрузки.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Интерфейс-OAF/Qt4"
+
+\end_inset
+
+Интерфейс OAF/Qt4
+\end_layout
+
+\begin_layout Standard
+OAF/Qt4 представляет собой библиотеку, линкуемую ко всем компонентам приложения.
+ Данная библиотека реализует следующие функции:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+OAF::getClassInfo
+\emph default
+ - функция получения информации об OAF-классе по его CID (Class IDentity
+ - идентификатор класса).
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+const IPropertyBag* cinfo = OAF::getClassInfo ("OAF/IO/CDevice:1.0");
+\end_layout
+
+\end_inset
+
+возвратит интерфейс к описанию OAF-класса с заданным именем;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::query
+\emph default
+ - функция подбора OAF-классов, соответствующих заданным критериям.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+QStringList clist;
+\end_layout
+
+\begin_layout Plain Layout
+
+OAF::query (clist, "repo_ids.has ('IIODevice')");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+после выполнения запроса список
+\emph on
+ clist
+\emph default
+ будет содержать CID всех установленных в системе OAF-классов, реализующих
+ интерфейс
+\emph on
+ IIODevice
+\emph default
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::createFromCID
+\emph default
+ - функция создание объекта по CID его OAF-класса.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IObjectUnknown> c = OAF::createFromCID ("OAF/IO/CDevice:1.0");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+создаст объект заданного OAF-класса.
+ Данная функция по смыслу аналогична оператору 
+\emph on
+new
+\emph default
+ языка C++;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::createMoniker
+\emph default
+ - функция создания моникера с заданными параметрами.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IMoniker> m = OAF::createMoniker (NULL, "file:", "file-name.ext");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+создаст моникер для создания объектов, обеспечивающих доступ к заданному
+ файлу;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::parseName
+\emph default
+ - функция преобразования глобального имени объекта в цепочку моникеров.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IMoniker> m = OAF::parseName ("file:file-name.ext");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+создаст моникер для создания объектов, обеспечивающих доступ к заданному
+ файлу;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::unparseName
+\emph default
+ - функция восстановления глобального имени объекта по заданной цепочке
+ моникеров.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+QString name = OAF::unparseName (m);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+восстановит имя
+\emph on
+ file:file-name.ext
+\emph default
+ для моникера из предыдущего примера;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::createFromName
+\emph default
+ - шаблонная функция создания объекта, реализующего заданный интерфейс,
+ по его глобальному имени.
+ Например:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IIODevice> c = OAF::createFromName<IIODevice> ("file:file-name.ext");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+создаст объект с интерфейсом
+\emph on
+ IIODevice
+\emph default
+, обеспечивающий доступ к заданному файлу.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+OAF::unloadUnusedLibraries
+\emph default
+ - функция выгрузки неиспользуемых компонентов;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+OAF::unloadClassInfo
+\emph default
+ - функция выгрузки описаний OAF-классов;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+IFunctionFactory* OAF::functionFactory () 
+\emph default
+- фабрика стандартных функций языка запросов.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Описание-OAF-классов"
+
+\end_inset
+
+Описание OAF-классов
+\end_layout
+
+\begin_layout Standard
+Описания OAF-классов хранятся в виде набора XML-файлов, которые должны иметь
+ расширение
+\emph on
+ oaf
+\emph default
+.
+ Минимальным вариантом такого файла является:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=XML,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version='1.0' encoding='UTF-8'?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CFactory:1.0" type="dll" location="/usr/lib/oaf-qt4/liboa
+f-io-1.0"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+</oaf:info>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+В случае, если библиотека компонента расположена в том же каталоге, что
+ и соответствующий
+\emph on
+ oaf
+\emph default
+ файл, путь к библиотеке можно не указывать:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=XML,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version='1.0' encoding='UTF-8'?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CFactory:1.0" type="dll" location="liboaf-io-1.0"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+</oaf:info>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Стандартным каталогом, который сканируется по умолчанию является
+\emph on
+ /usr/lib/oaf-qt4
+\emph default
+.
+ В случае необходимости дополнительные пути поиска
+\emph on
+ oaf
+\emph default
+ файлов можно указать с помощью переменной окружения
+\emph on
+ OAFPATH
+\emph default
+.
+ Отдельные каталоги в этой переменной разделяются с помощью символа ':'.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Тэги-oaf:info-и-oaf:class"
+
+\end_inset
+
+Тэги
+\emph on
+ oaf:info
+\emph default
+ и
+\emph on
+ oaf:class
+\end_layout
+
+\begin_layout Standard
+Тэг
+\emph on
+ oaf:info
+\emph default
+ является корнем всех описаний OAF-классов.
+ Каждый тэг
+\emph on
+ oaf:class
+\emph default
+ описывает один OAF-класс.
+ Этот тэг имеет три обязательных XML-атрибута:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+cid
+\emph default
+ - уникальный идентификатор класса (Class IDentity).
+ В принципе это любая строка, однако для единообразия предлагается использовать
+ следующий формат: <пространство имён класса>/<имя класса, совпадающее с
+ именем соответствующего C++ класса>:<версия реализации>;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+type
+\emph default
+ - задаёт один из двух способов создания объектов данного OAF-класса:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\emph on
+dll
+\emph default
+ - для создания объекта нужно загрузить заданную в location динамическую
+ библиотеку и вызвать у неё функцию
+\emph on
+ URef<IObjectUnknown> createObject(const QString& _cid)
+\emph default
+;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+factory
+\emph default
+ - для создания объекта нужно использовать интерфейс
+\emph on
+ IGenericFactory
+\emph default
+ объекта с идентификатором класса
+\emph on
+ location
+\emph default
+ (такой способ удобен если нужно где-то хранить информацию, разделяемую
+ между всеми объектами, создаваемыми с помощью данной фабрики.
+ Это может быть, например, кэш всех созданных объектов чтобы вместо повторного
+ создания возвращать ссылки на подходящие из уже созданных);
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+location
+\emph default
+ - определяется значением атрибута
+\emph on
+ type
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Например OAF-класс объектов, создаваемых с помощью фабрики можно описать
+ так:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=XML,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version='1.0' encoding='UTF-8'?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CFactory:1.0" type="dll" location="liboaf-io-1.0"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CDevice:1.0" type="factory" location="OAF/IO/CFactory:1.0"
+/>
+\end_layout
+
+\begin_layout Plain Layout
+
+</oaf:info>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Тэг-oaf:attribute"
+
+\end_inset
+
+Тэг
+\emph on
+ oaf:attribute
+\end_layout
+
+\begin_layout Standard
+Полноценное использование OAF/Qt4 возможно только при использовании атрибутов
+ в описании OAF-классов (в противном случае создание объектов можно будет
+ выполнить только с помощью задания идентификатора OAF-класса, что фактически
+ свяжет компоненты друг с другом ровно настолько, насколько их связало бы
+ прямое использование C++-классов друг друга).
+ Например:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=XML,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<?xml version='1.0' encoding='UTF-8'?>
+\end_layout
+
+\begin_layout Plain Layout
+
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CFactory:1.0" type="dll" location="liboaf-io-1.0">
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="repo_ids" type="stringv">
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IObjectUnknown"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IGenericFactory"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		</oaf:attribute>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="name" type="string" value="I/O objects factory"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="description" type="string" value="I/O objects factory"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+	</oaf:class>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CDevice:1.0" type="factory" location="OAF/IO/CFactory:1.0"
+>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="repo_ids" type="stringv">
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IObjectUnknown"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IIODevice"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		</oaf:attribute>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="name" type="string" value="I/O device"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="description" type="string" value="I/O device"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+	</oaf:class>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:class cid="OAF/IO/CIOMoniker:1.0" type="factory" location="OAF/IO/CFactory:
+1.0">
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="repo_ids" type="stringv">
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IObjectUnknown"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="IMoniker"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		</oaf:attribute>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="name" type="string" value="I/O moniker"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="description" type="string" value="I/O moniker"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<oaf:attribute name="monikers" type="stringv">
+\end_layout
+
+\begin_layout Plain Layout
+
+			<oaf:item value="file:"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+		</oaf:attribute>
+\end_layout
+
+\begin_layout Plain Layout
+
+	</oaf:class>
+\end_layout
+
+\begin_layout Plain Layout
+
+</oaf:info>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Для каждого OAF-класса может быть определено множество атрибутов.
+ Каждый атрибут имеет обязательные XML-атрибуты
+\emph on
+ name
+\emph default
+ и
+\emph on
+ type
+\emph default
+.
+ Возможные типы атрибутов определены в описании языка запросов OAF/Qt4.
+ Имена типов должны быть записаны в нижнем регистре.
+ Значения атрибутов всех типов, кроме
+\emph on
+ stringv
+\emph default
+, записываются в XML-атрибуте
+\emph on
+ value
+\emph default
+.
+ Значения типа
+\emph on
+ stringv
+\emph default
+ должно быть записано как набор
+\emph on
+ oaf:item
+\emph default
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=XML,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<oaf:attribute name="repo_ids" type="stringv">
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:item value="IObjectUnknown"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+	<oaf:item value="IIODevice"/>
+\end_layout
+
+\begin_layout Plain Layout
+
+</oaf:attribute>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Смысл атрибутов с тем или иным именем определяется архитектором приложения.
+ Например на уровне самой OAF/Qt4 определены следующие атрибуты:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+repo_ids
+\emph default
+(
+\emph on
+stringv
+\emph default
+) - перечень всех интерфейсов, предоставляемых объектами данного класса;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+description
+\emph default
+(
+\emph on
+string
+\emph default
+) - понятное человеку полное описание OAF-класса;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+name
+\emph default
+(
+\emph on
+string
+\emph default
+) - понятное человеку короткое описание OAF-класса (например для использования
+ в качестве строки меню);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+mime_types(stringv)
+\emph default
+ - перечень mime-типов, которые может обрабатывать объект данного OAF-класса;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+moniker
+\emph default
+s(
+\emph on
+stringv
+\emph default
+) - перечень префиксов имён, которые обрабатывает данный моникер.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Язык-запросов-OAF/Qt4"
+
+\end_inset
+
+Язык запросов OAF/Qt4
+\end_layout
+
+\begin_layout Standard
+OAF/Qt4 поддерживает язык запросов, который может быть использован для отбора
+ OAF-классов, соответствующих заданным критериям.
+ Запрос на этом языке передаётся в параметре
+\emph on
+ _req
+\emph default
+ при вызове функции
+\emph on
+ OAF::query
+\emph default
+.
+ Запрос вычисляется на основании атрибутов, заданных в описаниях OAF-классов.
+ Например запрос:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=SQL,showstringspaces=false"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+repo_ids.has ('IMoniker') AND monikers.has('file:')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+отберёт CID всех OAF-классов, которые поддерживают заданный моникер (то
+ есть OAF-класс, который экспортирует 
+\emph on
+IMoniker
+\emph default
+ интерфейс и обрабатывает имена с заданным префиксом).
+\end_layout
+
+\begin_layout Standard
+Язык запросов поддерживает так же сортировку и отбор нескольких записей
+ из общего результата с помощью выражений, похожих на SQL.
+ Например:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=SQL,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+priority.defined() ORDER BY priority DESC, name LIMIT 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+отберёт CID всех OAF-классов, в которых определён атрибут
+\emph on
+ priority
+\emph default
+, упорядочит CID по уменьшению значения атрибута
+\emph on
+ priority
+\emph default
+ и увеличению (в лексикографическом порядке) значения атрибута
+\emph on
+ name
+\emph default
+ и выдаст в качестве результата первые два CID.
+\end_layout
+
+\begin_layout Standard
+Формальное определение запроса:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=SQL,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<запрос>: <выражение отбора>
+\end_layout
+
+\begin_layout Plain Layout
+
+			  [ORDER BY <список выражений сортировки>]
+\end_layout
+
+\begin_layout Plain Layout
+
+			  [LIMIT <выражение ограничения>]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language=SQL,showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+список выражений сортировки: <выражение> [ASC|DESC]
+\end_layout
+
+\begin_layout Plain Layout
+
+список выражений сортировки: <выражение> [ASC|DESC], <список выражений сортировк
+и>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Типы-данных"
+
+\end_inset
+
+Типы данных
+\end_layout
+
+\begin_layout Standard
+Язык OAF/Qt4 поддерживает следующие типы данных в описании OAF-класса:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+string
+\emph default
+ - произвольная строка (константы данного типа задаются как 'строка');
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+stringv
+\emph default
+ - список строк (константы данного типа задаются как ['строка1','строка2',
+ ...]);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+boolean
+\emph default
+ - булевское число (константы данного типа задаются с помощью ключевых слов
+ TRUE/YES и FALSE/NO);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+integer
+\emph default
+ - 64-х битное целое число (константы данного типа - десятичные целые числа);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+double
+\emph default
+ - число с плавающей точкой (константы данного типа - десятичные числа с
+ плавающей точкой в фиксированном или инженерном форматах);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+null
+\emph default
+ - неопределённое значение.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Функции"
+
+\end_inset
+
+Функции
+\end_layout
+
+\begin_layout Standard
+В языке запросов OAF/Qt4 определены следующие функции:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+defined(<выражение>)
+\emph default
+ - возвращает TRUE если заданное выражение определено для текущего описания.
+ Например если <выражение> представляет собой идентификатор атрибута, то
+ результат выражения будет показывать определён или нет данный атрибут в
+ описании OAF-класса;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+has(stringv v, string s)
+\emph default
+ - возвращает TRUE если в списке строк v присутствует строка s;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+has_one(stringv v1, stringv v2)
+\emph default
+ - возвращает TRUE если хотя бы одна из строк из списка v2 присутствует
+ в списке v1;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+has_all(stringv v1, stringv v2)
+\emph default
+ - возвращает TRUE если все строки списка v2 присутствуют в списке v1;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+prefer(string s, stringv v)
+\emph default
+ - возвращает -1, если строка s не присутствует в списке v.
+ В противном случае возвращает номер строки в списке вычисленный относительно
+ конца списка.
+ Таким образом чем ближе строка к началу списка, тем больше это число.
+ Эта функция предназначена для использования в выражениях сортировки;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+if(v1, v2, v3)
+\emph default
+ - возвращает результат вычисления выражения v2 если результат вычисления
+ выражение v1 равен true и результат вычисления выражения v3, если false.
+ Если результат вычисления выражения v1 не определён, то возвращается NULL;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+ifnull(v1, ...)
+\emph default
+ - возвращает первый слева на право отличный от NULL результат вычисления
+ выражения в списке.
+\end_layout
+
+\begin_layout Standard
+Имена функций нечувствительны к регистру.
+ Для атрибутов определены два эквивалентных способа вызова функций:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+funcname (<attribute_name>, <список доп.аргументов>)
+\emph default
+ - функциональный стиль;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+<attribute_name>.funcname (<список доп.аргументов>)
+\emph default
+ - объектный стиль.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Операторы"
+
+\end_inset
+
+Операторы
+\end_layout
+
+\begin_layout Standard
+В языке запросов OAF/Qt4 используются операторы, похожие на SQL.
+ Этот выбор сделан для того, чтобы в них не встречались специальные знаки
+ (например ! или &), которые могут использоваться для других целей.
+ Таким образом запросы на языке OAF/Qt4 могут произвольно смешиваться с
+ URL или другими формами моникеров (например - !) не усложняя разбор моникеров
+ на составные части.
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+=
+\emph default
+ (равно, аналогичная функция имеет имя
+\emph on
+ EQ
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+<>
+\emph default
+ (не равно, аналогичная функция имеет имя
+\emph on
+ NE
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+<
+\emph default
+ (меньше, аналогичная функция имеет имя
+\emph on
+ LT
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+>
+\emph default
+ (больше, аналогичная функция имеет имя
+\emph on
+ GT
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+<=
+\emph default
+ (меньше или равно, аналогичная функция имеет имя
+\emph on
+ LE
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+>=
+\emph default
+ (больше или равно, аналогичная функция имеет имя
+\emph on
+ GE
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+AND
+\emph default
+ (логическое 'И', аналогичная функция имеет имя
+\emph on
+ AND
+\emph default
+ и принимает на вход два и более аргументов);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+OR
+\emph default
+ (логическое 'ИЛИ', аналогичная функция имеет имя
+\emph on
+ OR
+\emph default
+ и принимает на вход два и более аргументов);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+XOR
+\emph default
+ (исключающее 'ИЛИ', аналогичная функция имеет имя
+\emph on
+ XOR
+\emph default
+ и принимает на вход два и более аргументов);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+NOT
+\emph default
+ (отрицание, аналогичная функция имеет имя
+\emph on
+ NOT
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+/
+\emph default
+ (разделить, аналогичная функция имеет имя
+\emph on
+ DIV
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
++
+\emph default
+ (сложить, аналогичная функция имеет имя
+\emph on
+ ADD
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+-
+\emph default
+ (вычесть, аналогичная функция имеет имя
+\emph on
+ SUB
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+*
+\emph default
+ (умножить, аналогичная функция имеет имя
+\emph on
+ MUL
+\emph default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+-
+\emph default
+ (минус в значении унарного арифметического оператора, аналогичная функция
+ имеет имя
+\emph on
+ NEG
+\emph default
+).
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Глобальное-пространство-имён"
+
+\end_inset
+
+Глобальное пространство имён объектов (моникеры)
+\end_layout
+
+\begin_layout Standard
+Моникеры (moniker - кличка) - это способ именования, который позволяет реализова
+ть глобальное пространство имён объектов.
+ Создание моникера возможно либо вручную, либо из его строкового представления.
+ Приведём примеры строкового представления моникеров и их интерпретацию:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+cid:OAF/IO/CFactory:1.0
+\emph default
+ - фабрика объектов соответствующего OAF-класса;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+cid:OAF/IO/CFactory:1.0#new:OAF/IO/CDeviceFile:1.0
+\emph default
+ - объект OAF-класса
+\emph on
+ OAF/IO/CDeviceFile:1.0
+\emph default
+, созданный с помощью заданной фабрики;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+file:/tmp/a.gz
+\emph default
+ - локальный файл;
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+file:/tmp/a.gz#gunzip:
+\emph default
+ - распакованный локальный файл из предыдущего примера.
+\end_layout
+
+\begin_layout Standard
+Для создания объекта с помощью строкового представления моникера используется
+ вызов:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IIODevice> d = OAF::createFromName<IIODevice> ("file:file-name.properties");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Важной особеностью моникера является возможность создания цепочек объектов
+ в зависимости от того, какой интерфейс требуется.
+ Например:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+URef<IPropertyBag> p = OAF:createFromName<IPropertyBag> ("file:file-name.properti
+es");
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+создаст объект, представляющий заданный файл как список атрибутов.
+ При этом какая именно цепочка объектов будет построена зависит от требуемого
+ интерфейса и типа файла.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Строковое-представление-объекта"
+
+\end_inset
+
+Создание объектов с помощью строкового представления моникеров
+\end_layout
+
+\begin_layout Standard
+Сначала строковое представления моникера разбивается на части по опорным
+ символам '!' и '#'.
+ При этом символ '!' считается именем моникера, а символ '#' - просто разделител
+ем.
+ Каждая из таких частей должна состоять из префикса и, возможно пустого,
+ суффикса, которые разделены символом ':' (при этом символ ':' считается
+ частью префикса, а префиксом для моникера с именем '!' считается сам этот
+ символ).
+ Префикс является собственно именем моникера, а суффикс - набором параметров
+ для создаваемого данным экземпляром моникера объекта.
+ Цепочка моникеров создаётся начиная с самого левого элемента.
+ Создание цепочки состоит из следующих шагов:
+\end_layout
+
+\begin_layout Enumerate
+ищется и создаётся объект самого моникера с помощью запроса к подсистеме
+ OAF/Qt4:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},showstringspaces=false"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+repo_ids.has('IMoniker') AND monikers.has(<prefix>) ORDER BY ifnull(priority,
+ 0) LIMIT 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+для созданного моникера задаются ранее созданный левый моникер и набор параметро
+в:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize},language={[GNU]C++},showstringspaces=false,tabsize=4"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+moniker->set(left, <префикс>, <суффикс>);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+В качестве результата процедуры создания цепочки моникеров возвращается
+ самый правый моникер цепочки.
+\end_layout
+
+\begin_layout Standard
+Для создания цепочки объектов используется метод
+\emph on
+ IMoniker::resolve
+\emph default
+.
+ Моникеры по цепочке запрашивают друг у друга создание объектов с нужными
+ им интерфейсами, связывают их и как результат работы возвращают составной
+ объект, обладающий запрошенным интерфейсом.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Специальный-моникер-'!'"
+
+\end_inset
+
+Специальный моникер '!'
+\end_layout
+
+\begin_layout Standard
+Данный моникер имеет своё собственное представление исключительно из соображений
+ удобства записи и из-за его широкого использования
+\emph on
+.
+
+\emph default
+ Он служит для создания объектов с заданными параметрами.
+ Аргументом, описывающим параметры создания объекта, служит часть строкового
+ представления моникера от символа '!' до следующего символа '!', '#' или
+ конца строки.
+ В процессе создания объектов данный моникер обращается к моникеру, стоящему
+ от него слева для получения объекта, поддерживающего интерфейс
+\emph on
+ IObjectCollection
+\emph default
+ и, с помощью вызова его метода
+\emph on
+ IObjectCollection::getObject
+\emph default
+ с передачей ему строки аргументов, получает от него объект с нужными характерис
+тиками.
+ При этом объект, реализующий интерфейс
+\emph on
+ IObjectCollection
+\emph default
+, сам определяет способ разбора строки аргументов и создания соответствующего
+ объекта.
+ Он может вернуть новый объект или существующий объект с таким же характеристика
+ми или ссылку на себя самого, но с изменёнными в соответствии с аргументами
+ параметрами.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Интерфейсы"
+
+\end_inset
+
+Стандартные интерфейсы
+\end_layout
+
+\begin_layout Standard
+TBD.
+ Здесь должно быть описание всех интерфейсов, поставляемых с библиотекой
+ OAF.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Реализации"
+
+\end_inset
+
+Стандартные реализации
+\end_layout
+
+\begin_layout Standard
+TBD.
+ Здесь должно быть описание всех реализаций C++-классов, поставляемых с
+ библиотекой OAF.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Компоненты"
+
+\end_inset
+
+Стандартные компоненты
+\end_layout
+
+\begin_layout Standard
+TBD.
+ Здесь должно быть описание всех компонентов, поставляемых с библиотекой
+ OAF, включая детали их реализации.
+\end_layout
+
+\end_body
+\end_document

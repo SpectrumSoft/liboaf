@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+	<oaf:class cid="OAF/STD/CFactory:1.0" type="dll" location="oaf-std-1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IGenericFactory"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Standard monikers factory"/>
+		<oaf:attribute name="description" type="string" value="Standard monikers factory"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/STD/CMonikerSTD:1.0" type="factory" location="OAF/STD/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IMoniker"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Standard moniker"/>
+		<oaf:attribute name="description" type="string" value="Standard moniker"/>
+		<oaf:attribute name="monikers" type="stringv">
+			<oaf:item value="!"/>
+			<oaf:item value="cid:"/>
+			<oaf:item value="new:"/>
+		</oaf:attribute>
+	</oaf:class>
+</oaf:info>

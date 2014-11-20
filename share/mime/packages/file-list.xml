@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-file-list">
+		<comment>The list of files</comment>
+		<comment xml:lang="ru">Список файлов</comment>
+		<sub-class-of type="text/plain"/>
+		<glob pattern="*.files"/>
+	</mime-type>
+</mime-info>

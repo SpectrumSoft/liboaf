@@ -1,0 +1,8 @@
+UNIXSRCDIR = $${GIT2SRCDIR}/unix
+INCLUDEPATH  += $${UNIXSRCDIR}
+
+HEADERS += $${UNIXSRCDIR}/posix.h
+
+
+SOURCES += $${UNIXSRCDIR}/map.c \
+		$${UNIXSRCDIR}/realpath.c

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<oaf:info xmlns:oaf="http://www.spectrumsoft.msk.ru/files/specs/oaf-syntax.dtd">
+	<oaf:class cid="OAF/TXT/CFactory:1.0" type="dll" location="oaf-txt-1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IGenericFactory"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Plain/HTML component factory"/>
+		<oaf:attribute name="description" type="string" value="Plain/HTML component factory"/>
+	</oaf:class>
+
+	<oaf:class cid="OAF/TXT/CTextDocument:1.0" type="factory" location="OAF/TXT/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IIODeviceExtender"/>
+			<oaf:item value="OAF::ITXTPersist"/>
+			<oaf:item value="OAF::INotifySource"/>
+			<oaf:item value="OAF::IPropertyBag"/>
+			<oaf:item value="OAF::IDifference"/>
+			<oaf:item value="OAF::IMatchable"/>
+			<oaf:item value="OAF::IExportable"/>
+			<oaf:item value="OAF::IImportable"/>
+			<oaf:item value="OAF::IConfigurable"/>
+			<oaf:item value="OAF::ITextDocument"/>
+			<oaf:item value="QTextDocument"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Plain/HTML text document"/>
+		<oaf:attribute name="description" type="string" value="Plain/HTML text document"/>
+		<oaf:attribute name="mime_types" type="stringv">
+			<oaf:item value="text/html"/>
+			<oaf:item value="text/plain"/>
+		</oaf:attribute>
+	</oaf:class>
+
+	<oaf:class cid="OAF/TXT/CTextEdit:1.0" type="factory" location="OAF/TXT/CFactory:1.0">
+		<oaf:attribute name="repo_ids" type="stringv">
+			<oaf:item value="OAF::IUnknown"/>
+			<oaf:item value="OAF::IUnknownExtender"/>
+			<oaf:item value="OAF::IUIComponent"/>
+		</oaf:attribute>
+		<oaf:attribute name="name" type="string" value="Plain/HTML text"/>
+		<oaf:attribute name="description" type="string" value="Plain/HTML text editor"/>
+		<oaf:attribute name="mime_types" type="stringv">
+			<oaf:item value="text/html"/>
+			<oaf:item value="text/plain"/>
+		</oaf:attribute>
+		<oaf:attribute name="extends" type="stringv">
+			<oaf:item value="OAF/TXT/CTextDocument:1.0"/>
+		</oaf:attribute>
+	</oaf:class>
+</oaf:info>

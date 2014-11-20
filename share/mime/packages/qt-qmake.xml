@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/vnd.qtproject.qt.qmakeprofile">
+		<comment>Qt QMake Profile</comment>
+		<comment xml:lang="ru">проект Qt QMake</comment>
+		<sub-class-of type="text/plain"/>
+		<glob pattern="*.pro"/>
+		<alias type="application/vnd.nokia.qt.qmakeprofile"/>
+	</mime-type>
+
+	<mime-type type="application/vnd.qtproject.xml.qt.resource">
+		<comment>Qt Resource File</comment>
+		<comment xml:lang="ru">файл ресурсов Qt</comment>
+		<sub-class-of type="text/plain"/>
+		<glob pattern="*.qrc"/>
+	</mime-type>
+</mime-info>

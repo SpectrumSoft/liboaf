@@ -1,0 +1,12 @@
+Makefile
+*.[oa]
+*~
+*.bak
+*.so*
+*_yacc.*
+*_lex.*
+ui_*.h
+moc_*.cpp
+qrc_*.cpp
+*.user
+programs/qtextedit/debug/qtextedit

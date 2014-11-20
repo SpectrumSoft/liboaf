@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="application/octet-stream">
+        <comment>unknown</comment>
+        <comment xml:lang="de">Unbekannt</comment>
+        <comment xml:lang="fi">tuntematon</comment>
+        <comment xml:lang="fr">inconnu</comment>
+        <comment xml:lang="it">Sconosciuto</comment>
+        <comment xml:lang="ru">неизвестно</comment>
+        <glob pattern="*.bin"/>
+    </mime-type>
+    <mime-type type="application/pdf">
+        <comment>PDF document</comment>
+        <comment xml:lang="de">PDF-Dokument</comment>
+        <comment xml:lang="fi">PDF-asiakirja</comment>
+        <comment xml:lang="fr">document PDF</comment>
+        <comment xml:lang="it">Documento PDF</comment>
+        <comment xml:lang="ru">документ PDF</comment>
+        <acronym>PDF</acronym>
+        <expanded-acronym>Portable Document Format</expanded-acronym>
+        <generic-icon name="x-office-document"/>
+        <magic priority="60">
+            <match value="%PDF-" type="string" offset="0:1024"/>
+        </magic>
+        <glob pattern="*.pdf"/>
+        <alias type="application/x-pdf"/>
+        <alias type="image/pdf"/>
+        <alias type="application/acrobat"/>
+    </mime-type>
+    <mime-type type="application/xml">
+        <comment>XML document</comment>
+        <comment xml:lang="de">XML-Dokument</comment>
+        <comment xml:lang="fi">XML-asiakirja</comment>
+        <comment xml:lang="fr">document XML</comment>
+        <comment xml:lang="it">Documento XML</comment>
+        <comment xml:lang="ru">документ XML</comment>
+        <acronym>XML</acronym>
+        <expanded-acronym>eXtensible Markup Language</expanded-acronym>
+        <sub-class-of type="text/plain"/>
+        <generic-icon name="text-html"/>
+        <magic priority="40">
+            <match value="&lt;?xml" type="string" offset="0"/>
+            <match value="&lt;!--" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.xml"/>
+        <glob pattern="*.xbl"/>
+        <glob pattern="*.xsd"/>
+        <glob pattern="*.rng"/>
+        <alias type="text/xml"/>
+    </mime-type>
+    <mime-type type="application/x-lyx">
+        <comment>LyX document</comment>
+        <comment xml:lang="de">LyX-Dokument</comment>
+        <comment xml:lang="fi">LyX-asiakirja</comment>
+        <comment xml:lang="fr">document LyX</comment>
+        <comment xml:lang="it">Documento LyX</comment>
+        <comment xml:lang="ru">документ LyX</comment>
+        <sub-class-of type="text/plain"/>
+        <generic-icon name="x-office-document"/>
+        <magic priority="50">
+            <match value="#LyX" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.lyx"/>
+        <alias type="text/x-lyx"/>
+    </mime-type>
+    <mime-type type="text/plain">
+        <comment>plain text document</comment>
+        <comment xml:lang="de">Einfaches Textdokument</comment>
+        <comment xml:lang="fi">perustekstiasiakirja</comment>
+        <comment xml:lang="fr">document texte brut</comment>
+        <comment xml:lang="it">Documento in testo semplice</comment>
+        <comment xml:lang="ru">текстовый документ</comment>
+        <magic priority="50">
+            <match value="This is TeX," type="string" offset="0"/>
+            <match value="This is METAFONT," type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.txt"/>
+        <glob pattern="*.asc"/>
+        <glob pattern="*,v"/>
+    </mime-type>
+    <mime-type type="text/html">
+        <comment>HTML document</comment>
+        <comment xml:lang="de">HTML-Dokument</comment>
+        <comment xml:lang="fi">HTML-asiakirja</comment>
+        <comment xml:lang="fr">document HTML</comment>
+        <comment xml:lang="it">Documento HTML</comment>
+        <comment xml:lang="ru">документ HTML</comment>
+        <acronym>HTML</acronym>
+        <expanded-acronym>HyperText Markup Language</expanded-acronym>
+        <sub-class-of type="text/xml"/>
+        <magic priority="50">
+            <match value="&lt;!DOCTYPE HTML" type="string" offset="0:256"/>
+            <match value="&lt;!doctype html" type="string" offset="0:256"/>
+            <match value="&lt;HEAD" type="string" offset="0:256"/>
+            <match value="&lt;head" type="string" offset="0:256"/>
+            <match value="&lt;TITLE" type="string" offset="0:256"/>
+            <match value="&lt;title" type="string" offset="0:256"/>
+            <match value="&lt;HTML" type="string" offset="0:256"/>
+            <match value="&lt;html" type="string" offset="0:256"/>
+            <match value="&lt;SCRIPT" type="string" offset="0:256"/>
+            <match value="&lt;script" type="string" offset="0:256"/>
+            <match value="&lt;BODY" type="string" offset="0"/>
+            <match value="&lt;body" type="string" offset="0"/>
+            <match value="&lt;!--" type="string" offset="0"/>
+            <match value="&lt;h1" type="string" offset="0"/>
+            <match value="&lt;H1" type="string" offset="0"/>
+            <match value="&lt;!doctype HTML" type="string" offset="0"/>
+            <match value="&lt;!DOCTYPE html" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.html"/>
+        <glob pattern="*.htm"/>
+    </mime-type>
+    <mime-type type="text/vcard">
+        <comment>electronic business card</comment>
+        <comment xml:lang="de">Elektronische Visitenkarte</comment>
+        <comment xml:lang="fi">sähköinen käyntikortti</comment>
+        <comment xml:lang="fr">carte de visite électronique</comment>
+        <comment xml:lang="it">Biglietto da visita elettronico</comment>
+        <comment xml:lang="ru">электронная визитная карточка</comment>
+        <alias type="text/directory"/>
+        <alias type="text/x-vcard"/>
+        <sub-class-of type="text/plain"/>
+        <magic priority="50">
+            <match value="BEGIN:VCARD" type="string" offset="0"/>
+            <match value="begin:vcard" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.vcard"/>
+        <glob pattern="*.vcf"/>
+        <glob pattern="*.vct"/>
+        <glob pattern="*.gcrd"/>
+    </mime-type>
+    <mime-type type="text/x-c++hdr">
+        <comment>C++ header</comment>
+        <comment xml:lang="de">C++-Header</comment>
+        <comment xml:lang="fi">C++-otsake</comment>
+        <comment xml:lang="fr">en-tête C++</comment>
+        <comment xml:lang="it">Header C++</comment>
+        <comment xml:lang="ru">заголовочный файл C++</comment>
+        <sub-class-of type="text/x-chdr"/>
+        <glob pattern="*.hh"/>
+        <glob pattern="*.hp"/>
+        <glob pattern="*.hpp"/>
+        <glob pattern="*.h++"/>
+        <glob pattern="*.hxx"/>
+    </mime-type>
+    <mime-type type="text/x-c++src">
+        <comment>C++ source code</comment>
+        <comment xml:lang="de">C++-Quelltext</comment>
+        <comment xml:lang="fi">C++-lähdekoodi</comment>
+        <comment xml:lang="fr">code source C++</comment>
+        <comment xml:lang="it">Codice sorgente C++</comment>
+        <comment xml:lang="ru">исходный код C++</comment>
+        <sub-class-of type="text/x-csrc"/>
+        <glob pattern="*.cpp"/>
+        <glob pattern="*.cxx"/>
+        <glob pattern="*.cc"/>
+        <glob pattern="*.C" case-sensitive="true"/>
+        <glob pattern="*.c++"/>
+    </mime-type>
+    <mime-type type="text/x-chdr">
+        <comment>C header</comment>
+        <comment xml:lang="de">C-Header</comment>
+        <comment xml:lang="fi">C-otsake</comment>
+        <comment xml:lang="fr">en-tête C</comment>
+        <comment xml:lang="it">Header C</comment>
+        <comment xml:lang="ru">заголовочный файл C</comment>
+        <sub-class-of type="text/x-csrc"/>
+        <glob pattern="*.h"/>
+    </mime-type>
+    <mime-type type="text/x-csrc">
+        <comment>C source code</comment>
+        <comment xml:lang="de">C-Quelltext</comment>
+        <comment xml:lang="fi">C-lähdekoodi</comment>
+        <comment xml:lang="fr">code source C</comment>
+        <comment xml:lang="it">Codice sorgente C</comment>
+        <comment xml:lang="ru">исходный код C</comment>
+        <sub-class-of type="text/plain"/>
+        <alias type="text/x-c"/>
+        <glob pattern="*.c" case-sensitive="true"/>
+        <magic priority="30">
+            <match value="/*" type="string" offset="0"/>
+            <match value="//" type="string" offset="0"/>
+            <match value="#include" type="string" offset="0"/>
+        </magic>
+    </mime-type>
+    <mime-type type="application/sql">
+        <comment>SQL code</comment>
+        <comment xml:lang="ar">شفرة SQL</comment>
+        <comment xml:lang="ast">códigu SQL</comment>
+        <comment xml:lang="az">SQL kodu</comment>
+        <comment xml:lang="be">Kod SQL</comment>
+        <comment xml:lang="be@latin">Kod SQL</comment>
+        <comment xml:lang="bg">Код — SQL</comment>
+        <comment xml:lang="bo">SQL ཚབ་ཨང</comment>
+        <comment xml:lang="bs">SQL kôd</comment>
+        <comment xml:lang="ca">codi en SQL</comment>
+        <comment xml:lang="cs">Kód SQL</comment>
+        <comment xml:lang="cy">Côd SQL</comment>
+        <comment xml:lang="da">SQL-kode</comment>
+        <comment xml:lang="de">SQL-Befehle</comment>
+        <comment xml:lang="el">κώδικας SQL</comment>
+        <comment xml:lang="en_AU">SQL code</comment>
+        <comment xml:lang="en_GB">SQL code</comment>
+        <comment xml:lang="eo">SQL-kodo</comment>
+        <comment xml:lang="es">código SQL</comment>
+        <comment xml:lang="eu">SQL kodea</comment>
+        <comment xml:lang="fi">SQL-koodi</comment>
+        <comment xml:lang="fo">SQL kota</comment>
+        <comment xml:lang="fr">code SQL</comment>
+        <comment xml:lang="ga">cód SQL</comment>
+        <comment xml:lang="gl">código SQL</comment>
+        <comment xml:lang="he">קוד SQL</comment>
+        <comment xml:lang="hr">SQL kod</comment>
+        <comment xml:lang="hu">SQL-kód</comment>
+        <comment xml:lang="id">Kode SQL</comment>
+        <comment xml:lang="it">Codice SQL</comment>
+        <comment xml:lang="ja">SQL コード</comment>
+        <comment xml:lang="kk">SQL коды</comment>
+        <comment xml:lang="ko">SQL 코드</comment>
+        <comment xml:lang="lt">SQL kodas</comment>
+        <comment xml:lang="lv">SQL kods</comment>
+        <comment xml:lang="ms">Kod SQL</comment>
+        <comment xml:lang="nb">SQL-kildekode</comment>
+        <comment xml:lang="nl">SQL-code</comment>
+        <comment xml:lang="nn">SQL-kode</comment>
+        <comment xml:lang="no">SQL-kildekode</comment>
+        <comment xml:lang="oc">Còdi SQL</comment>
+        <comment xml:lang="pl">Kod SQL</comment>
+        <comment xml:lang="pt">código SQL</comment>
+        <comment xml:lang="pt_BR">Código SQL</comment>
+        <comment xml:lang="ro">Cod SQL</comment>
+        <comment xml:lang="ru">код SQL</comment>
+        <comment xml:lang="sk">Kód SQL</comment>
+        <comment xml:lang="sl">Datoteka kode SQL</comment>
+        <comment xml:lang="sq">Kod SQL</comment>
+        <comment xml:lang="sr">SQL ко̂д</comment>
+        <comment xml:lang="sv">SQL-kod</comment>
+        <comment xml:lang="tr">SQL kodu</comment>
+        <comment xml:lang="ug">SQL كودى</comment>
+        <comment xml:lang="uk">код SQL</comment>
+        <comment xml:lang="vi">Mã SQL</comment>
+        <comment xml:lang="zh_CN">SQL 代码</comment>
+        <comment xml:lang="zh_TW">SQL 代碼</comment>
+        <sub-class-of type="text/plain"/>
+        <glob pattern="*.sql"/>
+        <alias type="text/x-sql"/>
+  </mime-type>
+    <mime-type type="text/x-tex">
+        <comment>TeX document</comment>
+        <comment xml:lang="de">TeX-Dokument</comment>
+        <comment xml:lang="fi">TeX-asiakirja</comment>
+        <comment xml:lang="fr">document TeX</comment>
+        <comment xml:lang="it">Documento TeX</comment>
+        <comment xml:lang="ru">документ TeX</comment>
+        <sub-class-of type="text/plain"/>
+        <alias type="application/x-tex"/>
+        <glob pattern="*.tex"/>
+        <glob pattern="*.ltx"/>
+        <glob pattern="*.sty"/>
+        <glob pattern="*.cls"/>
+        <glob pattern="*.dtx"/>
+        <glob pattern="*.ins"/>
+        <glob pattern="*.latex"/>
+        <magic priority="10">
+            <match value="%" type="string" offset="0"/>
+        </magic>
+        <magic priority="50">
+            <match value="\documentclass" type="string" offset="0:100"/>
+        </magic>
+        <magic priority="50">
+            <match value="\chapter" type="string" offset="0:100"/>
+        </magic>
+        <magic priority="50">
+            <match value="\section" type="string" offset="0:100"/>
+        </magic>
+    </mime-type>
+    <mime-type type="image/bmp">
+        <comment>Windows BMP image</comment>
+        <comment xml:lang="de">Windows-BMP-Bild</comment>
+        <comment xml:lang="fi">Windows BMP -kuva</comment>
+        <comment xml:lang="fr">image Windows BMP</comment>
+        <comment xml:lang="it">Immagine Windows BMP</comment>
+        <comment xml:lang="ru">изображение Windows BMP</comment>
+        <magic priority="50">
+            <match value="BMxxxx\000\000" type="string" offset="0" mask="0xffff00000000ffff"/>
+            <match value="BM" type="string" offset="0">
+                <match value="12" type="byte" offset="14"/>
+                <match value="64" type="byte" offset="14"/>
+                <match value="40" type="byte" offset="14"/>
+            </match>
+        </magic>
+        <glob pattern="*.bmp"/>
+        <alias type="image/x-bmp"/>
+        <alias type="image/x-MS-bmp"/>
+    </mime-type>
+    <mime-type type="image/jpeg">
+        <comment>JPEG image</comment>
+        <comment xml:lang="de">JPEG-Bild</comment>
+        <comment xml:lang="fi">JPEG-kuva</comment>
+        <comment xml:lang="fr">image JPEG</comment>
+        <comment xml:lang="it">Immagine JPEG</comment>
+        <comment xml:lang="ru">изображение JPEG</comment>
+        <magic priority="50">
+            <match value="\377\330\377" type="string" offset="0"/>
+            <match value="0xffd8" type="big16" offset="0"/>
+        </magic>
+        <glob pattern="*.jpeg"/>
+        <glob pattern="*.jpg"/>
+        <glob pattern="*.jpe"/>
+        <alias type="image/pjpeg"/>
+    </mime-type>
+    <mime-type type="image/png">
+        <comment>PNG image</comment>
+        <comment xml:lang="de">PNG-Bild</comment>
+        <comment xml:lang="fi">PNG-kuva</comment>
+        <comment xml:lang="fr">image PNG</comment>
+        <comment xml:lang="it">Immagine PNG</comment>
+        <comment xml:lang="ru">изображение PNG</comment>
+        <magic priority="50">
+            <match value="\x89PNG" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.png"/>
+    </mime-type>
+    <mime-type type="image/tiff">
+        <comment>TIFF image</comment>
+        <comment xml:lang="de">TIFF-Bild</comment>
+        <comment xml:lang="fi">TIFF-kuva</comment>
+        <comment xml:lang="fr">image TIFF</comment>
+        <comment xml:lang="it">Immagine TIFF</comment>
+        <comment xml:lang="ru">изображение TIFF</comment>
+        <acronym>TIFF</acronym>
+        <expanded-acronym>Tagged Image File Format</expanded-acronym>
+        <magic priority="50">
+            <match value="MM\x00\x2a" type="string" offset="0"/>
+            <match value="II\x2a\x00" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.tif"/>
+        <glob pattern="*.tiff"/>
+    </mime-type>
+    <mime-type type="image/x-portable-anymap">
+        <comment>PNM image</comment>
+        <comment xml:lang="de">PNM-Bild</comment>
+        <comment xml:lang="fi">PNM-kuva</comment>
+        <comment xml:lang="fr">image PNM</comment>
+        <comment xml:lang="it">Immagine PNM</comment>
+        <comment xml:lang="ru">изображение PNM</comment>
+        <glob pattern="*.pnm"/>
+    </mime-type>
+    <mime-type type="image/x-portable-bitmap">
+        <comment>PBM image</comment>
+        <comment xml:lang="de">PBM-Bild</comment>
+        <comment xml:lang="fi">PBM-kuva</comment>
+        <comment xml:lang="fr">image PBM</comment>
+        <comment xml:lang="it">Immagine PBM</comment>
+        <comment xml:lang="ru">изображение PBM</comment>
+        <acronym>PBM</acronym>
+        <expanded-acronym>Portable BitMap</expanded-acronym>
+        <sub-class-of type="image/x-portable-anymap"/>
+        <magic priority="50">
+            <match value="P1" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+            <match value="P4" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+        </magic>
+        <glob pattern="*.pbm"/>
+    </mime-type>
+    <mime-type type="image/x-portable-graymap">
+        <comment>PGM image</comment>
+        <comment xml:lang="de">PGM-Bild</comment>
+        <comment xml:lang="fi">PGM-kuva</comment>
+        <comment xml:lang="fr">image PGM</comment>
+        <comment xml:lang="it">Immagine PGM</comment>
+        <comment xml:lang="ru">изображение PGM</comment>
+        <acronym>PGM</acronym>
+        <expanded-acronym>Portable GrayMap</expanded-acronym>
+        <sub-class-of type="image/x-portable-anymap"/>
+        <magic priority="50">
+            <match value="P2" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+            <match value="P5" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+        </magic>
+        <glob pattern="*.pgm"/>
+    </mime-type>
+    <mime-type type="image/x-portable-pixmap">
+        <comment>PPM image</comment>
+        <comment xml:lang="de">PPM-Bild</comment>
+        <comment xml:lang="fi">PPM-kuva</comment>
+        <comment xml:lang="fr">image PPM</comment>
+        <comment xml:lang="ru">изображение PPM</comment>
+        <acronym>PPM</acronym>
+        <expanded-acronym>Portable PixMap</expanded-acronym>
+        <sub-class-of type="image/x-portable-anymap"/>
+        <magic priority="50">
+            <match value="P3" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+            <match value="P6" type="string" offset="0">
+                <match value="0x0a" type="byte" offset="2"/>
+                <match value="0x20" type="byte" offset="2"/>
+                <match value="0x09" type="byte" offset="2"/>
+                <match value="0x0d" type="byte" offset="2"/>
+            </match>
+        </magic>
+        <glob pattern="*.ppm"/>
+    </mime-type>
+    <mime-type type="image/x-tga">
+        <comment>TGA image</comment>
+        <comment xml:lang="de">TGA-Bild</comment>
+        <comment xml:lang="fi">TGA-kuva</comment>
+        <comment xml:lang="fr">image TGA</comment>
+        <comment xml:lang="ru">изображение TGA</comment>
+        <acronym>TGA</acronym>
+        <expanded-acronym>Truevision Graphics Adapter</expanded-acronym>
+        <magic priority="10">
+            <match value="\1\1" type="string" offset="1"/>
+            <match value="\1\9" type="string" offset="1"/>
+            <match value="\0\3" type="string" offset="1"/>
+            <match value="\0\xa" type="string" offset="1"/>
+            <match value="\0\xb" type="string" offset="1"/>
+        </magic>
+        <magic priority="50">
+            <match value="\0\2" type="string" offset="1">
+                <match value="0x08" type="byte" offset="16"/>
+                <match value="0x10" type="byte" offset="16"/>
+                <match value="0x18" type="byte" offset="16"/>
+                <match value="0x20" type="byte" offset="16"/>
+            </match>
+        </magic>
+        <glob pattern="*.icb"/>
+        <glob pattern="*.tga"/>
+        <glob pattern="*.tpic"/>
+        <glob pattern="*.vda"/>
+        <glob pattern="*.vst"/>
+        <alias type="image/x-icb"/>
+    </mime-type>
+    <mime-type type="image/x-xbitmap">
+        <comment>XBM image</comment>
+        <comment xml:lang="de">XBM-Bild</comment>
+        <comment xml:lang="fi">XBM-kuva</comment>
+        <comment xml:lang="fr">image XBM</comment>
+        <comment xml:lang="it">Immagine XBM</comment>
+        <comment xml:lang="ru">изображение XBM</comment>
+        <acronym>XBM</acronym>
+        <expanded-acronym>X BitMap</expanded-acronym>
+        <glob pattern="*.xbm"/>
+    </mime-type>
+    <mime-type type="image/x-xpixmap">
+        <comment>XPM image</comment>
+        <comment xml:lang="de">XPM-Bild</comment>
+        <comment xml:lang="fi">XPM-kuva</comment>
+        <comment xml:lang="fr">image XPM</comment>
+        <comment xml:lang="it">Immagine XPM</comment>
+        <comment xml:lang="ru">изображение XPM</comment>
+        <acronym>XPM</acronym>
+        <expanded-acronym>X PixMap</expanded-acronym>
+        <magic priority="50">
+            <match value="/* XPM" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.xpm"/>
+        <alias type="image/x-xpm"/>
+    </mime-type>
+    <mime-type type="video/x-mng">
+        <comment>MNG animation</comment>
+        <comment xml:lang="de">MNG-Animation</comment>
+        <comment xml:lang="fi">MNG-animaatio</comment>
+        <comment xml:lang="fr">animation MNG</comment>
+        <comment xml:lang="it">Animazione MNG</comment>
+        <comment xml:lang="ru">изображение MNG</comment>
+        <acronym>MNG</acronym>
+        <expanded-acronym>Multiple-Image Network Graphics</expanded-acronym>
+        <magic priority="50">
+            <match value="\x8AMNG\x0D\x0A\x1A\x0A" type="string" offset="0"/>
+        </magic>
+        <glob pattern="*.mng"/>
+    </mime-type>
+    <mime-type type="application/vnd.oasis.opendocument.text">
+        <comment>ODT document</comment>
+        <comment xml:lang="ar">مستند ODT</comment>
+        <comment xml:lang="ast">documentu ODT</comment>
+        <comment xml:lang="be">Dakument ODT</comment>
+        <comment xml:lang="be@latin">Dakument ODT</comment>
+        <comment xml:lang="bg">Документ — ODT</comment>
+        <comment xml:lang="bo">ODT ཡིག་ཆ</comment>
+        <comment xml:lang="bs">ODT dokument</comment>
+        <comment xml:lang="ca">document ODT</comment>
+        <comment xml:lang="cs">Dokument ODT</comment>
+        <comment xml:lang="da">ODT-dokument</comment>
+        <comment xml:lang="de">ODT-Dokument</comment>
+        <comment xml:lang="el">έγγραφο ODT</comment>
+        <comment xml:lang="en_AU">ODT document</comment>
+        <comment xml:lang="en_GB">ODT document</comment>
+        <comment xml:lang="eo">ODT-dokumento</comment>
+        <comment xml:lang="es">documento ODT</comment>
+        <comment xml:lang="eu">ODT dokumentua</comment>
+        <comment xml:lang="fi">ODT-asiakirja</comment>
+        <comment xml:lang="fo">ODT skjal</comment>
+        <comment xml:lang="fr">document ODT</comment>
+        <comment xml:lang="ga">cáipéis ODT</comment>
+        <comment xml:lang="gl">documento ODT</comment>
+        <comment xml:lang="he">מסמך ODT</comment>
+        <comment xml:lang="hr">ODT dokument</comment>
+        <comment xml:lang="hu">ODT-dokumentum</comment>
+        <comment xml:lang="id">Dokumen ODT</comment>
+        <comment xml:lang="it">Documento ODT</comment>
+        <comment xml:lang="ja">ODT ドキュメント</comment>
+        <comment xml:lang="ka">ODT დოკუმენტი</comment>
+        <comment xml:lang="kk">ODT құжаты</comment>
+        <comment xml:lang="ko">ODT 문서</comment>
+        <comment xml:lang="lt">ODT dokumentas</comment>
+        <comment xml:lang="lv">ODT dokuments</comment>
+        <comment xml:lang="nb">ODT-dokument</comment>
+        <comment xml:lang="nl">ODT-document</comment>
+        <comment xml:lang="nn">ODT-dokument</comment>
+        <comment xml:lang="oc">document ODT</comment>
+        <comment xml:lang="pl">Dokument ODT</comment>
+        <comment xml:lang="pt">documento ODT</comment>
+        <comment xml:lang="pt_BR">Documento ODT</comment>
+        <comment xml:lang="ro">Document ODT</comment>
+        <comment xml:lang="ru">документ ODT</comment>
+        <comment xml:lang="sk">Dokument ODT</comment>
+        <comment xml:lang="sl">Dokument ODT</comment>
+        <comment xml:lang="sq">Dokument ODT</comment>
+        <comment xml:lang="sv">ODT-dokument</comment>
+        <comment xml:lang="tr">ODT belgesi</comment>
+        <comment xml:lang="uk">документ ODT</comment>
+        <comment xml:lang="vi">Tài liệu ODT</comment>
+        <comment xml:lang="zh_CN">ODT 文档</comment>
+        <comment xml:lang="zh_TW">ODT 文件</comment>
+        <acronym>ODT</acronym>
+        <expanded-acronym>OpenDocument Text</expanded-acronym>
+        <sub-class-of type="application/zip"/>
+        <generic-icon name="x-office-document"/>
+        <magic priority="50">
+            <match value="PK\003\004" type="string" offset="0">
+                <match value="mimetype" type="string" offset="30">
+                    <match value="application/vnd.oasis.opendocument.text" type="string" offset="38"/>
+                </match>
+            </match>
+        </magic>
+        <glob pattern="*.odt"/>
+    </mime-type>
+</mime-info>
