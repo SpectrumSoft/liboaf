@@ -17,19 +17,6 @@
 
 namespace OAF
 {
-	/*
-	 * FIXME: в определении интерфейсов не должны использоваться функции и классы,
-	 *        реализуемые в библиотеках. Передачу параметров необходимо реализовать
-	 *        с помощью OAF::IPropertyBag. А дополнительные функции можно реализовать
-	 *        и во вспомогательной библиотеке.
-	 *
-	 * FIXME: если уж делать передачу параметров, то делать её зеркальной, то есть и
-	 *        в методе load тоже. Так же лучше их передавать по указателю с дефолтным
-	 *        NULL-значением, тогда те, кому такие параметры не нужны не будут их
-	 *        использовать.
-	 */
-	struct CSaveParams;
-
 	/**
 	 * @brief Интерфейс загрузки и записи из/в XML поток
 	 *
@@ -78,7 +65,7 @@ namespace OAF
 		/**
 		 * @brief Сохранить объект в заданном XML-потоке
 		 */
-		virtual QXmlStreamWriter& save (QXmlStreamWriter& _os, const QStringList& _mime_types, CSaveParams& _save_params) = 0;
+		virtual QXmlStreamWriter& save (QXmlStreamWriter& _os, const QStringList& _mime_types) = 0;
 	};
 }
 

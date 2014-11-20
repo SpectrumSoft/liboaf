@@ -30,7 +30,6 @@
 
 namespace OAF
 {
-struct CSaveParams;
 	namespace TXT
 	{
 		/**
@@ -124,7 +123,7 @@ struct CSaveParams;
 			 */
 			/** @{*/
 			QTextStream& load (QTextStream& _is, const QStringList& _mime_types);
-			QTextStream& save (QTextStream& _os, const QStringList& _mime_types, CSaveParams & save_params);
+			QTextStream& save (QTextStream& _os, const QStringList& _mime_types);
 			/** @}*/
 
 			/**

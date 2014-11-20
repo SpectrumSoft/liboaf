@@ -110,8 +110,7 @@ HEADERS += \
 	include/OAF/IconHelpers.h \
 	include/OAF/CProgressWatcher.h \
 	include/OAF/CGitUrl.h \
-	include/OAF/Consts.h \
-	include/OAF/CSaveParams.h
+	include/OAF/Consts.h
 
 #
 # Исходные тексты
@@ -127,5 +126,4 @@ SOURCES += \
 	src/MimeHelpers.cpp \
 	src/IconHelpers.cpp \
 	src/CProgressWatcher.cpp \
-	src/CGitUrl.cpp \
-	src/CSaveParams.cpp
+	src/CGitUrl.cpp

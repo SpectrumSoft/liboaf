@@ -312,7 +312,7 @@ CTextDocument::load (QTextStream& _is, const QStringList& _mime_types)
 }
 
 QTextStream&
-CTextDocument::save (QTextStream& _os, const QStringList& _mime_types, OAF::CSaveParams & /*save_params*/)
+CTextDocument::save (QTextStream& _os, const QStringList& _mime_types)
 {
 	//
 	// Устанавливаем нужный unicode-кодек

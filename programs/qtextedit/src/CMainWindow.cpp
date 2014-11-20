@@ -13,7 +13,7 @@
 #include <OAF/Helpers.h>
 
 #include "CMainWindow.h"
-#include <OAF/CSaveParams.h>
+
 QMessageBox::StandardButton
 CMainWindow::check4save ()
 {
@@ -174,8 +174,7 @@ CMainWindow::aboutSave ()
 			if (OAF::ITXTPersist* txt = m_document.queryInterface<OAF::ITXTPersist> ())
 			{
 				QTextStream os (d->device ());
-				OAF::CSaveParams save_params;
-				txt->save (os, d->getInfo (OAF::IIODevice::CONTENT_TYPE).toStringList (), save_params);
+				txt->save (os, d->getInfo (OAF::IIODevice::CONTENT_TYPE).toStringList ());
 			}
 		}
 	}

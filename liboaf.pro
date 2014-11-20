@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
 CONFIG  += ordered
-CONFIG  += depend_includepath
 SUBDIRS  = libs plugins programs
 
 #

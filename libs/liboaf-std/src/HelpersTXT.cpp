@@ -102,7 +102,7 @@ OAF::createTXTFromXML (QXmlStreamReader& _is, const QStringList& _mime_types)
 }
 
 QXmlStreamWriter&
-OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::ITextDocument* _document, OAF::CSaveParams& _save_params)
+OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::ITextDocument* _document)
 {
 	//
 	// Если документ поддерживает запись в текстовый поток
@@ -132,7 +132,7 @@ OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::I
 				//
 				// Сохраняем текстовый документ в потоке
 				//
-				ss->save (s, _mime_types, _save_params);
+				ss->save (s, _mime_types);
 			}
 		}
 

@@ -26,8 +26,6 @@
 
 namespace OAF
 {
-	struct CSaveParams;
-
 	/**
 	 * @brief Вспомогательный класс для создания вторичного устройства ввода/вывода
 	 *        на основе заданного
@@ -86,7 +84,7 @@ namespace OAF
 	 *
 	 * Запись выполняется в CDATA-секцию XML-потока
 	 */
-	OAFSTD_EXPORT QXmlStreamWriter& saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::ITextDocument* _document, OAF::CSaveParams& _save_params);
+	OAFSTD_EXPORT QXmlStreamWriter& saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::ITextDocument* _document);
 
 	/**
 	 * @brief Сделать аннотацию для QTextDocument
