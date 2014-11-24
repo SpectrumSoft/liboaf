@@ -16,6 +16,9 @@
 
 namespace OAF
 {
+	/*
+	 * FIXME: сделать интерфейс вместо класса
+	 */
 	class CHtmlGenerator;
 
 	/**
