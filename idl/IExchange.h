@@ -81,8 +81,8 @@ namespace OAF
 		/**
 		 * @brief Сохранить объект в заданном двоичном потоке
 		 */
-		virtual QDataStream& exportTo (QDataStream& _os, const QStringList& _mime_types, OAF::IPropertyBag* _options = 0,
-									   const QString& _export_file_path = QString ()) = 0;
+		virtual QDataStream& exportTo (QDataStream& _os, const QStringList& _mime_types, OAF::IPropertyBag* _options = NULL,
+									   const QString& _efp = QString ()) = 0;
 	};
 
 	/**

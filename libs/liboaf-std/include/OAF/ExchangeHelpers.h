@@ -21,8 +21,8 @@ namespace OAF
 	 * @brief Вспомогательные функции, для экспорта в строку
 	 */
 	/** @{ */
-	OAFSTD_EXPORT QString exportToString (OAF::IExportable* _eo, const QString& _mime_type, IPropertyBag* _options = 0, const QString &_export_file_path = QString ());
-	OAFSTD_EXPORT QString exportToString (OAF::IExportable* _eo, const QStringList& _mime_types, IPropertyBag* _options = 0, const QString &_export_file_path = QString ());
+	OAFSTD_EXPORT QString exportToString (OAF::IExportable* _eo, const QString& _mime_type, IPropertyBag* _options = NULL, const QString& _efp = QString ());
+	OAFSTD_EXPORT QString exportToString (OAF::IExportable* _eo, const QStringList& _mime_types, IPropertyBag* _options = NULL, const QString& _efp = QString ());
 	/** @} */
 
 	OAFSTD_EXPORT void importFromString (OAF::IImportable* _io, const QString& _data_to_import, const QString& _mime_type);

@@ -9,9 +9,9 @@
 #include <OAF/ExchangeHelpers.h>
 
 QString
-OAF::exportToString (OAF::IExportable* _eo, const QString& _mime_type, OAF::IPropertyBag* _options, const QString& _export_file_path)
+OAF::exportToString (OAF::IExportable* _eo, const QString& _mime_type, OAF::IPropertyBag* _options, const QString& _efp)
 {
-	return exportToString (_eo, QStringList () << _mime_type, _options, _export_file_path);
+	return exportToString (_eo, QStringList () << _mime_type, _options, _efp);
 }
 
 QString
@@ -24,16 +24,17 @@ OAF::exportToString (OAF::IExportable* _eo, const QStringList& _mime_types, OAF:
 }
 
 void
-OAF::importFromString(OAF::IImportable *_io, const QString &_data_to_import, const QString &_mime_type)
+OAF::importFromString (OAF::IImportable* _io, const QString& _data_to_import, const QString& _mime_type)
 {
 	importFromString (_io, _data_to_import, QStringList () << _mime_type);
 }
 
 void
-OAF::importFromString(OAF::IImportable *_io, const QString &_data_to_import, const QStringList &_mime_types)
+OAF::importFromString (OAF::IImportable* _io, const QString& _data_to_import, const QStringList& _mime_types)
 {
 	QByteArray import_data = _data_to_import.toUtf8 ();
 	QDataStream import_data_stream (&import_data, QIODevice::ReadOnly);
+
 	_io->importFrom (import_data_stream, _mime_types);
 }
 
@@ -106,7 +107,6 @@ OAF::cleanUid (const QUuid& _id)
 {
 	return _id.toString ().remove (QRegExp ("([{]|[}])"));
 }
-
 
 QString
 OAF::asLatex (const QString& _s)
