@@ -10,8 +10,8 @@
 #include <QSettings>
 #include <QDir>
 
-#include <OAF/MimeHelpers.h>
 #include <OAF/Utils.h>
+#include <OAF/MimeHelpers.h>
 
 #include <OAF/IconHelpers.h>
 

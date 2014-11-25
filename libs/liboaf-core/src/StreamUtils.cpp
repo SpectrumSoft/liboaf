@@ -13,48 +13,6 @@
 
 using namespace OAF;
 
-static const QString device_derived_cid = "OAF/DeviceDerived:1.0";
-
-CDeviceDerived::CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base) : CUnknown (device_derived_cid), m_base (_base)
-{
-	m_buffer = new QBuffer (this);
-	m_buffer->setBuffer (_data);
-}
-
-CDeviceDerived::~CDeviceDerived ()
-{}
-
-QVariant
-CDeviceDerived::getInfo (DeviceInfo _what)
-{
-	if (m_base)
-		return m_base->getInfo (_what);
-
-	//
-	// В остальных случаях результат не определён
-	//
-	return QVariant ();
-}
-
-void
-CDeviceDerived::setInfo (DeviceInfo _what, const QVariant& _v)
-{
-	if (m_base)
-		m_base->setInfo (_what, _v);
-}
-
-QIODevice*
-CDeviceDerived::device ()
-{
-	return m_buffer;
-}
-
-bool
-CDeviceDerived::exists () const
-{
-	return (m_base ? m_base->exists () : false);
-}
-
 QString
 OAF::makeRelativePath (const QString& _origin, const QString& _absolute)
 {
@@ -175,4 +133,46 @@ OAF::toLocalFile (const QUrl& _url)
 	}
 
 	return tmp;
+}
+
+static const QString device_derived_cid = "OAF/DeviceDerived:1.0";
+
+CDeviceDerived::CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base) : CUnknown (device_derived_cid), m_base (_base)
+{
+	m_buffer = new QBuffer (this);
+	m_buffer->setBuffer (_data);
+}
+
+CDeviceDerived::~CDeviceDerived ()
+{}
+
+QVariant
+CDeviceDerived::getInfo (DeviceInfo _what)
+{
+	if (m_base)
+		return m_base->getInfo (_what);
+
+	//
+	// В остальных случаях результат не определён
+	//
+	return QVariant ();
+}
+
+void
+CDeviceDerived::setInfo (DeviceInfo _what, const QVariant& _v)
+{
+	if (m_base)
+		m_base->setInfo (_what, _v);
+}
+
+QIODevice*
+CDeviceDerived::device ()
+{
+	return m_buffer;
+}
+
+bool
+CDeviceDerived::exists () const
+{
+	return (m_base ? m_base->exists () : false);
 }

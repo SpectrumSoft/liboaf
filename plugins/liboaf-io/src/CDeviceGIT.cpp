@@ -16,7 +16,6 @@
 
 #include <git2.h>
 
-#include <OAF/Utils.h>
 #include <OAF/MimeHelpers.h>
 
 #include "CDeviceGIT.h"

@@ -23,52 +23,6 @@
 namespace OAF
 {
 	/**
-	 * @brief Вспомогательный класс для создания вторичного устройства ввода/вывода
-	 *        на основе заданного
-	 *
-	 * Такие сложности нужны, чтобы обеспечить трансляцию абсолютных путей для ссылок
-	 * на файлы в относительные и обратно для загрузки/сохранения текстовых документов
-	 * в/из XML-потока связанного с файлом.
-	 */
-	class OAFCORE_EXPORT CDeviceDerived : public QObject,
-		//
-		// Экспортируемые интерфейсы
-		//
-		virtual public OAF::IUnknown,
-		virtual public OAF::IIODevice,
-		//
-		// Импортируемые реализации
-		//
-		virtual public CUnknown
-	{
-		Q_OBJECT
-
-		/**
-		 * @brief Основное устройство ввода/вывода
-		 */
-		OAF::URef<OAF::IIODevice> m_base;
-
-		/**
-		 * @brief Буфер для ввода/вывода
-		 */
-		QBuffer* m_buffer;
-
-	public:
-		CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base = NULL);
-		~CDeviceDerived ();
-
-		/**
-		 * @name Реализация интерфейса OAF::IIODevice
-		 */
-		/** @{*/
-		QVariant getInfo (DeviceInfo _what);
-		void setInfo (DeviceInfo _what, const QVariant& _v);
-		QIODevice* device ();
-		bool exists () const;
-		/** @}*/
-	};
-
-	/**
 	 * @brief Возвратить связанный с потоком OAF::IIODevice
 	 *
 	 * Предполагается, что все устройства QIODevice, связанные с
@@ -133,6 +87,52 @@ namespace OAF
 	 * присутствует.
 	 */
 	OAFCORE_EXPORT QString toLocalFile (const QUrl& _url);
+
+	/**
+	 * @brief Вспомогательный класс для создания вторичного устройства ввода/вывода
+	 *        на основе заданного
+	 *
+	 * Такие сложности нужны, чтобы обеспечить трансляцию абсолютных путей для ссылок
+	 * на файлы в относительные и обратно для загрузки/сохранения текстовых документов
+	 * в/из XML-потока связанного с файлом.
+	 */
+	class OAFCORE_EXPORT CDeviceDerived : public QObject,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUnknown,
+		virtual public OAF::IIODevice,
+		//
+		// Импортируемые реализации
+		//
+		virtual public CUnknown
+	{
+		Q_OBJECT
+
+		/**
+		 * @brief Основное устройство ввода/вывода
+		 */
+		OAF::URef<OAF::IIODevice> m_base;
+
+		/**
+		 * @brief Буфер для ввода/вывода
+		 */
+		QBuffer* m_buffer;
+
+	public:
+		CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base = NULL);
+		~CDeviceDerived ();
+
+		/**
+		 * @name Реализация интерфейса OAF::IIODevice
+		 */
+		/** @{*/
+		QVariant getInfo (DeviceInfo _what);
+		void setInfo (DeviceInfo _what, const QVariant& _v);
+		QIODevice* device ();
+		bool exists () const;
+		/** @}*/
+	};
 }
 
 #endif /* __OAF_STREAM_UTILS_H */

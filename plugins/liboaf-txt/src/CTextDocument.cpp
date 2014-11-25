@@ -18,7 +18,6 @@
 #include <OAF/HelpersTXT.h>
 #include <OAF/HtmlHelpers.h>
 #include <OAF/StreamUtils.h>
-#include <OAF/Utils.h>
 #include <OAF/diff_match_patch.h>
 
 #include "CTextDocument.h"

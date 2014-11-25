@@ -24,7 +24,6 @@
 
 #include <OAF/OAF.h>
 #include <OAF/StreamUtils.h>
-#include <OAF/Utils.h>
 #include <OAF/Helpers.h>
 #include <OAF/MimeHelpers.h>
 #include <OAF/CNotifySource.h>

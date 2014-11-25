@@ -12,7 +12,6 @@
 #include <QDateTime>
 
 #include <OAF/StreamUtils.h>
-#include <OAF/Utils.h>
 #include <OAF/MimeHelpers.h>
 
 #include "CDeviceFile.h"
