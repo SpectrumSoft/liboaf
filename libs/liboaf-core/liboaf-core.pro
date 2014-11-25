@@ -74,6 +74,7 @@ HEADERS += \
 	include/OAF/CUnknown.h \
 	include/OAF/CPropertyBag.h \
 	include/OAF/CMoniker.h \
+	include/OAF/StreamUtils.h \
 	include/OAF/TypeUtils.h \
 	include/OAF/Utils.h
 
@@ -82,5 +83,6 @@ SOURCES += \
 	src/CUnknown.cpp \
 	src/CPropertyBag.cpp \
 	src/CMoniker.cpp \
+	src/StreamUtils.cpp \
 	src/TypeUtils.cpp \
 	src/Utils.cpp

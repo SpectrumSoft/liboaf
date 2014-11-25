@@ -80,6 +80,8 @@ namespace OAF
 
 		/**
 		 * @brief Сохранить объект в заданном двоичном потоке
+		 *
+		 * FIXME: убрать _efp за счёт использования OAF::CDeviceDerived
 		 */
 		virtual QDataStream& exportTo (QDataStream& _os, const QStringList& _mime_types, OAF::IPropertyBag* _options = NULL,
 									   const QString& _efp = QString ()) = 0;

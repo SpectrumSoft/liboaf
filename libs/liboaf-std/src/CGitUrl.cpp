@@ -13,6 +13,7 @@
 
 #include <git2.h>
 
+#include <OAF/StreamUtils.h>
 #include <OAF/Utils.h>
 #include <OAF/CGitUrl.h>
 

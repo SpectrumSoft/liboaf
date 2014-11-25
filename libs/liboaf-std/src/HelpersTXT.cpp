@@ -14,53 +14,11 @@
 
 #include <idl/ITXTPersist.h>
 
+#include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>
 #include <OAF/HelpersTXT.h>
 
 using namespace OAF;
-
-static const QString device_derived_cid = "OAF/DeviceDerived:1.0";
-
-CDeviceDerived::CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base) :
-	CUnknown (device_derived_cid), m_base (_base)
-{
-	m_buffer = new QBuffer (this);
-	m_buffer->setBuffer (_data);
-}
-
-CDeviceDerived::~CDeviceDerived ()
-{}
-
-QVariant
-CDeviceDerived::getInfo (DeviceInfo _what)
-{
-	if (m_base)
-		return m_base->getInfo (_what);
-
-	//
-	// В остальных случаях результат не определён
-	//
-	return QVariant ();
-}
-
-void
-CDeviceDerived::setInfo (DeviceInfo _what, const QVariant& _v)
-{
-	if (m_base)
-		m_base->setInfo (_what, _v);
-}
-
-QIODevice*
-CDeviceDerived::device ()
-{
-	return m_buffer;
-}
-
-bool
-CDeviceDerived::exists () const
-{
-	return (m_base ? m_base->exists () : false);
-}
 
 URef<OAF::ITextDocument>
 OAF::createTXTFromXML (QXmlStreamReader& _is, const QStringList& _mime_types)
@@ -78,7 +36,7 @@ OAF::createTXTFromXML (QXmlStreamReader& _is, const QStringList& _mime_types)
 		//
 		// Создаём вспомогательное устройство ввода/вывода
 		//
-		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, _is.device () ? OAF::queryInterface<OAF::IIODevice> (_is.device ()->parent ()) : NULL))
+		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getIODevice (_is)))
 		{
 			//
 			// Открываем вспомогательное устройство ввода/вывода для чтения
@@ -117,7 +75,7 @@ OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::I
 		//
 		// Создаём вспомогательное устройство ввода/вывода
 		//
-		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::queryInterface<OAF::IIODevice> (_os.device ()->parent ())))
+		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getIODevice (_os)))
 		{
 			//
 			// Открываем вспомогательное устройство ввода/вывода для записи

@@ -9,6 +9,7 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 
+#include <OAF/StreamUtils.h>
 #include <OAF/Utils.h>
 #include <OAF/Helpers.h>
 

@@ -17,7 +17,8 @@
 namespace OAF
 {
 	/*
-	 * FIXME: сделать интерфейс вместо класса
+	 * FIXME: использовать поток вместо класса, а CHTMLGenerator сделать форматтером
+	 *        поверх потока
 	 */
 	class CHtmlGenerator;
 

@@ -14,7 +14,6 @@
 #include <QUuid>
 #include <QUrl>
 #include <QImage>
-#include <QIODevice>
 #include <QComboBox>
 
 #include <idl/IInterface.h>
@@ -52,22 +51,6 @@ namespace OAF
 	};
 
 	/**
-	 * @brief Конструирование URL из локального файла
-	 *
-	 * Данная функция перенесена из Qt 4.x, так как не во всех версиях Qt 4.x она
-	 * присутствует.
-	 */
-	OAFCORE_EXPORT QUrl fromLocalFile (const QString &local_file);
-
-	/**
-	 * @brief Представление URL в виде пути к локальному файлу
-	 *
-	 * Данная функция перенесена из Qt 4.x, так как не во всех версиях Qt 4.x она
-	 * присутствует.
-	 */
-	OAFCORE_EXPORT QString toLocalFile (const QUrl& _url);
-
-	/**
 	 * @brief Поиск индекса в комбобоксе по связанному идентификатору
 	 *
 	 * Qt отвратительно работает с QUuid :-(
@@ -75,58 +58,23 @@ namespace OAF
 	OAFCORE_EXPORT int findById (QComboBox* _c, const QUuid& _id);
 
 	/**
-	 * @brief Получить путь к файлу, с которым связан заданный поток
-	 *
-	 * @note Предполагается, что устройство ввода/вывода, с которым связан поток получено
-	 *       с помощью объекта, поддерживающего интерфейс IIODevice.
-	 *
-	 * В качестве потоков можно использовать классы QXmlStreamReader, QXmlStreamWriter,
-	 * QTextStream и другие, для которых определён метод device, возвращающий QIODevice.
-	 */
-	template<class _Stream>
-	QString getStreamPath (const _Stream& _s)
-	{
-		//
-		// Для некоторых потоков устройство ввода-вывода оказывается не определено.
-		// 
-		//
-		if (_s.device ())
-		{
-			if (OAF::IIODevice* d = OAF::queryInterface<OAF::IIODevice> (_s.device ()->parent ()))
-				return d->getInfo (OAF::IIODevice::PATH).toString ();
-		}
-
-		return QString::null;
-	}
-
-	/**
-	 * @brief Преобразовать второе абсолютное имя в относительное относительно первого
-	 *
-	 * @param _origin   путь, относительно которого строится результат
-	 * @param _absolute путь, из которого строится результат
-	 */
-	OAFCORE_EXPORT QString makeRelativePath (const QString& _origin, const QString& _absolute);
-
-	/**
-	 * @brief Преобразовать второе имя из относительного относительно первого в абсолютное
-	 */
-	OAFCORE_EXPORT QString makeAbsolutePath (const QString& _origin, const QString& _relative);
-
-	/**
 	 * @brief Получить изображение по заданному URL с кэшированием результата
 	 */
 	OAFCORE_EXPORT QImage getImage (const QUrl& _url);
 
 	/**
-	 * @brief Вероятный путь к директории @a share
-	 * @note Не обязан быть существующим и вообще верным! Это просто догадка на крайний случай,
-	 * когда не задана @a PIKET_DATA_DIR
+	 * @brief Путь к директории данных по умолчанию
+	 *
+	 * Не обязан существовать и вообще быть верным! Это просто догадка на крайний
+	 * случай, когда не задана @a PIKET_DATA_DIR
 	 */
 	OAFCORE_EXPORT QString defaultDataPath ();
 
 	/**
 	 * @brief "Усыпляет" текущий процесс на указанное время
-	 * @note Время указывается в миллисекундах
+	 *
+	 * Время указывается в миллисекундах. Используем собственную функцию,
+	 * чтобы не зависеть от платформы.
 	 */
 	OAFCORE_EXPORT void sleep (int _ms);
 }

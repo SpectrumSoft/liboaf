@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Вспомогательные классы и функции для загрузки/записи текстовых документов
+ * @brief Вспомогательные функции для текстовых документов
  * @author Sergey N. Yatskevich <syatskevich@gmail.com>
  * @copyright SpectrumSoft. All rights reserved. This file is part of liboaf,
  *            distributed under the GNU GPL v2 with a Linking Exception. For
@@ -11,67 +11,14 @@
 
 #include <OAF/OafStdGlobal.h>
 
-#include <QObject>
-#include <QByteArray>
-#include <QBuffer>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QTextDocument>
 
-#include <idl/IUnknown.h>
-#include <idl/IIODevice.h>
 #include <idl/ITextDocument.h>
-
-#include <OAF/CUnknown.h>
 
 namespace OAF
 {
-	/**
-	 * @brief Вспомогательный класс для создания вторичного устройства ввода/вывода
-	 *        на основе заданного
-	 *
-	 * Такие сложности нужны, чтобы обеспечить трансляцию абсолютных путей для ссылок
-	 * на файлы в относительные и обратно для загрузки/сохранения текстовых документов
-	 * в/из XML-потока связанного с файлом.
-	 */
-	class OAFSTD_EXPORT CDeviceDerived : public QObject,
-		//
-		// Экспортируемые интерфейсы
-		//
-		virtual public OAF::IUnknown,
-		virtual public OAF::IIODevice,
-		//
-		// Импортируемые реализации
-		//
-		virtual public CUnknown
-	{
-		Q_OBJECT
-
-		/**
-		 * @brief Основное устройство ввода/вывода
-		 */
-		URef<OAF::IIODevice> m_base;
-
-		/**
-		 * @brief Буфер для ввода/вывода
-		 */
-		QBuffer* m_buffer;
-
-	public:
-		CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base = NULL);
-		~CDeviceDerived ();
-
-		/**
-		 * @name Реализация интерфейса OAF::IIODevice
-		 */
-		/** @{*/
-		QVariant getInfo (DeviceInfo _what);
-		void setInfo (DeviceInfo _what, const QVariant& _v);
-		QIODevice* device ();
-		bool exists () const;
-		/** @}*/
-	};
-
 	/**
 	 * @brief Создание текстовых документов из XML-потоков
 	 *
