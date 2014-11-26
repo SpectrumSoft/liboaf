@@ -30,7 +30,7 @@ namespace OAF
 	 * в качестве родительского объекта
 	 */
 	template<class _Stream>
-	OAF::IIODevice* getIODevice (const _Stream& _s)
+	OAF::IIODevice* getStreamIODevice (const _Stream& _s)
 	{
 		//
 		// Для некоторых потоков устройство ввода-вывода оказывается не определено.
@@ -53,7 +53,7 @@ namespace OAF
 	template<class _Stream>
 	QString getStreamPath (const _Stream& _s)
 	{
-		if (OAF::IIODevice* d = getIODevice (_s))
+		if (OAF::IIODevice* d = OAF::getStreamIODevice (_s))
 			return d->getInfo (OAF::IIODevice::PATH).toString ();
 
 		return QString::null;

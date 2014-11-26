@@ -36,7 +36,7 @@ OAF::createTXTFromXML (QXmlStreamReader& _is, const QStringList& _mime_types)
 		//
 		// Создаём вспомогательное устройство ввода/вывода
 		//
-		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getIODevice (_is)))
+		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getStreamIODevice (_is)))
 		{
 			//
 			// Открываем вспомогательное устройство ввода/вывода для чтения
@@ -75,7 +75,7 @@ OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::I
 		//
 		// Создаём вспомогательное устройство ввода/вывода
 		//
-		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getIODevice (_os)))
+		if (OAF::URef<OAF::CDeviceDerived> d = new CDeviceDerived (&data, OAF::getStreamIODevice (_os)))
 		{
 			//
 			// Открываем вспомогательное устройство ввода/вывода для записи
