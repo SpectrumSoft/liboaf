@@ -384,7 +384,7 @@ OAF::CWebView::activate (bool _active)
 			"</uidef>";
 
 	if (!_active)
-		m_uic->removeUI (m_ui);
+		m_ui = m_uic->removeUI (m_ui);
 	else
 		m_ui = m_uic->addUI (edit_uidef.arg (::OAF::CWebView::tr ("Edit")), this);
 }

@@ -149,7 +149,7 @@ public:
 	 */
 	/** @{*/
 	QUuid addUI (const QString& _uidef, OAF::IUIComponent* _uic);
-	void removeUI (const QUuid& _ui);
+	QUuid removeUI (const QUuid& _ui);
 	/** @}*/
 
 	/**

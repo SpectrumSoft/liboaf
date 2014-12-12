@@ -289,8 +289,10 @@ namespace OAF
 		 * @brief Удалить часть интерфейса пользователя с идентификатором _uid
 		 *
 		 * @param[in] _id идентификатор удаляемой части интерфейса пользователя
+		 *
+		 * @return при успешном удалении - пустой идентификатор
 		 */
-		virtual void removeUI (const QUuid& _id) = 0;
+		virtual QUuid removeUI (const QUuid& _id) = 0;
 	};
 
 	/**

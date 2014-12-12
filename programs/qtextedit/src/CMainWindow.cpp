@@ -352,10 +352,10 @@ CMainWindow::addUI (const QString& _uidef, OAF::IUIComponent* _uic)
 	return m_manager.addUI (_uidef, _uic);
 }
 
-void
+QUuid
 CMainWindow::removeUI (const QUuid& _ui)
 {
-	m_manager.removeUI (_ui);
+	return m_manager.removeUI (_ui);
 }
 
 void
@@ -438,7 +438,7 @@ CMainWindow::setUIContainer (OAF::IUIContainer* _uic)
 	if (_uic)
 		m_ui = m_manager.addUI (tr (uidef), this);
 	else
-		m_manager.removeUI (m_ui);
+		m_ui = m_manager.removeUI (m_ui);
 }
 
 OAF::IUIContainer*

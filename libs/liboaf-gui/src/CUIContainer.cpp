@@ -22,12 +22,12 @@ OAF::CUIContainer_Simple::addUI (const QString& _uidef, OAF::IUIComponent* _uic)
 	return m_uic->addUI (_uidef, _uic);
 }
 
-void
+QUuid
 OAF::CUIContainer_Simple::removeUI (const QUuid& _ui)
 {
 	Q_ASSERT (m_uic != NULL);
 
-	m_uic->removeUI (_ui);
+	return m_uic->removeUI (_ui);
 }
 
 void
@@ -64,7 +64,7 @@ OAF::CUIContainer_Managed::addUI (const QString& _uidef, OAF::IUIComponent* _uic
 	return ui;
 }
 
-void
+QUuid
 OAF::CUIContainer_Managed::removeUI (const QUuid& _ui)
 {
 	//
@@ -80,7 +80,7 @@ OAF::CUIContainer_Managed::removeUI (const QUuid& _ui)
 	//
 	// Удаляем интерфейс из своих контейнеров
 	//
-	m_manager.removeUI (_ui);
+	return m_manager.removeUI (_ui);
 }
 
 OAF::CUIManager&

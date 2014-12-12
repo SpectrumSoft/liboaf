@@ -873,7 +873,7 @@ OAF::CUIManager::addUI (const QString& _uidef, OAF::IUIComponent* _uic)
 	return id;
 }
 
-void
+QUuid
 OAF::CUIManager::removeUI (const QUuid& _id)
 {
 	//
@@ -941,6 +941,11 @@ OAF::CUIManager::removeUI (const QUuid& _id)
 
 		m_uidescs.remove (_id);
 	}
+
+	//
+	// Возвращаем признак успешного удаления интерфейса
+	//
+	return QUuid ();
 }
 
 QString

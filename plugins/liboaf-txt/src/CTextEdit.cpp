@@ -1647,12 +1647,11 @@ CTextEdit::setUIContainer (OAF::IUIContainer* _uic)
 	if (_uic)
 	{
 		m_uic = _uic;
-		QString res_uidef = QString (uidef).arg (m_main_label.isEmpty () ? tr ("Text Edit") : m_main_label);
-		m_id = m_uic->addUI (res_uidef, this);
+		m_id  = m_uic->addUI (QString (uidef).arg (m_main_label.isEmpty () ? tr ("Text Edit") : m_main_label), this);
 	}
 	else
 	{
-		m_uic->removeUI (m_id);
+		m_id  = m_uic->removeUI (m_id);
 		m_uic = _uic;
 	}
 }
@@ -1821,15 +1820,12 @@ CTextEdit::activate (bool _activate)
 			"</uidef>";
 
 	if (! _activate)
-		m_uic->removeUI (m_id_active);
-
-	m_id_active = QUuid ();
+		m_id_active = m_uic->removeUI (m_id_active);
 
 	if (_activate)
-	{
 		m_id_active = m_uic->addUI (uidef, this);
-		emit aboutCurrentCharFormatChanged (currentCharFormat ());
-	}
+
+	emit aboutCurrentCharFormatChanged (currentCharFormat ());
 }
 
 QObject*

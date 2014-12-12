@@ -105,14 +105,13 @@ OAF::CProgressWidget::aboutOperationActivate (bool _activate)
 {
 	if (m_uic && m_is_active)
 	{
+		//
+		// Если виджет прогресса деактивируется и находится в режиме
+		// отображения хода выполнения операции, то отключаем его
+		// интерфейс
+		//
 		if (!_activate && !m_id_operation_status.isNull ())
-		{
-			//
-			// Убираем интерфейс
-			//
-			m_uic->removeUI (m_id_operation_status);
-			m_id_operation_status = QUuid ();
-		}
+			m_id_operation_status = m_uic->removeUI (m_id_operation_status);
 
 		if (_activate && m_id_operation_status.isNull ())
 		{

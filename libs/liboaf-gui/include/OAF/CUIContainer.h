@@ -47,7 +47,7 @@ namespace OAF
 		 */
 		/** @{*/
 		QUuid addUI (const QString& _uidef, OAF::IUIComponent* _uic);
-		void removeUI (const QUuid& _ui);
+		QUuid removeUI (const QUuid& _ui);
 		/** @}*/
 
 		/**
@@ -93,7 +93,7 @@ namespace OAF
 		 */
 		/** @{*/
 		QUuid addUI (const QString& _uidef, OAF::IUIComponent* _uic);
-		void removeUI (const QUuid& _ui);
+		QUuid removeUI (const QUuid& _ui);
 		/** @}*/
 
 		CUIManager& _getUIManager ();
