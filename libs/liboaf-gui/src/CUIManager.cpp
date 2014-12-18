@@ -56,6 +56,22 @@ positionByPriority (QWidget* _to, int _p)
 }
 
 /**
+ * @brief Найти позицию для вставки тулбара по заданному приоритету
+ */
+static QToolBar*
+positionByPriority (QMainWindow* _to, int _p)
+{
+	QList<QToolBar*> toolbars = _to->findChildren<QToolBar*> ();
+	for (QList<QToolBar*>::iterator t = toolbars.begin (); t != toolbars.end (); ++t)
+	{
+		if (_p < (*t)->property (_to->objectName ().toUtf8 ()).toInt ())
+			return *t;
+	}
+
+	return NULL;
+}
+
+/**
  * @brief Поместить действие в соответствии с заданной позицией
  *
  * @param[in] _a дейстаие для добавления
@@ -69,46 +85,22 @@ insertAction (QWidget* _to, QAction* _a, int _p)
 }
 
 /**
- * @brief Поместить тулбар в соответствии с заданной позицией
+ * @brief Добавить тулбар в соответствии с заданным приоритетом
  *
- * @param[in] _tb тулбар для добавления
+ * При равных приоритетах тулбары располагаются в порядке добавления
  */
 static void
-insertToolBar (QMainWindow* _to, QToolBar* _tb, int _p)
+insertToolBar (QMainWindow* _to, QToolBar* _t, int _p)
 {
-	_tb->setProperty (_to->objectName ().toUtf8 (), _p);
+	_t->setProperty (_to->objectName ().toUtf8 (), _p);
 
-	//
-	// Построим список тулбаров упорядоченный по приоритету
-	//
-	QList<QToolBar*> toolbars = _to->findChildren<QToolBar*> ();
-	QMap<int, QToolBar*> toolbars_map;
-	foreach (QToolBar* toolbar, toolbars) {
-		toolbars_map.insertMulti(
-					toolbar->property (_to->objectName ().toUtf8 ()).toInt (),
-					toolbar);
-	}
+	if (QToolBar* before = positionByPriority (_to, _p))
+		_to->insertToolBar (before, _t);
+	else
+		_to->addToolBar (_t);
 
-	//
-	// Упорядочиваем тулбары
-	//
-	QMapIterator<int, QToolBar*> i (toolbars_map);
-	while (i.hasNext ()) {
-		i.next ();
-
-		QToolBar* toolbar = i.value ();
-
-		//
-		// Если необходимо, вставим обрыв
-		//
-		if (toolbar->property ("break").toBool ())
-			_to->addToolBarBreak ();
-
-		//
-		// Вставляем сам тулбар
-		//
-		_to->addToolBar (toolbar);
-	}
+	if (_t->property ("break").toBool ())
+		_to->insertToolBarBreak (_t);
 }
 
 static void
@@ -118,8 +110,6 @@ removeAction (QWidget* _from, QAction* _a)
 
 	_a->setProperty (_from->objectName ().toUtf8 (), QVariant ());
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 OAF::CUIManager::UI::UI () : m_uic (NULL)
 {}
@@ -283,14 +273,13 @@ OAF::CUIManager::addFolder (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldes
 			toolbar = new QToolBar (attrs.value ("label").toString (), mw);
 			toolbar->setObjectName (attrs.value ("id").toString ());
 			toolbar->setProperty ("oaf:refs", (int)0);
-
 			//
 			// Тулбар идёт на новой строке
 			//
 			toolbar->setProperty("break", attrs.value ("break").toString () == "true");
 
 			//
-			// Размещаем меню в соответствии с заданным приоритетом
+			// Размещаем тулбар в соответствии с заданным приоритетом
 			//
 			insertToolBar (mw, toolbar, p);
 		}
@@ -377,7 +366,7 @@ OAF::CUIManager::addFolder (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldes
 }
 
 void
-OAF::CUIManager::removeFolder (QXmlStreamReader& _xmldesc, QObject* /*_from*/, UI& _ui)
+OAF::CUIManager::removeFolder (QXmlStreamReader& _xmldesc, QObject* _from, UI& _ui)
 {
 	QXmlStreamAttributes attrs = _xmldesc.attributes ();
 
@@ -428,7 +417,19 @@ OAF::CUIManager::removeFolder (QXmlStreamReader& _xmldesc, QObject* /*_from*/, U
 		// объект сам вычистит себя откуда надо
 		//
 		if (folder->property ("oaf:refs").toInt () <= 0)
+		{
+			//
+			// Если это тулбар главного окна и для него задан перенос, то удаляем
+			// перенос
+			//
+			if (QMainWindow* mw = qobject_cast<QMainWindow*> (_from))
+			{
+				if (folder->property ("break").toBool ())
+					mw->removeToolBarBreak (qobject_cast<QToolBar*> (folder));
+			}
+
 			delete folder;
+		}
 	}
 }
 

@@ -1713,23 +1713,11 @@ CTextEdit::activate (bool _activate)
 				"<item id=\"ui:textedit:liststyle\"/>"
 				"<item id=\"ui:textedit:fontlist\"/>"
 				"<item id=\"ui:textedit:fontsize\"/>"
-				"<separator/>"
-				"<item id=\"ui:textedit:bold\"/>"
-				"<item id=\"ui:textedit:italic\"/>"
-				"<item id=\"ui:textedit:underline\"/>"
-				"<separator/>"
-				"<item id=\"ui:textedit:color\" label=\"%2\"/>"
 			"</folder>";
 
 	static const QString menubar_nestedlist_uidef =
 			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
 				"<separator/>"
-				"<item id=\"ui:textedit:increase_indent\"/>"
-				"<item id=\"ui:textedit:decrease_indent\"/>"
-			"</folder>";
-
-	static const QString toolbar_nestedlist_uidef =
-			"<folder id=\"ui:textedit:indentation\" label=\"%1\">"
 				"<item id=\"ui:textedit:increase_indent\"/>"
 				"<item id=\"ui:textedit:decrease_indent\"/>"
 			"</folder>";
@@ -1754,12 +1742,6 @@ CTextEdit::activate (bool _activate)
 	static const QString menubar_image_uidef =
 			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
 				"<separator/>"
-				"<item id=\"ui:textedit:insert_image\"/>"
-				"<item id=\"ui:textedit:resize_image\"/>"
-			"</folder>";
-
-	static const QString toolbar_image_uidef =
-			"<folder id=\"ui:image\" label=\"%1\">"
 				"<item id=\"ui:textedit:insert_image\"/>"
 				"<item id=\"ui:textedit:resize_image\"/>"
 			"</folder>";
@@ -1791,11 +1773,6 @@ CTextEdit::activate (bool _activate)
 				"<item id=\"ui:textedit:cols_width\" />"
 			"</folder>";
 
-	static const QString toolbar_table_uidef =
-			"<folder id=\"ui:textedit:table\" label=\"%1\">"
-				"<item id=\"ui:textedit:insert_table\"/>"
-			"</folder>";
-
 	static const QString uidef =
 			"<?xml version=\"1.0\"?>"
 			"<uidef>"
@@ -1811,11 +1788,8 @@ CTextEdit::activate (bool _activate)
 				"</bag>"
 				"<bag id=\"ui:toolbar\">"
 					+ toolbar_edit_uidef.arg (tr ("Edit"))
-					+ toolbar_formatting_uidef.arg (tr ("Formatting")).arg (tr ("Font color"))
-					+ toolbar_nestedlist_uidef.arg (tr ("Indentation"))
-					+ toolbar_alignment_uidef.arg (tr ("Alignment"))
-					+ toolbar_image_uidef.arg (tr ("Image"))
-					+ toolbar_table_uidef.arg (tr ("Table")) +
+					+ toolbar_formatting_uidef.arg (tr ("Format"))
+					+ toolbar_alignment_uidef.arg (tr ("Alignment")) +
 				"</bag>"
 			"</uidef>";
 

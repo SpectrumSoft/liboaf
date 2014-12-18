@@ -318,7 +318,7 @@ OAF::CLineEdit::activate (bool _active)
 		"<?xml version=\"1.0\"?>"
 		"<uidef>"
 			"<bag id=\"ui:menubar\">"
-				"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+				"<folder id=\"ui:edit\" label=\"%1\">"
 					"<item id=\"ui:lineedit:undo\"/>"
 					"<item id=\"ui:lineedit:redo\"/>"
 					"<separator/>"
