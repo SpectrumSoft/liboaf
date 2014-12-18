@@ -1676,7 +1676,7 @@ CTextEdit::activate (bool _activate)
 //			"</folder                                            >";
 
 	static const QString menubar_edit_uidef =
-			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:edit\" label=\"%1\">"
 				"<item id=\"ui:textedit:undo\"/>"
 				"<item id=\"ui:textedit:redo\"/>"
 				"<separator/>"
@@ -1699,7 +1699,7 @@ CTextEdit::activate (bool _activate)
 			"</folder>";
 
 	static const QString menubar_formatting_uidef =
-			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:edit\" label=\"%1\">"
 				"<separator/>"
 				"<item id=\"ui:textedit:bold\"/>"
 				"<item id=\"ui:textedit:italic\"/>"
@@ -1716,14 +1716,14 @@ CTextEdit::activate (bool _activate)
 			"</folder>";
 
 	static const QString menubar_nestedlist_uidef =
-			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:edit\" label=\"%1\">"
 				"<separator/>"
 				"<item id=\"ui:textedit:increase_indent\"/>"
 				"<item id=\"ui:textedit:decrease_indent\"/>"
 			"</folder>";
 
 	static const QString menubar_alignment_uidef =
-			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:edit\" label=\"%1\">"
 				"<separator/>"
 				"<item id=\"ui:textedit:alignment:left\"/>"
 				"<item id=\"ui:textedit:alignment:center\"/>"
@@ -1740,26 +1740,26 @@ CTextEdit::activate (bool _activate)
 			"</folder>";
 
 	static const QString menubar_image_uidef =
-			"<folder id=\"ui:edit\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:edit\" label=\"%1\">"
 				"<separator/>"
 				"<item id=\"ui:textedit:insert_image\"/>"
 				"<item id=\"ui:textedit:resize_image\"/>"
 			"</folder>";
 
 	static const QString menubar_table_uidef =
-			"<folder id=\"ui:table\" label=\"%1\" priority=\"-500\">"
+			"<folder id=\"ui:table\" label=\"%1\">"
 				"<separator/>"
 				"<item id=\"ui:textedit:insert_table\"/>"
 				"<item id=\"ui:textedit:remove_row\" />"
 				"<item id=\"ui:textedit:remove_col\" />"
-				"<folder id=\"ui:add_row_menu\" label=\"%2\" >" // priority=\"-500\">"
+				"<folder id=\"ui:add_row_menu\" label=\"%2\">"
 					"<item id=\"ui:textedit:add_1_row\" />"
 					"<item id=\"ui:textedit:add_2_row\" />"
 					"<item id=\"ui:textedit:add_3_row\" />"
 					"<item id=\"ui:textedit:add_4_row\" />"
 					"<item id=\"ui:textedit:add_n_row\" />"
 				"</folder>"
-				"<folder id=\"ui:add_col_menu\" label=\"%3\" >" //priority=\"-500\">"
+				"<folder id=\"ui:add_col_menu\" label=\"%3\">"
 					"<item id=\"ui:textedit:add_1_col\" />"
 					"<item id=\"ui:textedit:add_2_col\" />"
 					"<item id=\"ui:textedit:add_3_col\" />"
