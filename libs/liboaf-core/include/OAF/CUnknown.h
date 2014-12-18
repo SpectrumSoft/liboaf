@@ -69,6 +69,11 @@ namespace OAF
 		 * @brief Список объектов
 		 */
 		static const QSet<CUnknown*>& objects ();
+
+		/**
+		 * @brief Проверка валидности объекта
+		 */
+		static bool isValid (CUnknown* _ou);
 	};
 }
 

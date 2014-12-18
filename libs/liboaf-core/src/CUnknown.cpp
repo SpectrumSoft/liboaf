@@ -79,7 +79,14 @@ OAF::CUnknown::cid () const
 	return m_cid;
 }
 
-const QSet<OAF::CUnknown*>& OAF::CUnknown::objects ()
+const QSet<OAF::CUnknown*>&
+OAF::CUnknown::objects ()
 {
 	return m_objects;
+}
+
+bool
+OAF::CUnknown::isValid (OAF::CUnknown* _ou)
+{
+	return m_objects.contains (_ou);
 }
