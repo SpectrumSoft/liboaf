@@ -333,12 +333,12 @@ OAF::CLineEdit::activate (bool _active)
 
 			"<bag id=\"ui:toolbar\">"
 				"<folder id=\"ui:edit\" label=\"%2\">"
-					"<item id=\"ui:lineedit:undo\"/>"
-					"<item id=\"ui:lineedit:redo\"/>"
-					"<separator/>"
 					"<item id=\"ui:lineedit:cut\"/>"
 					"<item id=\"ui:lineedit:copy\"/>"
 					"<item id=\"ui:lineedit:paste\"/>"
+					"<separator/>"
+					"<item id=\"ui:lineedit:undo\"/>"
+					"<item id=\"ui:lineedit:redo\"/>"
 				"</folder>"
 			"</bag>"
 		"</uidef>";

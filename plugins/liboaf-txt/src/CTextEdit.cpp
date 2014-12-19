@@ -1690,12 +1690,12 @@ CTextEdit::activate (bool _activate)
 
 	static const QString toolbar_edit_uidef =
 			"<folder id=\"ui:edit\" label=\"%1\">"
-				"<item id=\"ui:textedit:undo\"/>"
-				"<item id=\"ui:textedit:redo\"/>"
-				"<separator/>"
 				"<item id=\"ui:textedit:cut\"/>"
 				"<item id=\"ui:textedit:copy\"/>"
 				"<item id=\"ui:textedit:paste\"/>"
+				"<separator/>"
+				"<item id=\"ui:textedit:undo\"/>"
+				"<item id=\"ui:textedit:redo\"/>"
 			"</folder>";
 
 	static const QString menubar_formatting_uidef =
