@@ -699,7 +699,7 @@ Do you want to save this image as file and embed it as link?</source>
     <message>
         <location filename="../plugins/liboaf-txt/src/CTextEdit.cpp" line="1791"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат</translation>
     </message>
     <message>
         <location filename="../plugins/liboaf-txt/src/CTextEdit.cpp" line="1792"/>
@@ -758,7 +758,7 @@ Do you want to save this image as file and embed it as link?</source>
     <message>
         <location filename="../libs/liboaf-std/src/HelpersTXT.cpp" line="115"/>
         <source>Invalid symbols were skipped during saving the module</source>
-        <translation type="unfinished"></translation>
+        <translation>Недопустимые символы пропущены при записи модуля</translation>
     </message>
 </context>
 <context>
@@ -1776,7 +1776,7 @@ Do you want to save this image as file and embed it as link?</source>
     <message>
         <location filename="../libs/liboaf-git2/src/odb.c" line="919"/>
         <source>Cannot %s - Invalid length. %</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно - %s - недопустимая длина. %</translation>
     </message>
     <message>
         <location filename="../libs/liboaf-git2/src/odb.c" line="921"/>
