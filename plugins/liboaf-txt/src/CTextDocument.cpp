@@ -149,11 +149,11 @@ CTextDocument::imgPathsFromRelative (const QString& _module_path)
 {
 	//
 	// Делаем обход документа и заменяем для всех QTextImageFormat
-	// пути картинок, ссылающихся на файлы,
-	// с платформенно-независимых относительных на абсолютные для корректной работы loadResource
+	// пути картинок, ссылающихся на файлы, с платформенно-независимых
+	// относительных на абсолютные для корректной работы loadResource
 	//
 	QTextCursor cursor (this);
-	for (QTextBlock block = begin (); block.isValid () && (block != end ().next ()); block = block.next ())
+	for (QTextBlock block = begin (); block.isValid () && (block != end ()); block = block.next ())
 	{
 		for (QTextBlock::iterator it = block.begin (); !it.atEnd (); ++it)
 		{
