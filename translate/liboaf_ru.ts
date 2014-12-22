@@ -125,12 +125,12 @@
     <message>
         <location filename="../libs/liboaf-gui/src/CSearchLineWidget.ui" line="78"/>
         <source>Find previous object</source>
-        <translation>Перейти к предыдущему</translation>
+        <translation>Найти предыдущий объект</translation>
     </message>
     <message>
         <location filename="../libs/liboaf-gui/src/CSearchLineWidget.ui" line="52"/>
         <source>Find next object</source>
-        <translation>Перейти к следующему</translation>
+        <translation>Найти следующий объект</translation>
     </message>
 </context>
 <context>
