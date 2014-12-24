@@ -102,7 +102,8 @@ HEADERS += \
 	src/CCommon.h \
 	src/CFactory.h \
 	src/CTextDocument.h \
-	src/CTextEdit.h
+	src/CPlainEdit.h \
+	src/CHTMLEdit.h
 
 #
 # Исходные тексты
@@ -111,7 +112,8 @@ SOURCES += \
 	src/CCommon.cpp \
 	src/CFactory.cpp \
 	src/CTextDocument.cpp \
-	src/CTextEdit.cpp \
+	src/CPlainEdit.cpp \
+	src/CHTMLEdit.cpp \
 	src/main.cpp
 
 #

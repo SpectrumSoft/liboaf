@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Реализация текстового документа
+ * @brief Реализация HTML/plain документа
  * @author Sergey N. Yatskevich <syatskevich@gmail.com>
  * @copyright SpectrumSoft. All rights reserved. This file is part of liboaf,
  *            distributed under the GNU GPL v2 with a Linking Exception. For
@@ -24,9 +24,90 @@
 
 using namespace OAF::TXT;
 
+/**
+ * @brief Читаем данные как поток байт
+ */
+static size_t
+readAll (QDataStream& _is, QByteArray& _out)
+{
+	char buf[1024];
+
+	while (int count = _is.readRawData (buf, sizeof (buf)))
+	{
+		if (count < 0)
+			break;
+
+		_out.append (buf, count);
+
+		if (_is.atEnd ())
+			break;
+	}
+
+	return _out.size ();
+}
+
+/**
+ * @brief Проверяет, есть ли хоть одно различие в указанных документах
+ */
+static bool
+hasPlainDiff (QTextDocument* _d1, QTextDocument* _d2)
+{
+	//
+	// Движок для сравнения простых текстов
+	//
+	QScopedPointer<Google::diff_match_patch> differ (new Google::diff_match_patch ());
+
+	//
+	// Тексты для сравнения
+	//
+	QString d1 = _d1->toPlainText ();
+	QString d2 = _d2->toPlainText ();
+
+	//
+	// Если нашли хоть одно изменение, то возвращаем true
+	//
+	QList<Google::Diff> diff = differ->diff_main (d1, d2);
+	foreach (Google::Diff d, diff)
+	{
+		if (d.operation != Google::_EQUAL)
+			return true;
+	}
+
+	//
+	// Иначе возвращаем false
+	//
+	return false;
+}
+
+/**
+ * @brief Возвращает различия между заданными документами
+ */
+static QString
+findPlainDiff (QTextDocument* _d1, QTextDocument* _d2)
+{
+	//
+	// Движок для сравнения простых текстов
+	//
+	QScopedPointer<Google::diff_match_patch> differ (new Google::diff_match_patch ());
+
+	//
+	// Тексты для сравнения
+	//
+	QString d1 = _d1->toPlainText ();
+	QString d2 = _d2->toPlainText ();
+
+	//
+	// Генерируем отчет об изменениях в виде HTML-текста
+	//
+	return differ->diff_prettyHtml (differ->diff_main (d1, d2));
+}
+
 QVariant
 CTextDocument::loadResource (int _type, const QUrl& _name)
 {
+	//
+	// Если ресурс является изображением и его имя не пусто
+	//
 	if ((_type == QTextDocument::ImageResource) && !_name.isEmpty())
 	{
 		//
@@ -103,7 +184,7 @@ CTextDocument::isVirtualDefined (const Key& _key) const
 }
 
 QString
-CTextDocument::imgPathsToRelative (const QString& _module_path)
+CTextDocument::imgPathsToRelative (const QString& _path)
 {
 	//
 	// Делаем копию документа и заменяем в ней все пути картинок на относительные;
@@ -129,7 +210,7 @@ CTextDocument::imgPathsToRelative (const QString& _module_path)
 					QTextImageFormat img_format = fragment.charFormat ().toImageFormat ();
 					if (img_format.isValid ())
 					{
-						img_format.setName (OAF::makeRelativePath (_module_path, img_format.name ()));
+						img_format.setName (OAF::makeRelativePath (_path, img_format.name ()));
 
 						int img_pos = fragment.position();
 						cursor.setPosition (img_pos);
@@ -145,7 +226,7 @@ CTextDocument::imgPathsToRelative (const QString& _module_path)
 }
 
 void
-CTextDocument::imgPathsFromRelative (const QString& _module_path)
+CTextDocument::imgPathsFromRelative (const QString& _path)
 {
 	//
 	// Делаем обход документа и заменяем для всех QTextImageFormat
@@ -165,7 +246,7 @@ CTextDocument::imgPathsFromRelative (const QString& _module_path)
 					QTextImageFormat img_format = fragment.charFormat ().toImageFormat ();
 					if (img_format.isValid ())
 					{
-						img_format.setName (OAF::makeAbsolutePath (_module_path, img_format.name ()));
+						img_format.setName (OAF::makeAbsolutePath (_path, img_format.name ()));
 
 						int img_pos = fragment.position();
 						cursor.setPosition (img_pos);
@@ -190,7 +271,7 @@ CTextDocument::aboutContentsChanged ()
 	notifyListeners (&ev, NULL);
 }
 
-CTextDocument::CTextDocument (CFactory* _factory) : CUnknown (text_document_cid), m_factory (_factory)
+CTextDocument::CTextDocument (CFactory* _factory, const QString& _cid) : CUnknown (_cid), m_factory (_factory)
 {
 	connect (this, SIGNAL (contentsChanged ()), this, SLOT (aboutContentsChanged ()));
 }
@@ -288,9 +369,13 @@ CTextDocument::load (QTextStream& _is, const QStringList& _mime_types)
 		{
 			setHtml (document);
 
-			QString module_path = OAF::getStreamPath (_is);
-			if (!module_path.isEmpty ())
-				imgPathsFromRelative (module_path);
+			//
+			// Преобразуем ссылки на изображения из относительных в абсолютные
+			//
+			QString path = OAF::getStreamPath (_is);
+			if (!path.isEmpty ())
+				imgPathsFromRelative (path);
+
 			break;
 		}
 
@@ -329,11 +414,16 @@ CTextDocument::save (QTextStream& _os, const QStringList& _mime_types)
 		//
 		if (*m == "text/html")
 		{
-			QString module_path = OAF::getStreamPath (_os);
-			if (!module_path.isEmpty ())
-				_os << imgPathsToRelative (module_path);
+			//
+			// Если задан путь к файлу документа, то преобразуем ссылки на
+			// изображения из абсолютных в относительные
+			//
+			QString path = OAF::getStreamPath (_os);
+			if (!path.isEmpty ())
+				_os << imgPathsToRelative (path);
 			else
 				_os << toHtml ();
+
 			break;
 		}
 
@@ -376,106 +466,54 @@ void
 CTextDocument::diff (OAF::CHtmlGenerator& _hg, bool _inserted)
 {
 	Q_UNUSED (_inserted);
+
 	//
-	// Задаем цвет фоновой заливки документа: зеленый цвет для добавленного в другом объекте содержимого
-	// и красный для удаленного
+	// Задаем цвет фоновой заливки документа: зеленый цвет для добавленного в
+	// другом объекте содержимого и красный для удаленного
 	//
-	// FIXME: т.к. просто вставлять один HTML-документ в другой есть некорректно (несколько html-тегов и т.д.),
-	// а делать по-другому (вынести все стили в заголовок главного документа) - сложно,
-	// то пока попросту убрал задание цвета для текста. Всё равно все содержимое таблицы будет окрашено.
-	/*Q_ASSERT (rootFrame ());
-	QTextFrameFormat ff = rootFrame ()->frameFormat ();
-	ff.setBackground (QBrush (QColor (_inserted ? "#e6ffe6" : "ffe6e6")));
-	rootFrame ()->setFrameFormat (ff);*/
+	// FIXME: т.к. просто вставлять один HTML-документ в другой есть некорректно
+	//        (несколько html-тегов и т.д.), а делать по-другому (вынести все стили
+	//        в заголовок главного документа) - сложно, то пока попросту убираем
+	//        задание цвета для текста. Всё равно все содержимое таблицы будет
+	//        окрашено.
+//	Q_ASSERT (rootFrame ());
+//	QTextFrameFormat ff = rootFrame ()->frameFormat ();
+//	ff.setBackground (QBrush (QColor (_inserted ? "#e6ffe6" : "ffe6e6")));
+//	rootFrame ()->setFrameFormat (ff);
 
 	_hg.insertHtml (toHtml ());
 }
 
-namespace
-{
-	//
-	// Проверяет, есть ли хоть одно изменение в plain text-содержимом указанных документов
-	//
-	static
-	bool
-	hasPlainDiff (QTextDocument* _doc, QTextDocument* _other_doc)
-	{
-		QString text = _doc->toPlainText ();
-		QString other_text = _other_doc->toPlainText ();
-
-		static QScopedPointer <Google::diff_match_patch> dmp;
-		if (! dmp)
-			dmp.reset (new Google::diff_match_patch ());
-
-		//
-		// Ищем первое изменение текста - если нашли, возвращаем true
-		//
-		QList <Google::Diff> diff_data = dmp->diff_main (text, other_text);
-		foreach (Google::Diff diff, diff_data)
-		{
-			if (diff.operation != Google::_EQUAL)
-				return true;
-		}
-
-		return false;
-	}
-
-	//
-	// Возвращает изменения в plain text-содержимом указанных документов
-	//
-	static
-	QString
-	findPlainDiff (QTextDocument* _doc, QTextDocument* _other_doc)
-	{
-		QString text = _doc->toPlainText ();
-		QString other_text = _other_doc->toPlainText ();
-
-		static QScopedPointer <Google::diff_match_patch> dmp;
-		if (! dmp)
-			dmp.reset (new Google::diff_match_patch ());
-
-		//
-		// Генерируем отчет об изменениях в виде HTML-текста
-		//
-		QList <Google::Diff> diff_data = dmp->diff_main (text, other_text);
-		QString diff_res = dmp->diff_prettyHtml (diff_data);
-		return diff_res;
-	}
-}
-
 bool
-CTextDocument::isDiffer (IUnknown* _other)
+CTextDocument::isDiffer (IUnknown* _d)
 {
-	OAF::URef<QTextDocument> other_doc = OAF::queryInterface <QTextDocument> (_other);
-	return (other_doc ? hasPlainDiff (this, other_doc) : false);
+	return (_d ? hasPlainDiff (this, OAF::queryInterface<QTextDocument> (_d)) : false);
 }
 
 void
-CTextDocument::diff (OAF::CHtmlGenerator& _hg, IUnknown* _other)
+CTextDocument::diff (OAF::CHtmlGenerator& _hg, IUnknown* _d)
 {
-	OAF::URef<QTextDocument> other_doc = OAF::queryInterface <QTextDocument> (_other);
-	if (other_doc)
-		_hg.insertHtml (findPlainDiff (this, other_doc));
+	if (OAF::URef<QTextDocument> d = OAF::queryInterface<QTextDocument> (_d))
+		_hg.insertHtml (findPlainDiff (this, d));
 }
 
 int
 CTextDocument::match (const QString& _pattern, Qt::CaseSensitivity _cs)
 {
-	QTextCursor cur;
+	QTextCursor f;
 	if (_cs == Qt::CaseSensitive)
-		cur = find (_pattern, 0, QTextDocument::FindCaseSensitively);
+		f = find (_pattern, 0, QTextDocument::FindCaseSensitively);
 	else
-		cur = find (_pattern);
+		f = find (_pattern);
 
-	if (!cur.isNull ())
-		return 1;
-	return 0;
+	return (!f.isNull ()) ? 1 : 0;
 }
 
 std::size_t
 CTextDocument::exportMimeTypes (QStringList& _out) const
 {
-	_out << "text/html" << "text/plain";
+	_out << "application/pdf" << "text/html" << "text/plain";
+
 	return _out.size ();
 }
 
@@ -507,15 +545,42 @@ CTextDocument::exportTo (QDataStream& _os, const QStringList& _mime_types, IProp
 	for (QStringList::const_iterator m = _mime_types.begin (); m != _mime_types.end (); ++m)
 	{
 		//
+		// Если первым встретился application/pdf, то пишем документ как PDF-документ
+		//
+		if (*m == "application/pdf")
+		{
+			//
+			// FIXME: Создать временный файл для печати, напечатать туда документ,
+			// вывести документ в поток и удалить временный файл
+			//
+//			if (!file_name.isEmpty ())
+//			{
+//				if (QFileInfo (file_name).suffix().isEmpty())
+//					file_name.append (".pdf");
+//				QPrinter printer (QPrinter::HighResolution);
+//				printer.setOutputFormat (QPrinter::PdfFormat);
+//				printer.setOutputFileName (file_name);
+//				document()->print (&printer);
+//			}
+
+			break;
+		}
+
+		//
 		// Если первым встретился text/html, то пишем документ как HTML-документ
 		//
 		if (*m == "text/html")
 		{
-			QString module_path = OAF::getStreamPath (_os);
-			if (!module_path.isEmpty ())
-				data = imgPathsToRelative (module_path).toUtf8 ();
+			//
+			// Если задан путь к файлу документа, то преобразуем ссылки на
+			// изображения из абсолютных в относительные
+			//
+			QString path = OAF::getStreamPath (_os);
+			if (!path.isEmpty ())
+				data = imgPathsToRelative (path).toUtf8 ();
 			else
 				data = toHtml ().toUtf8 ();
+
 			break;
 		}
 
@@ -541,28 +606,6 @@ std::size_t
 CTextDocument::importMimeTypes (QStringList& _out) const
 {
 	_out << "text/html" << "text/plain";
-
-	return _out.size ();
-}
-
-/**
- * @brief Читаем данные как поток байт
- */
-static size_t
-readAll (QDataStream& _is, QByteArray& _out)
-{
-	char buf[1024];
-
-	while (int count = _is.readRawData (buf, sizeof (buf)))
-	{
-		if (count < 0)
-			break;
-
-		_out.append (buf, count);
-
-		if (_is.atEnd ())
-			break;
-	}
 
 	return _out.size ();
 }
@@ -594,9 +637,13 @@ CTextDocument::importFrom (QDataStream& _is, const QStringList& _mime_types)
 		{
 			setHtml (document);
 
-			QString module_path = OAF::getStreamPath (_is);
-			if (!module_path.isEmpty ())
-				imgPathsFromRelative (module_path);
+			//
+			// Преобразуем ссылки на изображения из относительных в абсолютные
+			//
+			QString path = OAF::getStreamPath (_is);
+			if (!path.isEmpty ())
+				imgPathsFromRelative (path);
+
 			break;
 		}
 

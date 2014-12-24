@@ -7,7 +7,8 @@
  *            full terms see the included COPYING file.
  */
 #include "CTextDocument.h"
-#include "CTextEdit.h"
+#include "CPlainEdit.h"
+#include "CHTMLEdit.h"
 #include "CFactory.h"
 
 using namespace OAF::TXT;
@@ -25,10 +26,12 @@ CFactory::~CFactory ()
 OAF::URef<OAF::IUnknown>
 CFactory::createObject (const QString& _cid)
 {
-	if (_cid == text_document_cid)
-		return new CTextDocument (this);
-	if (_cid == text_edit_cid)
-		return new CTextEdit (this);
+	if ((_cid == plain_document_cid) || (_cid == html_document_cid))
+		return new CTextDocument (this, _cid);
+	if (_cid == plain_edit_cid)
+		return new CPlainEdit (this);
+	if (_cid == html_edit_cid)
+		return new CHTMLEdit (this);
 	return NULL;
 }
 

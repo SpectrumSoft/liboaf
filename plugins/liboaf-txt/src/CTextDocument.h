@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Интерфейс текстового документа
+ * @brief Интерфейс HTML/plain документа
  * @author Sergey N. Yatskevich <syatskevich@gmail.com>
  * @copyright SpectrumSoft. All rights reserved. This file is part of liboaf,
  *            distributed under the GNU GPL v2 with a Linking Exception. For
@@ -33,7 +33,7 @@ namespace OAF
 	namespace TXT
 	{
 		/**
-		 * @brief Текстовый документ
+		 * @brief HTML/plain документ
 		 */
 		class CTextDocument : public QTextDocument,
 			//
@@ -89,17 +89,18 @@ namespace OAF
 			/** @}*/
 
 			/**
-			 * @brief Заменяет пути всех изображений документа на относительные
-			 * @param Путь к файлу, с которым связан заданный поток
-			 * @return HTML-представление полученного документа с замененными путями
+			 * @brief Формирует документ, в котором все пути к изображениям заменены
+			 *        из относительных в абсолютные с учётом заданного @a _path для
+			 *        корректной загрузки изображений
 			 */
-			QString imgPathsToRelative (const QString& _module_path);
+			QString imgPathsToRelative (const QString& _path);
 
 			/**
-			 * @brief Заменяет пути все изображений документ на абсолютные для корректной работы loadResource
-			 * @param _module_path Путь к файлу, с которым связан заданный поток
+			 * @brief Формирует документ, в котором все пути к изображениям заменены
+			 *        из абсолютных в относительные с учё1том заданного @a _path для
+			 *        упрощения обмена и перемещения документов
 			 */
-			void imgPathsFromRelative (const QString& _module_path);
+			void imgPathsFromRelative (const QString& _path);
 
 		private slots:
 			/**
@@ -108,7 +109,7 @@ namespace OAF
 			void aboutContentsChanged ();
 
 		public:
-			CTextDocument (CFactory* _factory);
+			CTextDocument (CFactory* _factory, const QString& _cid);
 			~CTextDocument ();
 
 			/**

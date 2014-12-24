@@ -27,8 +27,10 @@ namespace OAF
 
 		public:
 			static const QString factory_cid;
-			static const QString text_document_cid;
-			static const QString text_edit_cid;
+			static const QString plain_document_cid;
+			static const QString plain_edit_cid;
+			static const QString html_document_cid;
+			static const QString html_edit_cid;
 
 			CCommon ()
 			{

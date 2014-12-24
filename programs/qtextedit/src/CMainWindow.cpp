@@ -9,6 +9,7 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 
+#include <OAF/CNotifySource.h>
 #include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>
 
@@ -17,7 +18,7 @@
 QMessageBox::StandardButton
 CMainWindow::check4save ()
 {
-	if (m_document)
+	if (m_document && m_is_modified)
 	{
 		return QMessageBox::question (this, tr ("Warning" ),
 						tr ("Unsaved data will be lost..."),
@@ -29,32 +30,55 @@ CMainWindow::check4save ()
 }
 
 void
-CMainWindow::setDocument (const QString& _path, OAF::URef<OAF::IUIComponent> _document)
+CMainWindow::setDocument (OAF::ITextDocument* _d)
 {
-    Q_UNUSED(_path);
-
 	//
-	// Отключаем существующий документ
+	// Отключаемся от текущего документа
 	//
 	if (m_document)
 	{
-		m_document->activate (false);
-		m_document->setUIContainer (NULL);
+		OAF::unsubscribe (m_document, this);
+
+		//
+		// Отключаем редактор документа
+		//
+		if (m_edit)
+		{
+			m_edit->activate (false);
+			m_edit->setUIContainer (NULL);
+		}
+
+		m_edit = NULL;
 	}
 
 	//
 	// Устанавливаем новый документ
 	//
-	m_document = _document;
+	m_document = _d;
 
 	//
-	// Подключаем новый документ
+	// Подключаемся к новому документу
 	//
 	if (m_document)
 	{
-		m_document->setUIContainer (this);
-		m_document->activate (true);
+		OAF::subscribe (m_document, this);
+
+		//
+		// Создаём редактор для документа
+		//
+		m_edit = OAF::createFromObject<OAF::IUIComponent> (m_document.queryInterface<OAF::IUnknown> ());
+
+		//
+		// Подключаем новый редактор документа
+		//
+		if (m_edit)
+		{
+			m_edit->setUIContainer (this);
+			m_edit->activate (true);
+		}
 	}
+
+	m_is_modified = false;
 }
 
 void
@@ -73,10 +97,40 @@ CMainWindow::newDocument (const QStringList& _mime_types)
 	//
 	// Пытаемся создать пустой документ заданного типа
 	//
-	if (OAF::URef<OAF::IUIComponent> document = OAF::createFromMIME<OAF::IUIComponent> (_mime_types))
-		setDocument (QString (), document);
+	if (OAF::URef<OAF::ITextDocument> d = OAF::createFromMIME<OAF::ITextDocument> (_mime_types))
+		setDocument (d);
 	else
 		QMessageBox::warning (this, "Not supported format", "Can't create file with type " + _mime_types[0]);
+}
+
+void
+CMainWindow::closeEvent (QCloseEvent* _e)
+{
+	QMessageBox::StandardButton b = check4save ();
+	if (b == QMessageBox::Cancel)
+	{
+		_e->ignore ();
+		return;
+	}
+	else if (b == QMessageBox::Save)
+	{
+		aboutSave ();
+	}
+
+	QMainWindow::closeEvent (_e);
+}
+
+void
+CMainWindow::notify (OAF::IInterface* _event, OAF::INotifySource* _source, OAF::INotifyListener* _origin)
+{
+	Q_UNUSED (_source);
+	Q_UNUSED (_origin);
+
+	//
+	// Если это событие от текстового документа, значит он изменился
+	//
+	if (OAF::queryInterface<OAF::ITextDocumentNotify> (_event))
+		m_is_modified = true;
 }
 
 void
@@ -87,7 +141,7 @@ CMainWindow::aboutNewWindow ()
 }
 
 void
-CMainWindow::aboutNewText ()
+CMainWindow::aboutNewPlain ()
 {
 	QStringList mime_types;
 	mime_types.append ("text/plain");
@@ -102,25 +156,8 @@ CMainWindow::aboutNewHTML ()
 {
 	QStringList mime_types;
 	mime_types.append ("text/html");
-	mime_types.append ("text/plain");
-
 	//
 	// Создаём пустой HTML документ. Если не удалось, то создаём пустой текстовый документ
-	//
-	newDocument (mime_types);
-}
-
-void
-CMainWindow::aboutNewLyX ()
-{
-	QStringList mime_types;
-	mime_types.append ("application/x-lyx");
-	mime_types.append ("text/html");
-	mime_types.append ("text/plain");
-
-	//
-	// Создаём пустой LyX документ. Если не удалось, то создаём пустой HTML документ, а если
-	// и это не удалось, то пустой текстовый документ
 	//
 	newDocument (mime_types);
 }
@@ -150,8 +187,8 @@ CMainWindow::aboutOpen ()
 			//
 			// Пытаемся загрузить указанный файл
 			//
-			if (OAF::URef<OAF::IUIComponent> document = OAF::createFromName<OAF::IUIComponent> (OAF::fromLocalFile (files[0]).toString ()))
-				setDocument (OAF::fromLocalFile (files[0]).toString (), document);
+			if (OAF::URef<OAF::ITextDocument> d = OAF::createFromName<OAF::ITextDocument> (OAF::fromLocalFile (files[0]).toString ()))
+				setDocument (d);
 			else
 				QMessageBox::warning (this, "Not supported format", "Can't open given file");
 		}
@@ -178,6 +215,8 @@ CMainWindow::aboutSave ()
 			}
 		}
 	}
+
+	m_is_modified = false;
 }
 
 void
@@ -192,7 +231,7 @@ CMainWindow::aboutSaveAs ()
 		QStringList files = open.selectedFiles ();
 		if (files.count () == 1)
 		{
-			m_document.queryInterface<OAF::IPropertyBag> ()->setValue ("path", OAF::fromLocalFile (files[0]).toString ());
+			m_edit.queryInterface<OAF::IPropertyBag> ()->setValue ("path", OAF::fromLocalFile (files[0]).toString ());
 			aboutSave ();
 		}
 	}
@@ -204,24 +243,7 @@ CMainWindow::aboutAboutDialog ()
 	QMessageBox::about (this, tr ("About"), tr ("QTextEdit 0.5.0"));
 }
 
-void
-CMainWindow::closeEvent (QCloseEvent* _e)
-{
-	QMessageBox::StandardButton b = check4save ();
-	if (b == QMessageBox::Cancel)
-	{
-		_e->ignore ();
-		return;
-	}
-	else if (b == QMessageBox::Save)
-	{
-		aboutSave ();
-	}
-
-	QMainWindow::closeEvent (_e);
-}
-
-CMainWindow::CMainWindow ()
+CMainWindow::CMainWindow () : m_is_modified (false)
 {
 	//
 	// Устанавливаем удаление всех объектов окна при его закрытии
@@ -266,60 +288,54 @@ CMainWindow::CMainWindow ()
 	//
 	// FIXME: иконка по умолчанию
 	m_new_window = new QAction (tr ("&New window"), this);
-	m_new_window->setObjectName ("ui:shell:new_window");
+	m_new_window->setObjectName ("ui:new_window");
 	m_new_window->setIcon (QIcon::fromTheme ("window-new"));
 	connect (m_new_window, SIGNAL (triggered(bool)), this, SLOT (aboutNewWindow ()));
 
 	// FIXME: иконка по умолчанию
-	m_new_text = new QAction (tr ("&New text"), this);
-	m_new_text->setObjectName ("ui:shell:new_text");
-	m_new_text->setIcon (QIcon::fromTheme ("text-x-generic"));
-	connect (m_new_text, SIGNAL (triggered(bool)), this, SLOT (aboutNewText ()));
+	m_new_plain = new QAction (tr ("&New text"), this);
+	m_new_plain->setObjectName ("ui:new_plain");
+	m_new_plain->setIcon (QIcon::fromTheme ("text-x-generic"));
+	connect (m_new_plain, SIGNAL (triggered(bool)), this, SLOT (aboutNewPlain ()));
 
 	// FIXME: иконка по умолчанию
 	m_new_html = new QAction (tr ("&New HTML"), this);
-	m_new_html->setObjectName ("ui:shell:new_html");
+	m_new_html->setObjectName ("ui:new_html");
 	m_new_html->setIcon (QIcon::fromTheme ("text-html"));
 	connect (m_new_html, SIGNAL (triggered(bool)), this, SLOT (aboutNewHTML ()));
 
 	// FIXME: иконка по умолчанию
-	m_new_lyx = new QAction (tr ("&New LyX"), this);
-	m_new_lyx->setObjectName ("ui:shell:new_lyx");
-	m_new_lyx->setIcon (QIcon::fromTheme ("text-lyx"));
-	connect (m_new_lyx, SIGNAL (triggered(bool)), this, SLOT (aboutNewLyX ()));
-
-	// FIXME: иконка по умолчанию
 	m_open = new QAction (tr ("&Open ..."), this);
-	m_open->setObjectName ("ui:shell:open");
+	m_open->setObjectName ("ui:open");
 	m_open->setIcon (QIcon::fromTheme ("document-open"));
 	connect (m_open, SIGNAL (triggered(bool)), this, SLOT (aboutOpen ()));
 
 	// FIXME: иконка по умолчанию
 	m_save = new QAction (tr ("&Save"), this);
-	m_save->setObjectName ("ui:shell:save");
+	m_save->setObjectName ("ui:save");
 	m_save->setIcon (QIcon::fromTheme ("document-save"));
 	connect (m_save, SIGNAL (triggered(bool)), this, SLOT (aboutSave ()));
 
 	// FIXME: иконка по умолчанию
 	m_save_as = new QAction (tr ("Save &As ..."), this);
-	m_save_as->setObjectName ("ui:shell:save_as");
+	m_save_as->setObjectName ("ui:save_as");
 	m_save_as->setIcon (QIcon::fromTheme ("document-save-as"));
 	connect (m_save_as, SIGNAL (triggered(bool)), this, SLOT (aboutSaveAs ()));
 
 	// FIXME: иконка по умолчанию
 	m_close = new QAction (tr ("&Close"), this);
-	m_close->setObjectName ("ui:shell:close");
+	m_close->setObjectName ("ui:close");
 	m_close->setIcon (QIcon::fromTheme ("window-close"));
 	connect (m_close, SIGNAL (triggered(bool)), this, SLOT (close ()));
 
 	// FIXME: иконка по умолчанию
 	m_quit = new QAction (tr ("&Exit"), this);
-	m_quit->setObjectName ("ui:shell:quit");
+	m_quit->setObjectName ("ui:quit");
 	m_quit->setIcon (QIcon::fromTheme ("application-exit"));
 	connect (m_quit, SIGNAL (triggered(bool)), qApp, SLOT (closeAllWindows ()));
 
 	m_about = new QAction (tr ("&About ..."), this);
-	m_about->setObjectName ("ui:shell:about");
+	m_about->setObjectName ("ui:about");
 	connect (m_about, SIGNAL (triggered(bool)), this, SLOT (aboutAboutDialog ()));
 
 	//
@@ -330,7 +346,7 @@ CMainWindow::CMainWindow ()
 	//
 	// Создаём новый пустой текстовый документ
 	//
-	aboutNewLyX ();
+	aboutNewPlain ();
 }
 
 CMainWindow::~CMainWindow ()
@@ -338,7 +354,7 @@ CMainWindow::~CMainWindow ()
 	//
 	// Отключаем редактируемый документ
 	//
-	setDocument (QString (), OAF::URef<OAF::IUIComponent> ());
+	setDocument (NULL);
 
 	//
 	// Отключаем собственный интерфейс
@@ -382,61 +398,61 @@ CMainWindow::setUIContainer (OAF::IUIContainer* _uic)
 				//
 				// В самой левой позиции главного меню помещаем подменю "Файл"
 				//
-				"<folder id=\"ui:file\" label=\"&amp;File\" priority=\"-1000\">"
+				"<folder id=\"ui:file\" label=\"%1\" priority=\"-1000\">"
 					//
 					// Пункты меню "Новое окно"/"Новый текст"/"Новый HTML" помещаем на самый верх
 					//
-					"<item id=\"ui:shell:new_window\" priority=\"-1000\"/>"
-					"<item id=\"ui:shell:new_text\" priority=\"-1000\"/>"
-					"<item id=\"ui:shell:new_html\" priority=\"-1000\"/>"
-					"<item id=\"ui:shell:new_lyx\" priority=\"-1000\"/>"
+					"<item id=\"ui:new_window\" priority=\"-1000\"/>"
+
+					"<separator priority=\"-1000\"/>"
+					"<item id=\"ui:new_plain\" priority=\"-1000\"/>"
+					"<item id=\"ui:new_html\" priority=\"-1000\"/>"
+
 					//
 					// Пункты меню "Открыть"/"Сохранить"/"Сохранить как" помещаем после разделителя
 					//
 					"<separator priority=\"-1000\"/>"
-					"<item id=\"ui:shell:open\" priority=\"-1000\"/>"
-					"<item id=\"ui:shell:save\" priority=\"-1000\"/>"
-					"<item id=\"ui:shell:save_as\" priority=\"-1000\"/>"
+					"<item id=\"ui:open\" priority=\"-1000\"/>"
+					"<item id=\"ui:save\" priority=\"-1000\"/>"
+					"<item id=\"ui:save_as\" priority=\"-1000\"/>"
 
 					//
 					// Пункты меню "Закрыть окно" и "Выход" помещаем в самый низ и отделяем
 					// от остальных пунктов меню разделителем
 					//
 					"<separator priority=\"1000\"/>"
-					"<item id=\"ui:shell:close\" priority=\"1000\"/>"
-					"<item id=\"ui:shell:quit\" priority=\"1000\"/>"
+					"<item id=\"ui:close\" priority=\"1000\"/>"
+					"<item id=\"ui:quit\" priority=\"1000\"/>"
 				"</folder>"
-
-				//
-				// Следом за подменю "Файл" помещаем подменю "Правка"
-				//
-				"<folder id=\"ui:edit\" label=\"&amp;Edit\" priority=\"-999\"/>"
 
 				//
 				// Подменю "Помощь" выносим в самый конец главного меню
 				//
-				"<folder id=\"ui:help\" label=\"&amp;Help\" priority=\"1000\">"
+				"<folder id=\"ui:help\" label=\"%2\" priority=\"1000\">"
 					//
 					// Пункты меню "О программе" помещаем в самый низ и отделяем от остальных
 					// пунктов меню разделителем
 					//
 					"<separator priority=\"1000\"/>"
-					"<item id=\"ui:shell:about\" priority=\"1000\"/>"
+					"<item id=\"ui:about\" priority=\"1000\"/>"
 				"</folder>"
 			"</bag>"
 
 			"<bag id=\"ui:toolbar\">"
-				"<folder id=\"ui:file\" label=\"File\">"
-					"<item id=\"ui:shell:new_text\"/>"
-					"<item id=\"ui:shell:new_html\"/>"
-					"<item id=\"ui:shell:open\"/>"
-					"<item id=\"ui:shell:save\"/>"
+				"<folder id=\"ui:file\" label=\"%3\">"
+					"<item id=\"ui:new_plain\"/>"
+					"<item id=\"ui:new_html\"/>"
+					"<item id=\"ui:open\"/>"
+					"<item id=\"ui:save\"/>"
 				"</folder>"
 			"</bag>"
 		"</uidef>";
 
 	if (_uic)
-		m_ui = m_manager.addUI (tr (uidef), this);
+		m_ui = m_manager.addUI (QString (uidef)
+									.arg (tr ("&amp;File"))
+									.arg (tr ("&amp;Help"))
+									.arg (tr ("File")), this);
 	else
 		m_ui = m_manager.removeUI (m_ui);
 }
@@ -457,14 +473,11 @@ CMainWindow::getUIItem (const QString& _id)
 	if (_id == m_new_window->objectName ())
 	  return m_new_window;
 
-	if (_id == m_new_text->objectName ())
-	  return m_new_text;
+	if (_id == m_new_plain->objectName ())
+	  return m_new_plain;
 
 	if (_id == m_new_html->objectName ())
 	  return m_new_html;
-
-	if (_id == m_new_lyx->objectName ())
-	  return m_new_lyx;
 
 	if (_id == m_open->objectName ())
 	  return m_open;

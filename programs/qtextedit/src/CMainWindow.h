@@ -18,7 +18,10 @@
 #include <QStatusBar>
 #include <QMessageBox>
 
+#include <idl/INotifySource.h>
 #include <idl/IUIComponent.h>
+#include <idl/ITextDocument.h>
+
 #include <OAF/OAF.h>
 #include <OAF/CUIManager.h>
 
@@ -26,17 +29,29 @@
  * @brief Главное окно приложения
  */
 class CMainWindow : public QMainWindow,
-	//
-	// Экспортируемые интерфейсы
-	//
-	virtual public OAF::IUIContainer,
-	virtual public OAF::IUIComponent
+		//
+		// Внутренние интерфейсы
+		//
+		virtual public OAF::IUIContainer,
+		virtual public OAF::IUIComponent,
+		virtual public OAF::INotifyListener
 {
 	Q_OBJECT
+
+	/**
+	 * @brief Редактируемый документ
+	 */
+	OAF::URef<OAF::ITextDocument> m_document;
+
 	/**
 	 * @brief Текстовый редактор
 	 */
-	OAF::URef<OAF::IUIComponent> m_document;
+	OAF::URef<OAF::IUIComponent> m_edit;
+
+	/**
+	 * @brief Признак изменения документа
+	 */
+	bool m_is_modified;
 
 	/**
 	 * @brief Главное меню
@@ -58,7 +73,7 @@ class CMainWindow : public QMainWindow,
 	 */
 	/** @{*/
 	QAction* m_new_window;
-	QAction* m_new_text;
+	QAction* m_new_plain;
 	QAction* m_new_html;
 	QAction* m_new_lyx;
 	QAction* m_open;
@@ -87,7 +102,7 @@ class CMainWindow : public QMainWindow,
 	/**
 	 * @brief Задать новый документ
 	 */
-	void setDocument (const QString& _path, OAF::URef<OAF::IUIComponent> _document);
+	void setDocument (OAF::ITextDocument* _d);
 
 	/**
 	 * @brief Создать новый документ заданного типа
@@ -99,6 +114,16 @@ class CMainWindow : public QMainWindow,
 	 */
 	void closeEvent (QCloseEvent* _e);
 
+	/**
+	 * @name Реализация интерфейса OAF::INotifiListener
+	 *
+	 * Для отслеживания изменений в редактируемом документе, сделанных
+	 * вне данного редактора.
+	 */
+	/** @{*/
+	void notify (OAF::IInterface* _event, OAF::INotifySource* _source, OAF::INotifyListener* _origin);
+	/** @}*/
+
 private slots:
 	/**
 	 * @brief Открыть новое окно
@@ -108,17 +133,12 @@ private slots:
 	/**
 	 * @brief Создать новый текстовый документ
 	 */
-	void aboutNewText ();
+	void aboutNewPlain ();
 
 	/**
 	 * @brief Создать новый HTML документ
 	 */
 	void aboutNewHTML ();
-
-	/**
-	 * @brief Создать новый LyX документ
-	 */
-	void aboutNewLyX ();
 
 	/**
 	 * @brief Открыть документ
