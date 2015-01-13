@@ -5,8 +5,8 @@
 			<oaf:item value="OAF::IUnknown"/>
 			<oaf:item value="OAF::IGenericFactory"/>
 		</oaf:attribute>
-		<oaf:attribute name="name" type="string" value="Plain/HTML component factory"/>
-		<oaf:attribute name="description" type="string" value="Plain/HTML component factory"/>
+		<oaf:attribute name="name" type="string" value="Plain/HTML components factory"/>
+		<oaf:attribute name="description" type="string" value="Plain/HTML components factory"/>
 	</oaf:class>
 
 	<oaf:class cid="OAF/TXT/CPlainDocument:1.0" type="factory" location="OAF/TXT/CFactory:1.0">
