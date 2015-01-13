@@ -17,19 +17,26 @@
 
 namespace OAF
 {
+	class CHtmlGenerator;
+
 	/**
 	 * @brief Ячейка вставленной в HTML-код таблицы
 	 */
-	struct OAFSTD_EXPORT CHtmlTableCell
+	class OAFSTD_EXPORT CHtmlTableCell
 	{
 		/**
-		 * @brief Тег ячейки (т.е. подпись данных, например "Title");
-		 * введен в том числе для возможности сделать весь текст ячейки зачеркнутым, кроме тегов
+		 * @brief Тег ячейки (т.е. подпись данных, например "Title")
+		 *
+		 * Введен в том числе для возможности сделать весь текст ячейки зачеркнутым, кроме
+		 * тегов.
 		 *
 		 * @note Двоеточие в конце тега добавляется автоматически
 		 */
 		QString m_tag;
 
+		/**
+		 * @brief Суффикс тэга ячейки
+		 */
 		QString m_tag_postfix;
 
 		/**
@@ -57,6 +64,9 @@ namespace OAF
 		 */
 		bool m_is_header;
 
+		friend class CHtmlGenerator;
+
+	public:
 		/**
 		 * @brief Создает пустую ячейку HTML-таблицы
 		 */
@@ -64,15 +74,13 @@ namespace OAF
 
 		/**
 		 * @brief Создает ячейку HTML-таблицы с заданным текстом
-		 * @param _text Текст внутри ячейки (возможно форматированный HTML)
-		 * @param _colSpan Сколько колонок занимает данная ячейка (по умолчанию - одну)
-		 * @param _isHeader Является ли ячейка заголовком (выделяется более жирный шрифтом и т.д.)
 		 */
-		CHtmlTableCell (const QString& _tag, const QString& _text,
-						int _colSpan = 0, int _width = 0,
-						const QString& _tag_postfix = ": ",
-						const QString& _style_name = QString ());
+		CHtmlTableCell (const QString& _tag, const QString& _text, int _col_span = 0, int _width = 0,
+						const QString& _tag_postfix = ": ", const QString& _style_name = QString ());
 
+		/**
+		 * @brief Создает ячейку HTML-таблицы с пустым текстом
+		 */
 		CHtmlTableCell (const QString& _tag, int _col_span = 0, int _width = 0, const QString& _tag_postfix = ": ");
 
 		~CHtmlTableCell ();
@@ -84,46 +92,38 @@ namespace OAF
 	class OAFSTD_EXPORT CHtmlGenerator
 	{
 		/**
-		 * @brief HTML-текст, полученный в результате генерации
+		 * @brief Поток для вывода
 		 */
-		QString m_html;
+		QTextStream& m_stream;
 
 		/**
-		 * @brief Генерировать ли заголовок HTML (теги html, head и т.д.)
+		 * @brief Последняя выведенная ячейка таблицы для закрытия ячейки
 		 */
-		bool m_header;
-
-	public:
-		/**
-		 * @brief Стили HTML-таблицы: добавленный, удаленный и обычный объект данных
-		 */
-		enum TableStyle { _TableInserted = 0, _TableRemoved, _TableNormal };
-
-	private:
-		QString m_css_source;
-		QString m_table_style_name;
-		TableStyle m_table_style;
 		CHtmlTableCell m_last_cell;
 
 	public:
 		typedef QVector<CHtmlTableCell> Cells;
 
 		/**
-		 * @brief Инициализирует HTML-генератор, опционально с использованием CSS
+		 * @brief Стили HTML-таблицы: добавленный, удаленный и обычный объект данных
 		 */
-		CHtmlGenerator (const QString& _css_source = QString (), bool _header = true);
+		enum TableStyle
+		{
+			_TableInserted,
+			_TableRemoved,
+			_TableNormal
+		};
 
 		/**
-		 * @brief Сбросить состояние генератора
+		 * @brief Инициализируем HTML-генератор для вывода в заданный поток
 		 */
-		void clear ();
+		CHtmlGenerator (QTextStream& _stream);
 
 		/**
-		 * @brief setCss Устанавливает CSS-стиль страницы
-		 * @param _css_name Название стиля
-		 * @param _css_source Исходный код стиля
+		 * @brief Выводим заголовок HTML-документа
 		 */
-		void setCss (const QString& _css_name, const QString& _css_source);
+		void beginHTML (const QString& _css);
+		void endHTML ();
 
 		/**
 		 * @brief Добавляет текст, опционально проводя его дополнительную обработку
@@ -132,7 +132,7 @@ namespace OAF
 		void insertText (const QString& _text, bool _htmlize = true);
 
 		/**
-		 * @brief Вставляет HTML-код безо всяких преобразований
+		 * @brief Вставляет HTML-код без преобразований
 		 */
 		void insertHtml (const QString& _text);
 
@@ -144,10 +144,11 @@ namespace OAF
 		/**
 		 * @brief Переводит генератор в режим предварительно отформатированного текста
 		 *
-		 * @note По умолчанию отступы и т.п. параметры HTML-текста формируются согласно логике браузера,
-		 * которая запросто может не совпадать с желаемой
+		 * По умолчанию отступы и т.п. параметры HTML-текста формируются согласно логике
+		 * браузера, которая запросто может не совпадать с желаемой
 		 */
 		void beginPreformatted ();
+
 		/**
 		 * @brief Отключает режим предварительно отформатированного текста
 		 */
@@ -172,6 +173,7 @@ namespace OAF
 
 		/**
 		 * @brief Вставляет изменение текста (вставка/удаление)
+		 *
 		 * @param _diff_text
 		 * @param _inserted
 		 */
