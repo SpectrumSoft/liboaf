@@ -179,7 +179,7 @@ CMainWindow::aboutOpen ()
 	open.setAcceptMode (QFileDialog::AcceptOpen);
 	open.setFileMode (QFileDialog::ExistingFile);
 
-	if (open.exec ())
+	if (open.exec () == QFileDialog::Accepted)
 	{
 		QStringList files = open.selectedFiles ();
 		if (files.count () == 1)
@@ -226,7 +226,7 @@ CMainWindow::aboutSaveAs ()
 	open.setAcceptMode (QFileDialog::AcceptSave);
 	open.setFileMode (QFileDialog::AnyFile);
 
-	if (open.exec ())
+	if (open.exec () == QFileDialog::Accepted)
 	{
 		QStringList files = open.selectedFiles ();
 		if (files.count () == 1)
