@@ -6,12 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QImageReader>
-#include <QTextList>
-#include <QTextBlock>
-#include <QTextCursor>
-#include <QTextDocumentFragment>
-
 #include <idl/ITextDocument.h>
 
 #include <OAF/OAF.h>

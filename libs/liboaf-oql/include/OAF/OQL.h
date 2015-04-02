@@ -9,13 +9,12 @@
 #ifndef __OQL_H
 #define __OQL_H
 
-#include <OAF/OafOqlGlobal.h>
-
-#include <QString>
 #include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IQuery.h>
+
+#include <OAF/OafOqlGlobal.h>
 
 /**
  * @brief Парсер (O)bject (Q)uery (L)anguage

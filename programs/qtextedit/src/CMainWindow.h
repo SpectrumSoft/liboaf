@@ -9,14 +9,11 @@
 #ifndef __CMAIN_WINDOW_H
 #define __CMAIN_WINDOW_H
 
-#include <QList>
-#include <QAction>
-#include <QMainWindow>
-#include <QMenuBar>
-#include <QDockWidget>
-#include <QStackedWidget>
-#include <QStatusBar>
-#include <QMessageBox>
+#include <QtCore>
+#include <QtGui>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#endif
 
 #include <idl/INotifySource.h>
 #include <idl/IUIComponent.h>

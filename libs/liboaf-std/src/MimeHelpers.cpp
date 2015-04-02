@@ -6,18 +6,11 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QCoreApplication>
-#include <QDomDocument>
-#include <QProcessEnvironment>
-#include <QDir>
-#include <QXmlStreamReader>
-#include <QMessageBox>
+#include <QtXml>
 
 #include <OAF/OAF.h>
 #include <OAF/Utils.h>
-
 #include <OAF/MimeHelpers.h>
-
 
 static bool
 tokenIsOperator (const QString& _token)
@@ -121,10 +114,10 @@ OAF::MimeTypeInfo::MagicMatch::dataIsMatching (const QByteArray& _header_data) c
 				}
 				else
 					// TODO: implement mask support this case; however it looks like unneeded
-					qWarning () << "Mask support is not implemented yet for BYTE magic data type";
+					qWarning ("Mask support is not implemented yet for BYTE magic data type");
 			}
 			else
-				qWarning () << "Magic value of type byte must be one byte long";
+				qWarning ("Magic value of type byte must be one byte long");
 
 			break;
 		}
@@ -142,9 +135,7 @@ OAF::MimeTypeInfo::MagicMatch::dataIsMatching (const QByteArray& _header_data) c
 		case OAF::MimeTypeInfo::MagicMatch::DATA_LITTLE32:
 			//break;
 		default:
-			//qDebug() << "Unsupported type of magic match was detected";
 			break;
-			//Q_ASSERT_X (0, Q_FUNC_INFO, "Unsupported type of magic match was detected");
 	}
 
 	return magic_matched;
@@ -289,7 +280,7 @@ checkMaskCorrectness (const QByteArray& _ba, bool _as_hex)
 	}
 	else if (_ba[0] != '0')	// octal
 	{
-		qWarning() << "Warning: decimal mask value is not currently supported";
+		qWarning ("Warning: decimal mask value is not currently supported");
 		return false;
 	}
 
@@ -352,7 +343,7 @@ normalizeMagicValue (const QString& _pattern, QByteArray& _magic_value)
 			_magic_value.remove (pos + 1, matched_length - 1);
 		}
 		else
-			qWarning () << "Invalid number was detected:" << num_str;
+			qWarning ("Invalid number was detected: %s", qPrintable (num_str));
 	}
 }
 
@@ -378,9 +369,9 @@ detectMagicValueType (const QString& _type_attr)
 	else if (_type_attr.compare ("little32", Qt::CaseInsensitive) == 0)
 		data_type = OAF::MimeTypeInfo::MagicMatch::DATA_LITTLE32;
 	else if (!_type_attr.isEmpty ())
-		qWarning () << "mime-type/magic/match/[type] has unsupported value:" << _type_attr;
+		qWarning ("mime-type/magic/match/[type] has unsupported value: %s", qPrintable (_type_attr));
 	else
-		qWarning () << "Required field mime-type/magic/match/[type] is empty";
+		qWarning ("Required field mime-type/magic/match/[type] is empty");
 
 	return data_type;
 }
@@ -399,10 +390,10 @@ readOffsetValue (const QString& _offset_attr)
 		{
 			start_match = offset_list[0].toUInt (&ok);
 			if (!ok)
-				qWarning () << "mime-type/magic/match/offset value is NaN";
+				qWarning ("mime-type/magic/match/offset value is NaN");
 			end_match = offset_list[1].toUInt (&ok);
 			if (!ok)
-				qWarning () << "mime-type/magic/match/[offset] value is NaN";
+				qWarning ("mime-type/magic/match/[offset] value is NaN");
 
 			offset.first = start_match;
 			offset.second = end_match;
@@ -412,7 +403,7 @@ readOffsetValue (const QString& _offset_attr)
 	{
 		uint offset_value = _offset_attr.toUInt (&ok);
 		if (!ok)
-			qWarning () << "mime-type/magic/match/[offset] value is NaN";
+			qWarning ("mime-type/magic/match/[offset] value is NaN");
 
 		offset.first = offset_value;
 		offset.second = offset_value;
@@ -470,7 +461,7 @@ readMagicMatch (QDomElement _match_element, QString& _expression, QList<OAF::Mim
 		match.value.setPattern (magic_value);
 	}
 	else
-		qWarning () << "mime-type/magic/match/[value] is empty";
+		qWarning ("mime-type/magic/match/[value] is empty");
 
 	//
 	// Считываем маску, которая предварительно должна применяться
@@ -603,7 +594,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 	Q_ASSERT (file.exists ());
 	if (!file.open (QIODevice::ReadOnly | QIODevice::Text))
 	{
-		qWarning () << Q_FUNC_INFO << "Could not open file" << _path;
+		qWarning ("Could not open file: %s", qPrintable (_path));
 		return QList<MimeTypeInfo> ();
 	}
 
@@ -615,7 +606,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 	QDomDocument doc;
 	if (!doc.setContent (&file))
 	{
-		qWarning () << "QDomDocument::setContent has failed on file" << _path;
+		qWarning ("QDomDocument::setContent has failed on file %s", qPrintable (_path));
 		file.close ();
 		return QList<MimeTypeInfo> ();
 	}
@@ -639,7 +630,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 					mime_type_info.mime_type = mime_type;
 			}
 			else
-				qWarning () << "mime-type element must have type attribute";
+				qWarning ("mime-type element must have type attribute");
 
 			QDomNode mime_node = xml_item.firstChild ();
 			while (!mime_node.isNull ())
@@ -654,7 +645,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 							mime_type_info.alias_mimes.append (alias);
 					}
 					else
-						qWarning () << "mime-type/alias element must have type attribute";
+						qWarning ("mime-type/alias element must have type attribute");
 				}
 				else if (mime_item.tagName ().compare ("sub-class-of", Qt::CaseInsensitive) == 0)
 				{
@@ -665,7 +656,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 							mime_type_info.parent_mimes.append (parent_mime);
 					}
 					else
-						qWarning () << "mime-type/sub-class-of element must have type attribute";
+						qWarning ("mime-type/sub-class-of element must have type attribute");
 				}
 				else if (mime_item.tagName ().compare ("glob", Qt::CaseInsensitive) == 0)
 				{
@@ -677,7 +668,7 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 						ext.first = pattern;
 					}
 					else
-						qWarning () << "mime-type/glob element must have pattern attribute";
+						qWarning ("mime-type/glob element must have pattern attribute");
 
 					if (mime_item.hasAttribute ("case-sensitive"))
 					{
@@ -796,9 +787,6 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 							mime_type_info.generic_icon = icon_name;
 					}
 				}
-				// NOTE: для диагностических целей можно раскомментить
-//				else if (!mime_item.tagName ().isEmpty ())
-//					qWarning () << Q_FUNC_INFO << "Unknown tag in MIME-type description:" << mime_item.tagName ();
 
 				mime_node = mime_node.nextSibling ();
 			}
@@ -825,8 +813,6 @@ OAF::CMimeDatabase::readMimesFromXML (const QString& _path)
 			//
 			mime_types.append (mime_type_info);
 		}
-//		else if (!xml_item.tagName ().isEmpty ())
-//			qWarning () << "Unknown tag " << xml_item.tagName () << ": only mime-type one is allowed on this level";
 
 		//
 		// Переходим к следующему узлу XML
@@ -963,7 +949,7 @@ appendOAFDirs (QList<QDir>& _out)
 
 			if (!d.exists ())
 			{
-				qWarning () << "MIME directory from OAFMIMES " << d.path () << " does not exists";
+				qWarning ("MIME directory from OAFMIMES %s does not exists", qPrintable (d.path ()));
 				continue;
 			}
 
@@ -1018,7 +1004,7 @@ appendUNIXDirs (QList<QDir>& _out)
 			QDir d (i);
 			if (!d.exists ())
 			{
-				qWarning () << "MIME directory from XDG_DATA_DIRS " << d.path () << " does not exists";
+				qWarning ("MIME directory from XDG_DATA_DIRS %s does not exists", qPrintable (d.path ()));
 				continue;
 			}
 
@@ -1063,9 +1049,9 @@ OAF::CMimeDatabase::CMimeDatabase ()
 	//
 	if (dirs.isEmpty ())
 	{
-		qWarning () << "No MIME database directory was specified, could not continue execution";
-		qWarning () << "Please check out values of OAFMIMES environment variable:";
-		qWarning () << "It should contain at least one path to directory with XML-files, each of those is describing MIME type";
+		qWarning ("No MIME database directory was specified, could not continue execution");
+		qWarning ("Please check out values of OAFMIMES environment variable:");
+		qWarning ("It should contain at least one path to directory with XML-files, each of those is describing MIME type");
 
 		exit (EXIT_FAILURE);
 	}
@@ -1163,7 +1149,7 @@ checkMimeMagic (const OAF::MimeTypeInfo& _mime_type, qint64 _size, QIODevice* _d
 		//
 		if (_d->read (header_raw_data, max_data_size) <= 0)
 		{
-			qWarning () << "Unable to read data from device for the MIME type detection";
+			qWarning ("Unable to read data from device for the MIME type detection");
 			return false;
 		}
 		//
@@ -1173,7 +1159,7 @@ checkMimeMagic (const OAF::MimeTypeInfo& _mime_type, qint64 _size, QIODevice* _d
 	}
 	else
 	{
-		qWarning () << "Could not open specified device for the MIME type detection";
+		qWarning ("Could not open specified device for the MIME type detection");
 		return false;
 	}
 

@@ -9,15 +9,14 @@
 #ifndef __COPERATIONWATCHER_H
 #define __COPERATIONWATCHER_H
 
-#include <OAF/OafStdGlobal.h>
+#include <QtCore>
 
 #include <idl/IOperation.h>
 #include <idl/INotifySource.h>
 #include <idl/IPropertyBag.h>
 
 #include <OAF/CNotifySource.h>
-
-#include <QMutex>
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

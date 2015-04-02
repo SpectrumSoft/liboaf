@@ -1,10 +1,18 @@
-TARGET   = oaf-core-qt4
+TARGET   = oaf-core
 TEMPLATE = lib
 
 #
 # Build configuration
 #
 CONFIG += qt thread warn_on
+
+#
+# Use standard widgets library in Qt5
+#
+greaterThan(QT_MAJOR_VERSION, 4)
+{
+	QT += widgets
+}
 
 #
 # Настройка динамической линковки под Windows
@@ -41,7 +49,7 @@ win32 {
 	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /bin
 }
 else {
-	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf-qt4
+	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf
 }
 
 #

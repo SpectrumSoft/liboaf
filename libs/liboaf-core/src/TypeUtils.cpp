@@ -8,6 +8,10 @@
  */
 #include <OAF/TypeUtils.h>
 
+#if defined (__GNUC__)
+#include <cxxabi.h>
+#endif
+
 QString
 OAF::interfaceName (const std::type_info& _i)
 {
@@ -24,7 +28,7 @@ OAF::interfaceName (const std::type_info& _i)
 	// Под Widows не компилируется распределение на стеке массивов переменной длины,
 	// поэтому распределяем заведомо достаточный объём.
 	//
-#if defined(WIN32)
+#if defined(Q_OS_WIN)
 	//
 	// Под Windows все компиляторы не разрешают создавать на стеке массивы с динамически
 	// задаваемыми размерами (как минимум это справедливо для компиляторов gcc и MSVS)

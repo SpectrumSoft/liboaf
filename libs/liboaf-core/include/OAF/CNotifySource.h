@@ -9,12 +9,12 @@
 #ifndef __CNOTIFY_SOURCE_H
 #define __CNOTIFY_SOURCE_H
 
-#include <OAF/OafCoreGlobal.h>
-
-#include <QMap>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/INotifySource.h>
+
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {

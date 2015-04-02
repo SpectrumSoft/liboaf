@@ -1,10 +1,18 @@
-TARGET   = oaf-std-qt4
+TARGET   = oaf-std
 TEMPLATE = lib
 
 #
 # Build configuration
 #
 CONFIG += qt thread warn_on
+
+#
+# Use standard widgets library in Qt5
+#
+greaterThan(QT_MAJOR_VERSION, 4)
+{
+	QT += widgets
+}
 
 #
 # Настройка динамической линковки под Windows
@@ -41,7 +49,7 @@ win32 {
 	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /bin
 }
 else {
-	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf-qt4
+	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf
 }
 
 #
@@ -69,19 +77,19 @@ INCLUDEPATH += $${TOPSRCDIR}
 # OAF-CORE
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-core/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core
 
 #
 # OAF-OQL
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-oql/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql
 
 #
 # OAF
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf/$${buildmode} -loaf-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf/$${buildmode} -loaf
 
 #
 # OAF-GIT2

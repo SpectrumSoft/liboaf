@@ -13,6 +13,8 @@
 #ifndef __INOTIFY_SOURCE_H
 #define __INOTIFY_SOURCE_H
 
+#include <QtCore>
+
 #include <idl/IInterface.h>
 
 namespace OAF

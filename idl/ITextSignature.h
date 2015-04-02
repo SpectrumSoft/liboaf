@@ -9,8 +9,7 @@
 #ifndef __ITEXTSIGNATURE_H
 #define __ITEXTSIGNATURE_H
 
-#include <QtGlobal>
-#include <QString>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 

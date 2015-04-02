@@ -9,8 +9,7 @@
 #ifndef __IOBJECT_SOURCE_H
 #define __IOBJECT_SOURCE_H
 
-#include <QString>
-#include <QStringList>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

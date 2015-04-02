@@ -11,10 +11,7 @@
 #ifndef __IEXCHANGE_H
 #define __IEXCHANGE_H
 
-#include <QString>
-#include <QStringList>
-#include <QDataStream>
-#include <QMetaType>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IPropertyBag.h>

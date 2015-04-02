@@ -9,6 +9,8 @@
 #ifndef __OAF_STD_CFACTORY_H
 #define __OAF_STD_CFACTORY_H
 
+#include <QtCore>
+
 #include <idl/IUnknown.h>
 #include <idl/IGenericFactory.h>
 

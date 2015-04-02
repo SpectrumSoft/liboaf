@@ -9,11 +9,7 @@
 #ifndef __OAF_CCLASS_INFO_H
 #define __OAF_CCLASS_INFO_H
 
-#include <OAF/OafGlobal.h>
-
-#include <QString>
-#include <QMap>
-#include <QLibrary>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
@@ -22,6 +18,8 @@
 
 #include <OAF/CUnknown.h>
 #include <OAF/CPropertyBag.h>
+
+#include <OAF/OafGlobal.h>
 
 namespace OAF
 {

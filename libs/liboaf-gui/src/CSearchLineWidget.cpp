@@ -6,9 +6,8 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QKeyEvent>
-
 #include <OAF/CSearchLineWidget.h>
+
 #include "ui_CSearchLineWidget.h"
 
 using namespace OAF;

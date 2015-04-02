@@ -9,6 +9,15 @@
 #ifndef __LIBGIT2_INTL_H
 #define __LIBGIT2_INTL_H
 
-extern "C" const char* qt_translate (const char * _str);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+char* qt_translate (const char * _str);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __LIBGIT2_INTL_H */

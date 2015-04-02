@@ -9,15 +9,15 @@
 #ifndef __HELPERS_H
 #define __HELPERS_H
 
-#include <OAF/OafStdGlobal.h>
+#include <QtCore>
 
 #include <idl/IIODevice.h>
 #include <idl/ITXTPersist.h>
 #include <idl/IXMLPersist.h>
 
 #include <OAF/OAF.h>
-
 #include <OAF/ExchangeHelpers.h>
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

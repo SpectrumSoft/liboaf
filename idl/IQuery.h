@@ -9,26 +9,22 @@
 #ifndef __IQUERY_H
 #define __IQUERY_H
 
-#include <QVariant>
-#include <QList>
 #include <QtCore>
-//
-// Необходимо для сборки с Qt 5.0 и выше
-//
-#if QT_VERSION >= 0x050000
-#include <QtConcurrent>
-#endif
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
 #include <idl/IPropertyBag.h>
+
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+typedef QtConcurrent::Exception QException;
+#endif
 
 namespace OAF
 {
 	/**
 	 * @brief Ошибка при разборе текста запроса
 	 */
-	class ParseException : public QtConcurrent::Exception
+	class ParseException : public QException
 	{
 		/**
 		 * @brief Описание исключения
@@ -40,7 +36,7 @@ namespace OAF
 		{}
 		;
 
-		ParseException (const OAF::ParseException& _pe) : QtConcurrent::Exception (_pe), m_reason (_pe.m_reason)
+		ParseException (const OAF::ParseException& _pe) : QException (_pe), m_reason (_pe.m_reason)
 		{}
 		;
 
@@ -58,7 +54,7 @@ namespace OAF
 			throw *this;
 		};
 
-		QtConcurrent::Exception* clone () const
+		QException* clone () const
 		{
 			return new OAF::ParseException (*this);
 		};
@@ -73,7 +69,7 @@ namespace OAF
 	/**
 	 * @brief Ошибка при вычислении выражения
 	 */
-	class EvaluateException : public QtConcurrent::Exception
+	class EvaluateException : public QException
 	{
 		/**
 		 * @brief Описание исключения
@@ -85,7 +81,7 @@ namespace OAF
 		{}
 		;
 
-		EvaluateException (const OAF::EvaluateException& _e) : QtConcurrent::Exception (_e), m_reason (_e.m_reason)
+		EvaluateException (const OAF::EvaluateException& _e) : QException (_e), m_reason (_e.m_reason)
 		{}
 		;
 
@@ -103,7 +99,7 @@ namespace OAF
 			throw *this;
 		};
 
-		QtConcurrent::Exception* clone () const
+		QException* clone () const
 		{
 			return new OAF::EvaluateException (*this);
 		};

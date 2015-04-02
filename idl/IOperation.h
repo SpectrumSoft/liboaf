@@ -9,6 +9,8 @@
 #ifndef __IOPERATION_H
 #define __IOPERATION_H
 
+#include <QtCore>
+
 #include <idl/IInterface.h>
 #include <idl/IPropertyBag.h>
 #include <idl/INotifySource.h>

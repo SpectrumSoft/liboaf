@@ -6,12 +6,13 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QCoreApplication>
+#include <QtCore>
 
-extern "C" const char*
+#include "util.h"
+#include "libgit2_intl.h"
+
+extern "C" char*
 qt_translate (const char* _str)
 {
-	QByteArray ba = QCoreApplication::translate ("libgit2", _str, "libgit2", QCoreApplication::UnicodeUTF8).toUtf8 ();
-
-	return ba.data ();
+	return git__strdup (QCoreApplication::translate ("libgit2", _str, "libgit2").toUtf8 ().data ());
 }

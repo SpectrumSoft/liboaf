@@ -1,7 +1,7 @@
 /**
  * @file
- * @brief Интерфейс класса для работы для работы с URL для git-репозитория
- *        (вида git:///path/to/file.txt<?hash=><oaf_copy_id=|oaf_as_copy>)
+ * @brief Интерфейс класса для работы с URL для git-репозитория
+ *        (вида git:///path/to/file.txt?<hash=><oaf_copy_id=|oaf_as_copy>)
  * @author Alexander Kamyshnikov <axill777@gmail.com>
  * @copyright SpectrumSoft. All rights reserved. This file is part of liboaf,
  *            distributed under the GNU GPL v2 with a Linking Exception. For
@@ -10,11 +10,9 @@
 #ifndef __OAF_CGITURL_H
 #define __OAF_CGITURL_H
 
-#include <OAF/OafStdGlobal.h>
+#include <QtCore>
 
-#include <QString>
-#include <QUrl>
-#include <QUuid>
+#include <OAF/OafStdGlobal.h>
 
 struct git_repository;
 
@@ -27,7 +25,10 @@ namespace OAF
 	 */
 	class OAFSTD_EXPORT CGitUrl
 	{
-		QUrl m_git_url;
+		/**
+		 * @brief Полный URL вместе с параметрами
+		 */
+		QUrl m_url;
 
 		/**
 		 * @brief Нужна ли копия данных
@@ -44,21 +45,37 @@ namespace OAF
 		QString m_hash;
 
 		/**
-		 * @brief Путь и имя файла
+		 * @brief Путь и имя файла в репозитории
 		 */
-		QString m_file_name;
+		QString m_path;
 
 	public:
-		CGitUrl& operator = (const QUrl& _url);
+		CGitUrl ();
+		CGitUrl (const CGitUrl& _url);
+		CGitUrl (const QUrl& _url);
+
+		CGitUrl& operator= (const CGitUrl& _url);
+		CGitUrl& operator= (const QUrl& _url);
 
 		/**
-		 * @brief Возвращает путь в виде URL, т.е. git:///path/to/file.txt
+		 * @brief Полный URL файла вместе с параметрами
 		 */
-		QString urledPath () const;
+		QString url () const;
 
-		QString commitId () const;
-		QString fileName () const;
-		QString fileExt () const;
+		/**
+		 * @brief Идентификатор коммита
+		 */
+		QString commit () const;
+
+		/**
+		 * @brief Имя файла
+		 */
+		QString path () const;
+
+		/**
+		 * @brief Расширение файла
+		 */
+		QString ext () const;
 
 		/**
 		 * @brief Возвращает путь файла относительно указанного git-репозитория (например, docs/PIKET-TZ.pkm)

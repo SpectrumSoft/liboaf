@@ -9,14 +9,11 @@
 #ifndef __OAF_MIMEHELPERS_H
 #define __OAF_MIMEHELPERS_H
 
-#include <OAF/OafStdGlobal.h>
-
-#include <QString>
-#include <QStringList>
-#include <QDir>
-#include <QByteArrayMatcher>
+#include <QtCore>
 
 #include <idl/IIODevice.h>
+
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

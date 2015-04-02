@@ -9,13 +9,15 @@
 #ifndef __OAF_HELPERS_TXT_H
 #define __OAF_HELPERS_TXT_H
 
-#include <OAF/OafStdGlobal.h>
-
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-#include <QTextDocument>
+#include <QtCore>
+#include <QtGui>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#endif
 
 #include <idl/ITextDocument.h>
+
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

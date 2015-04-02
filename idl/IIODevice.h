@@ -9,8 +9,7 @@
 #ifndef __IIO_DEVICE_H
 #define __IIO_DEVICE_H
 
-#include <QVariant>
-#include <QIODevice>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

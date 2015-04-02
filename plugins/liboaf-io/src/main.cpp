@@ -12,19 +12,19 @@ using namespace OAF::IO;
 
 extern "C"
 {
-	__declspec(dllexport) OAF::IUnknown*
+	Q_DECL_EXPORT OAF::IUnknown*
 	createObject (const QString& /*_cid*/)
 	{
 		return CFactory::instance ();
 	}
 
-	__declspec(dllexport) bool
+	Q_DECL_EXPORT bool
 	dllCanUnloadNow (void)
 	{
 		return (CCommon::objects () == 0);
 	}
 
-	__declspec(dllexport) const char*
+	Q_DECL_EXPORT const char*
 	dllVersion (void)
 	{
 		return BUILD_VER;

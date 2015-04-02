@@ -6,23 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QDebug>
-#include <QUuid>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
-
-#include <QAction>
-#include <QActionGroup>
-#include <QMenuBar>
-#include <QToolBar>
-#include <QMainWindow>
-#include <QDialog>
-#include <QMenu>
-#include <QTabWidget>
-#include <QToolBox>
-#include <QStackedWidget>
-#include <QStatusBar>
-
 #include <OAF/CUIManager.h>
 
 /**

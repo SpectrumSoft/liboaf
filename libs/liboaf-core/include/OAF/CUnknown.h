@@ -9,12 +9,12 @@
 #ifndef __CUNKNOWN_H
 #define __CUNKNOWN_H
 
-#include <OAF/OafCoreGlobal.h>
-
-#include <QSet>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
+
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {

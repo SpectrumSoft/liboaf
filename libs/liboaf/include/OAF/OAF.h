@@ -9,16 +9,14 @@
 #ifndef __OAF_H
 #define __OAF_H
 
-#include <OAF/OafGlobal.h>
-
-#include <QString>
-#include <QStringList>
+#include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IPropertyBag.h>
 #include <idl/IMoniker.h>
 #include <idl/IQuery.h>
 
+#include <OAF/OafGlobal.h>
 #include <OAF/TypeUtils.h>
 
 /**

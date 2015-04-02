@@ -6,22 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QApplication>
-#include <QPrinter>
-#include <QClipboard>
-#include <QMimeData>
-#include <QImageReader>
-#include <QFileDialog>
-#include <QColorDialog>
-#include <QMessageBox>
-
-#include <QAction>
-#include <QWidgetAction>
-#include <QTextList>
-#include <QTextTable>
-#include <QMenu>
-#include <QContextMenuEvent>
-
 #include <OAF/OAF.h>
 #include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>

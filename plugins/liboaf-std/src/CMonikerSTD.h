@@ -9,6 +9,8 @@
 #ifndef __OAF_STD_CMONIKERSTD_H
 #define __OAF_STD_CMONIKERSTD_H
 
+#include <QtCore>
+
 #include <idl/IUnknown.h>
 #include <idl/IMoniker.h>
 

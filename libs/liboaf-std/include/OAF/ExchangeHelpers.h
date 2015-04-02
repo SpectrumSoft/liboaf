@@ -9,11 +9,12 @@
 #ifndef __EXCHANGE_HELPERS_H
 #define __EXCHANGE_HELPERS_H
 
-#include <OAF/OafStdGlobal.h>
+#include <QtCore>
 
 #include <idl/IExchange.h>
 
 #include <OAF/OAF.h>
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

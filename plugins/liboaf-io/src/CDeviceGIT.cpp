@@ -6,14 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QDebug>
-#include <QTranslator>
-#include <QUrl>
-#include <QDir>
-#include <QFileInfo>
-#include <QCryptographicHash>
-#include <QDateTime>
-
 #include <git2.h>
 
 #include <OAF/MimeHelpers.h>
@@ -74,7 +66,7 @@ readFileRevisionData (QByteArray& _data, const OAF::CGitUrl& _url)
 		//
 		// Открываем Git-репозиторий, в котором находится файл
 		//
-		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.fileName ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
+		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.path ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
 		if (error_code != GIT_OK)
 			throw QTranslator::tr ("opening repository");
 
@@ -91,7 +83,7 @@ readFileRevisionData (QByteArray& _data, const OAF::CGitUrl& _url)
 		//
 		// NOTE: формат доступа к конкретному файлу коммита таков: <commit_hash>:<relative path to file>
 		//
-		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commitId () + ":" + file_path));
+		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commit () + ":" + file_path));
 		//
 		// Найденный объект обязан быть блобом
 		//
@@ -118,7 +110,7 @@ readFileRevisionData (QByteArray& _data, const OAF::CGitUrl& _url)
 	}
 	catch (const QString& _action)
 	{
-		qWarning () << Q_FUNC_INFO << ":" << getGitError (error_code, _action);
+		qWarning ("%s : %s", Q_FUNC_INFO, qPrintable (getGitError (error_code, _action)));
 	}
 
 	//
@@ -157,7 +149,7 @@ fileInRevisionExists (const OAF::CGitUrl& _url)
 		//
 		// Открываем Git-репозиторий, в котором находится файл
 		//
-		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.fileName ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
+		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.path ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
 		if (error_code != GIT_OK)
 			throw QTranslator::tr ("opening repository");
 
@@ -174,7 +166,7 @@ fileInRevisionExists (const OAF::CGitUrl& _url)
 		//
 		// NOTE: формат доступа к конкретному файлу коммита таков: <commit_hash>:<relative path to file>
 		//
-		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commitId () + ":" + file_path));
+		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commit () + ":" + file_path));
 		//
 		// Найденный объект обязан быть блобом
 		//
@@ -194,9 +186,9 @@ fileInRevisionExists (const OAF::CGitUrl& _url)
 		if (error_code != GIT_OK)
 			throw QTranslator::tr ("searching blob with specified SHA-1 id");
 	}
-	catch (const QString& /*_action*/)
+	catch (const QString& _action)
 	{
-//		qWarning () << Q_FUNC_INFO << ":" << getGitError (error_code, _action);
+		qWarning ("%s : %s", Q_FUNC_INFO, qPrintable (getGitError (error_code, _action)));
 	}
 
 	//
@@ -245,7 +237,7 @@ fileInRevisionDate (const OAF::CGitUrl& _url)
 		//
 		// Открываем Git-репозиторий, в котором находится файл
 		//
-		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.fileName ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
+		error_code = git_repository_open_ext (&repo, QFile::encodeName (_url.path ()), GIT_REPOSITORY_OPEN_CROSS_FS, NULL);
 		if (error_code != GIT_OK)
 			throw QTranslator::tr ("opening repository");
 
@@ -262,7 +254,7 @@ fileInRevisionDate (const OAF::CGitUrl& _url)
 		//
 		// NOTE: формат доступа к конкретному файлу коммита таков: <commit_hash>:<relative path to file>
 		//
-		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commitId () + ":" + file_path));
+		error_code = git_revparse_single (&obj, repo, QFile::encodeName (_url.commit () + ":" + file_path));
 		//
 		// Найденный объект обязан быть блобом
 		//
@@ -285,7 +277,7 @@ fileInRevisionDate (const OAF::CGitUrl& _url)
 		//
 		// Получаем объект коммита
 		//
-		error_code = git_revparse_single (&obj_commit, repo, QFile::encodeName (_url.commitId ()));
+		error_code = git_revparse_single (&obj_commit, repo, QFile::encodeName (_url.commit ()));
 		//
 		// Найденный объект обязан быть коммитом
 		//
@@ -299,7 +291,7 @@ fileInRevisionDate (const OAF::CGitUrl& _url)
 	}
 	catch (const QString& _action)
 	{
-		qWarning () << Q_FUNC_INFO << ":" << getGitError (error_code, _action);
+		qWarning ("%s : %s", Q_FUNC_INFO, qPrintable (getGitError (error_code, _action)));
 	}
 
 	//
@@ -334,7 +326,7 @@ CDeviceGIT::getInfo (DeviceInfo _what)
 	{
 		case PATH:
 		{
-			res = m_git_url.urledPath ();
+			res = m_git_url.url ();
 			break;
 		}
 
@@ -348,7 +340,7 @@ CDeviceGIT::getInfo (DeviceInfo _what)
 
 		case CONTENT_TYPE:
 		{
-			res = OAF::CMimeDatabase::instance ().lookupMimeTypes (m_git_url.fileExt (),
+			res = OAF::CMimeDatabase::instance ().lookupMimeTypes (m_git_url.ext (),
 																   m_buffer->size (), m_buffer);
 			break;
 		}

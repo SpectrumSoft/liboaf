@@ -9,7 +9,7 @@
 #ifndef __OAF_TXT_CFACTORY_H
 #define __OAF_TXT_CFACTORY_H
 
-#include <QMap>
+#include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IGenericFactory.h>

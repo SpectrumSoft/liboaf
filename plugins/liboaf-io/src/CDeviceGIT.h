@@ -9,8 +9,7 @@
 #ifndef __OAF_IO_CDEVICEGIT_H
 #define __OAF_IO_CDEVICEGIT_H
 
-#include <QObject>
-#include <QBuffer>
+#include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IIODevice.h>

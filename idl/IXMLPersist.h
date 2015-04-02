@@ -9,9 +9,7 @@
 #ifndef __IXMLPERSIST_H
 #define __IXMLPERSIST_H
 
-#include <QStringList>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 

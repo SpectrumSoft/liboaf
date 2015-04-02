@@ -9,8 +9,7 @@
 #ifndef __ITXTPERSIST_H
 #define __ITXTPERSIST_H
 
-#include <QStringList>
-#include <QTextStream>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 

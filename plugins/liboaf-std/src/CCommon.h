@@ -9,7 +9,7 @@
 #ifndef __OAF_STD_CCOMMON_H
 #define __OAF_STD_CCOMMON_H
 
-#include <QString>
+#include <QtCore>
 
 namespace OAF
 {

@@ -250,9 +250,7 @@
 #ifndef __IUICOMPONENT_H
 #define __IUICOMPONENT_H
 
-#include <QUuid>
-#include <QString>
-#include <QObject>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 

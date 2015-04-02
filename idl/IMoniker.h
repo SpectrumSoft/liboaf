@@ -9,7 +9,7 @@
 #ifndef __IMONIKER_H
 #define __IMONIKER_H
 
-#include <QString>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

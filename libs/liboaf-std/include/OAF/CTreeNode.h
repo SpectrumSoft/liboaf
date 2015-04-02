@@ -9,10 +9,7 @@
 #ifndef __CTREE_NODE_H
 #define __CTREE_NODE_H
 
-#include <OAF/OafStdGlobal.h>
-
-#include <QSet>
-#include <QMap>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
@@ -21,6 +18,7 @@
 #include <idl/IObjectSource.h>
 
 #include <OAF/CNotifySource.h>
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

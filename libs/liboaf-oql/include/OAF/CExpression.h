@@ -13,15 +13,14 @@
 #ifndef __OQL_CEXPRESSION_H
 #define __OQL_CEXPRESSION_H
 
-#include <OAF/OafOqlGlobal.h>
-
-#include <QPair>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
 #include <idl/IQuery.h>
 
 #include <OAF/CUnknown.h>
+#include <OAF/OafOqlGlobal.h>
 
 namespace OQL
 {

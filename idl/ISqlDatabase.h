@@ -9,8 +9,7 @@
 #ifndef __ISQL_DATABASE_H
 #define __ISQL_DATABASE_H
 
-#include <QVariant>
-#include <QSqlDatabase>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

@@ -6,10 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QDebug>
-#include <QPainter>
-#include <QResizeEvent>
-
 #include <OAF/CElidedLabel.h>
 
 void

@@ -7,6 +7,14 @@ TEMPLATE = lib
 CONFIG += qt thread warn_on plugin
 
 #
+# Use standard widgets library in Qt5
+#
+greaterThan(QT_MAJOR_VERSION, 4)
+{
+	QT += widgets printsupport
+}
+
+#
 # Данный набор флагов необходим для корректной работы механизма
 # RTTI между загружаемыми внешними библиотеками под UNIX. Данный
 # флаг должен использоваться при линковке ВСЕХ компонент
@@ -35,7 +43,7 @@ win32 {
 	isEmpty(PLUGIN_INSTALL_PATH):PLUGIN_INSTALL_PATH = /bin/plugins
 }
 else {
-	isEmpty(PLUGIN_INSTALL_PATH):PLUGIN_INSTALL_PATH = /usr/lib/oaf-qt4/plugins
+	isEmpty(PLUGIN_INSTALL_PATH):PLUGIN_INSTALL_PATH = /usr/lib/oaf/plugins
 }
 
 #
@@ -70,25 +78,25 @@ INCLUDEPATH += $${TOPSRCDIR}
 # OAF-CORE
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-core/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core
 
 #
 # OAF-OQL
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-oql/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql
 
 #
 # OAF
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf/$${buildmode} -loaf-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf/$${buildmode} -loaf
 
 #
 # OAF-STD
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-std/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-std/$${buildmode} -loaf-std-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-std/$${buildmode} -loaf-std
 
 #
 # Подключаем информацию о версии libOAF

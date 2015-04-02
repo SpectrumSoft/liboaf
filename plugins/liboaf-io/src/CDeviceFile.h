@@ -9,9 +9,7 @@
 #ifndef __OAF_IO_CDEVICEFILE_H
 #define __OAF_IO_CDEVICEFILE_H
 
-#include <QObject>
-#include <QFile>
-#include <QUuid>
+#include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IIODevice.h>

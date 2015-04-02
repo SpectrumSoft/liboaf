@@ -9,16 +9,15 @@
 #ifndef __CUIMANAGER_H
 #define __CUIMANAGER_H
 
-#include <OAF/OafGuiGlobal.h>
-
-#include <QString>
-#include <QUuid>
-#include <QObject>
-#include <QSet>
-#include <QMap>
-#include <QXmlStreamReader>
+#include <QtCore>
+#include <QtGui>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#endif
 
 #include <idl/IUIComponent.h>
+
+#include <OAF/OafGuiGlobal.h>
 
 namespace OAF
 {

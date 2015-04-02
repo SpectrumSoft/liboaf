@@ -1,4 +1,4 @@
-TARGET   = oaf-qt4
+TARGET   = oaf
 TEMPLATE = lib
 
 #
@@ -41,7 +41,7 @@ win32 {
 	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /bin
 }
 else {
-	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf-qt4
+	isEmpty(LIBRARY_INSTALL_PATH):LIBRARY_INSTALL_PATH = /usr/lib/oaf
 }
 
 #
@@ -64,13 +64,13 @@ INCLUDEPATH += $${TOPSRCDIR}
 # OAF-CORE
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-core/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-core/$${buildmode} -loaf-core
 
 #
 # OAF-OQL
 #
 INCLUDEPATH += $${TOPSRCDIR}/libs/liboaf-oql/include
-LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql-qt4
+LIBS        += -L$${TOPSRCDIR}/libs/liboaf-oql/$${buildmode} -loaf-oql
 
 #
 # Дополнительный путь поиска заголовочных файлов

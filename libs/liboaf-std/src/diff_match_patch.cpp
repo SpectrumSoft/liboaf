@@ -18,12 +18,8 @@
  * Diff Match and Patch
  * http://code.google.com/p/google-diff-match-patch/
  */
-
-#include <algorithm>
 #include <limits>
-// Code known to compile and run with Qt 4.3 through Qt 4.7.
-#include <QtCore>
-#include <time.h>
+#include <algorithm>
 
 #include <OAF/diff_match_patch.h>
 

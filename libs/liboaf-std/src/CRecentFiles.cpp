@@ -6,11 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QSettings>
-#include <QStringList>
-#include <QFileInfo>
-#include <QTimer>
-
 #include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>
 #include <OAF/CRecentFiles.h>

@@ -22,9 +22,11 @@
 #ifndef DIFF_MATCH_PATCH_H
 #define DIFF_MATCH_PATCH_H
 
-#include <OAF/OafStdGlobal.h>
-
 #include <time.h>
+
+#include <QtCore>
+
+#include <OAF/OafStdGlobal.h>
 
 namespace Google
 {
@@ -44,11 +46,6 @@ namespace Google
  * library:
  *
 
- #include <QtCore>
- #include <QString>
- #include <QList>
- #include <QMap>
- #include <QVariant>
  #include "diff_match_patch.h"
  int main(int argc, char **argv) {
    diff_match_patch dmp;

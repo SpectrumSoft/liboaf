@@ -6,11 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QUrl>
-#include <QFileInfo>
-#include <QCryptographicHash>
-#include <QDateTime>
-
 #include <OAF/StreamUtils.h>
 #include <OAF/MimeHelpers.h>
 
@@ -35,9 +30,37 @@ CDeviceFile::getInfo (DeviceInfo _what)
 	{
 		case PATH:
 		{
-			QUrl url = OAF::fromLocalFile (QFileInfo (*m_file).absoluteFilePath ());
+			QUrl url (OAF::fromLocalFile (QFileInfo (*m_file).absoluteFilePath ()));
+
+			//
+			// Если задан идентификатор копии
+			//
 			if (!m_copy_id.isNull ())
-				url.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
+			{
+				//
+				// Параметры URL
+				//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+				QUrl query (url);
+#else
+				QUrlQuery query (url);
+#endif
+
+				//
+				// Добавляем идентификатор копии
+				//
+				query.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
+
+				//
+				// Устанавливаем новые параметры
+				//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+				url.setEncodedQuery (query.encodedQuery ());
+#else
+				url.setQuery (query);
+#endif
+			}
+
 			res = url.toString ();
 			break;
 		}
@@ -83,26 +106,35 @@ CDeviceFile::setInfo (DeviceInfo _what, const QVariant& _v)
 		//
 		// Разбираем переданный URI
 		//
-		QUrl file_name (_v.value<QString> ());
+		QUrl url (_v.value<QString> ());
 
 		//
-		// Специальная обработка параметра as_copy
+		// Разбираем параметры
 		//
-		if (file_name.hasQueryItem ("oaf_as_copy") &&
-			(file_name.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
-			(file_name.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+		QUrl query (url);
+#else
+		QUrlQuery query (url);
+#endif
+
+		//
+		// Специальная обработка параметра oaf_as_copy
+		//
+		if (query.hasQueryItem ("oaf_as_copy") &&
+			(query.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
+			(query.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
 			m_copy_id = QUuid::createUuid ();
 
 		//
 		// Специальная обработка параметра oaf_copy_id
 		//
-		if (file_name.hasQueryItem ("oaf_copy_id"))
-			m_copy_id = QUuid (file_name.queryItemValue ("oaf_copy_id"));
+		if (query.hasQueryItem ("oaf_copy_id"))
+			m_copy_id = QUuid (query.queryItemValue ("oaf_copy_id"));
 
 		//
 		// Устанавливаем реальное имя файла
 		//
-		m_file->setFileName (OAF::toLocalFile (file_name));
+		m_file->setFileName (OAF::toLocalFile (url));
 	}
 }
 

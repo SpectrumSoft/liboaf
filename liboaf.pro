@@ -44,7 +44,7 @@ win32 {
 	isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /data
 }
 else {
-	isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/oaf-qt4
+	isEmpty(DATA_INSTALL_PATH):DATA_INSTALL_PATH = /usr/share/oaf
 }
 
 #

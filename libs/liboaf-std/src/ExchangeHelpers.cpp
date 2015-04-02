@@ -124,7 +124,7 @@ OAF::asLatex (const QString& _s)
 		//
 		// Анализируем ASCII-представление символа
 		//
-		switch (c.toAscii ())
+		switch (c.toLatin1 ())
 		{
 			case '\\':
 				res += "\\textbackslash{}";

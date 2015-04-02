@@ -9,12 +9,11 @@
 #ifndef __HTMLHELPERS_H
 #define __HTMLHELPERS_H
 
-#include <OAF/OafStdGlobal.h>
-
-#include <QString>
-#include <QVector>
+#include <QtCore>
 
 #include <idl/IPropertyBag.h>
+
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

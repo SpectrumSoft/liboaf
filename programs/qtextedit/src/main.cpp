@@ -6,11 +6,8 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <iostream>
-
-#include <QApplication>
-#include <QProcessEnvironment>
-#include <QTranslator>
+#include <QtCore>
+#include <QtGui>
 
 #include <OAF/OAF.h>
 #include <OAF/CUnknown.h>
@@ -73,7 +70,7 @@ main (int _argc, char* _argv[])
 	OAF::unloadClassInfo ();
 
 	foreach (OAF::CUnknown* o, OAF::CUnknown::objects ())
-		std::cerr << "Unfreed object = " << qPrintable (o->cid ()) << std::endl;
+		qWarning ("Unfreed object = %s", qPrintable (o->cid ()));
 
 	return r;
 }

@@ -9,14 +9,17 @@
 #ifndef __CWEBSEARCH_WIDGET_H
 #define __CWEBSEARCH_WIDGET_H
 
-#include <OAF/OafGuiGlobal.h>
-
-#include <QWidget>
-#include <QAction>
-#include <QWebView>
-#include <QTimeLine>
+#include <QtCore>
+#include <QtGui>
+#include <QtWebKit>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#include <QtWebKitWidgets>
+#endif
 
 #include <idl/IUIComponent.h>
+
+#include <OAF/OafGuiGlobal.h>
 
 namespace Ui
 {

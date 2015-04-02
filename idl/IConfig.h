@@ -9,6 +9,8 @@
 #ifndef __ICONFIG_H
 #define __ICONFIG_H
 
+#include <QtCore>
+
 #include <idl/IInterface.h>
 #include <idl/IPropertyBag.h>
 

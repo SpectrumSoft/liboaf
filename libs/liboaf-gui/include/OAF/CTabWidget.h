@@ -9,11 +9,13 @@
 #ifndef __CTABWIDGET_H
 #define __CTABWIDGET_H
 
-#include <OAF/OafGuiGlobal.h>
+#include <QtCore>
+#include <QtGui>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#endif
 
-#include <QList>
-#include <QWidget>
-#include <QTabWidget>
+#include <OAF/OafGuiGlobal.h>
 
 namespace OAF
 {

@@ -9,15 +9,11 @@
 #ifndef __OAF_TYPE_UTILS_H
 #define __OAF_TYPE_UTILS_H
 
-#include <OAF/OafCoreGlobal.h>
-
 #include <typeinfo>
 
-#ifndef _MSC_VER
-#include <cxxabi.h>
-#endif
+#include <QtCore>
 
-#include <QString>
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {

@@ -7,120 +7,150 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QDebug>
-#include <QDir>
-#include <QFileInfo>
-
 #include <git2.h>
 
 #include <OAF/StreamUtils.h>
 #include <OAF/CGitUrl.h>
 
-OAF::CGitUrl&
-OAF::CGitUrl::operator= (const QUrl& _other)
+using namespace OAF;
+
+CGitUrl::CGitUrl ()
+{}
+
+CGitUrl::CGitUrl (const CGitUrl& _url)
+{
+	*this = _url;
+}
+
+CGitUrl::CGitUrl (const QUrl& _url)
+{
+	*this = _url;
+}
+
+CGitUrl&
+CGitUrl::operator= (const CGitUrl& _url)
+{
+	m_url     = _url.m_url;
+	m_copy_id = _url.m_copy_id;
+	m_hash    = _url.m_hash;
+	m_path    = _url.m_path;
+
+	return *this;
+}
+
+CGitUrl&
+CGitUrl::operator= (const QUrl& _url)
 {
 	//
-	// Защищаемся от последствий самоприсваивания
+	// Очищаем старые данные
 	//
-	if (m_git_url != _other)
+	m_url.clear ();
+	m_copy_id = QUuid ();
+	m_hash.clear ();
+	m_path.clear ();
+
+	//
+	// Сохраняем URL
+	//
+	m_url = _url;
+
+	//
+	// Разбираем параметры
+	//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+	QUrl query (_url);
+#else
+	QUrlQuery query (_url);
+#endif
+
+	//
+	// Специальная обработка параметра as_copy
+	//
+	if (query.hasQueryItem ("oaf_as_copy") &&
+		(query.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
+		(query.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
 	{
 		//
-		// Очищаем старые данные
+		// Генерируем новый уникальный идентификатор копии
 		//
-		m_git_url.clear ();
-		m_copy_id = QUuid ();
-		m_hash.clear ();
-		m_file_name.clear ();
-
+		m_copy_id = QUuid::createUuid ();
 		//
-		// Разбираем переданный URI и сохраняем интересующие нас части в переменных класса,
-		// для последующего быстрого обращения к ним
+		// ... и заменяем на него oaf_as_copy
 		//
-		m_git_url = _other;
-		Q_ASSERT (m_git_url.isValid ());
-
-		//
-		// Специальная обработка параметра as_copy
-		//
-		if (_other.hasQueryItem ("oaf_as_copy") &&
-				(_other.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
-				(_other.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
-		{
-			//
-			// Генерируем новый уникальный идентификатор копии
-			//
-			m_copy_id = QUuid::createUuid ();
-			//
-			// ...и заменяем на него oaf_as_copy
-			//
-			m_git_url.removeQueryItem ("oaf_as_copy");
-			m_git_url.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
-		}
-
-		//
-		// Специальная обработка параметра oaf_copy_id
-		//
-		if (_other.hasQueryItem ("oaf_copy_id"))
-			m_copy_id = QUuid (_other.queryItemValue ("oaf_copy_id"));
-
-		//
-		// Специальная обработка параметра hash (SHA1-идентификатора объекта в git-репозитории)
-		//
-		if (_other.hasQueryItem ("hash"))
-			m_hash = _other.queryItemValue ("hash");
-
-		//
-		// Абсолютное путь и имя файла для извлечения из репозитория
-		//
-		// NOTE: под Windows нужно три разделителя, т.к. только в Unix все пути начинаются с корня ("/")
-		//
-		m_file_name = _other.toString (QUrl::RemoveScheme | QUrl::RemoveQuery);
-	#ifdef Q_OS_WIN32
-		if (m_file_name.startsWith ("///"))
-			m_file_name.remove (0, 3);
-	#else
-		if (m_file_name.startsWith ("//"))
-			m_file_name.remove (0, 2);
-	#endif
-
-		if (!QFileInfo (m_file_name).exists ())
-			qWarning () << Q_FUNC_INFO << "File does not exists:" << m_file_name;
+		query.removeQueryItem ("oaf_as_copy");
+		query.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
 	}
 
 	//
-	// Возвращаем ссылку на себя согласно общепринятой практике (для использования сложных цепочек присваивания)
+	// Специальная обработка параметра oaf_copy_id
 	//
-	return (*this);
+	if (query.hasQueryItem ("oaf_copy_id"))
+		m_copy_id = QUuid (query.queryItemValue ("oaf_copy_id"));
+
+	//
+	// Специальная обработка параметра hash (SHA1-идентификатора объекта в git-репозитории)
+	//
+	if (query.hasQueryItem ("hash"))
+		m_hash = query.queryItemValue ("hash");
+
+	//
+	// Устанавливаем новые параметры
+	//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+	m_url.setEncodedQuery (query.encodedQuery ());
+#else
+	m_url.setQuery (query);
+#endif
+
+	//
+	// Абсолютный путь и имя файла для извлечения из репозитория
+	//
+	// NOTE: под Windows нужно три разделителя, т.к. только в Unix все пути начинаются с корня ("/")
+	//
+	m_path = _url.toString (QUrl::RemoveScheme|QUrl::RemoveQuery);
+#ifdef Q_OS_WIN32
+	if (m_file_name.startsWith ("///"))
+		m_file_name.remove (0, 3);
+#else
+	if (m_path.startsWith ("//"))
+		m_path.remove (0, 2);
+#endif
+
+	if (!QFileInfo (m_path).exists ())
+		qWarning ("File does not exists: %s", qPrintable (m_path));
+
+	return *this;
 }
 
 QString
-OAF::CGitUrl::urledPath () const
+CGitUrl::url () const
 {
-	return m_git_url.toString ();
+	return m_url.toString ();
 }
 
 QString
-OAF::CGitUrl::commitId () const
+CGitUrl::commit () const
 {
 	return m_hash;
 }
 
 QString
-OAF::CGitUrl::fileName () const
+CGitUrl::path () const
 {
-	return m_file_name;
+	return m_path;
 }
 
 QString
-OAF::CGitUrl::fileExt () const
+CGitUrl::ext () const
 {
-	return QFileInfo (m_file_name).suffix ();
+	return QFileInfo (m_path).suffix ();
 }
 
 QString
-OAF::CGitUrl::relativeRepoPath (git_repository* _repo) const
+CGitUrl::relativeRepoPath (git_repository* _repo) const
 {
-	Q_ASSERT (_repo);
+	Q_ASSERT (_repo != NULL);
+
 	//
 	// Получаем путь до директории, где был обнаружен git-репозиторий (/path/.git),
 	// и поднимаемся на уровень вверх (чтобы получить корректный путь
@@ -133,14 +163,15 @@ OAF::CGitUrl::relativeRepoPath (git_repository* _repo) const
 	//
 	// Получаем путь к заданному файлу относительно git-репозитория, в котором он хранится
 	//
-	QString rel_file_path = OAF::makeRelativePath (OAF::fromLocalFile (repo_dir.path ()).toString (),
-												   OAF::fromLocalFile (fileName ()).toString ());
+	QString path = OAF::makeRelativePath (OAF::fromLocalFile (repo_dir.path ()).toString (),
+										  OAF::fromLocalFile (m_path).toString ());
+
 	//
 	// Убираем самый верхний каталог (чтобы получить docs/PIKET-TZ.pkm вместо qpiket.git/docs/PIKET-TZ.pkm)
 	//
 	// NOTE: использование прямого слэша кроссплатформенно
 	//
-	rel_file_path.remove (0, rel_file_path.indexOf ('/') + 1);
+	path.remove (0, path.indexOf ('/') + 1);
 
-	return rel_file_path;
+	return path;
 }

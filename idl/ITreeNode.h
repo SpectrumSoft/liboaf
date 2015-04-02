@@ -12,6 +12,8 @@
 #ifndef __ITREE_NODE_H
 #define __ITREE_NODE_H
 
+#include <QtCore>
+
 #include <idl/IUnknown.h>
 #include <idl/INotifySource.h>
 

@@ -6,12 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QTextStream>
-#include <QTextList>
-#include <QTextBlock>
-#include <QTextCursor>
-#include <QTextDocumentFragment>
-
 #include <idl/ITXTPersist.h>
 
 #include <OAF/StreamUtils.h>
@@ -106,13 +100,9 @@ OAF::saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::I
 		{
 			if (ci->isPrint () || ci->isSpace ())
 				cdata_text_validated += (*ci);
-			/*else
-				qDebug() << "Invalid char detected" << (*ci)
-						 << ", code:" << (int)ci->toAscii () << ", pos:"
-						 << std::distance (cdata_text.begin (), ci);*/
 		}
 		if (cdata_text.length () != cdata_text_validated.length ())
-			qDebug () << QCoreApplication::translate ("helpers_txt", "Invalid symbols were skipped during saving the module");
+			qDebug ("Invalid symbols were skipped during saving the module");
 
 		//
 		// Записываем полученные данные в CDATA-секцию XML-потока

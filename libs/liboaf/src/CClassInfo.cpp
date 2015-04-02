@@ -6,14 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <iostream>
-
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QProcessEnvironment>
-#include <QXmlStreamReader>
-
 #include <idl/IGenericFactory.h>
 
 #include <OAF/OAF.h>

@@ -6,9 +6,7 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QMap>
-#include <QDir>
-#include <QApplication>
+#include <QtCore>
 
 #include <OAF/StreamUtils.h>
 #include <OAF/Utils.h>

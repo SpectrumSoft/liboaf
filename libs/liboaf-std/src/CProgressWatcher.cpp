@@ -7,7 +7,6 @@
  *            full terms see the included COPYING file.
  */
 #include <OAF/Consts.h>
-
 #include <OAF/CProgressWatcher.h>
 
 static const int PROGRESS_DEFAULT_VALUE = 0;

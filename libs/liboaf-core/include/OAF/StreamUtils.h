@@ -9,10 +9,7 @@
 #ifndef __OAF_STREAM_UTILS_H
 #define __OAF_STREAM_UTILS_H
 
-#include <QUrl>
-#include <QBuffer>
-#include <QByteArray>
-#include <QObject>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IIODevice.h>

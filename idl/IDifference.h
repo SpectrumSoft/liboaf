@@ -9,7 +9,7 @@
 #ifndef __IDIFFERENCE_H
 #define __IDIFFERENCE_H
 
-#include <QString>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

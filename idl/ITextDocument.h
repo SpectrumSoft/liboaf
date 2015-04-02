@@ -9,6 +9,8 @@
 #ifndef __ITEXT_DOCUMENT_H
 #define __ITEXT_DOCUMENT_H
 
+#include <QtCore>
+
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
 

@@ -9,10 +9,12 @@
 #ifndef __OAF_CFUNCTION_FACTORY_H
 #define __OAF_CFUNCTION_FACTORY_H
 
-#include <OAF/OafGlobal.h>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IQuery.h>
+
+#include <OAF/OafGlobal.h>
 
 namespace OAF
 {

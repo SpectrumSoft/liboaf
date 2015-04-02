@@ -6,9 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QDir>
-#include <QFileInfo>
-
 #include <OAF/StreamUtils.h>
 
 using namespace OAF;
@@ -55,7 +52,11 @@ OAF::makeAbsolutePath (const QString& _origin, const QString& _relative)
 		//
 		relative.setScheme (origin.scheme ());
 		relative.setAuthority (origin.authority ());
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
 		relative.setEncodedQuery (origin.encodedQuery ());
+#else
+		relative.setQuery (origin.query ());
+#endif
 
 		//
 		// И формируем его путь с учётом пути к первому файлу

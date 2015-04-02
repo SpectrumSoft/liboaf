@@ -9,11 +9,13 @@
 #ifndef __CMONIKER_H
 #define __CMONIKER_H
 
-#include <OAF/OafCoreGlobal.h>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
 #include <idl/IMoniker.h>
+
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {

@@ -9,9 +9,7 @@
 #ifndef __OAF_IO_CCOMMON_H
 #define __OAF_IO_CCOMMON_H
 
-#include <QString>
-#include <QStringList>
-#include <QIODevice>
+#include <QtCore>
 
 namespace OAF
 {

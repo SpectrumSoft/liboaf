@@ -6,9 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QCloseEvent>
-#include <QFileDialog>
-
 #include <OAF/CNotifySource.h>
 #include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>

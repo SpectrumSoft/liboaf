@@ -9,7 +9,7 @@
 #ifndef __IUNKNOWN_H
 #define __IUNKNOWN_H
 
-#include <QString>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 

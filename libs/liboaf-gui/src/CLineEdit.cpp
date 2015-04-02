@@ -6,13 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QApplication>
-#include <QClipboard>
-#include <QMimeData>
-#include <QStyle>
-#include <QMenu>
-#include <QContextMenuEvent>
-
 #include <OAF/CLineEdit.h>
 
 bool

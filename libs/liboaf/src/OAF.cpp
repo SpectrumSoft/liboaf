@@ -6,10 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QPair>
-#include <QVariant>
-#include <QList>
-
 #include <OAF/CExpression.h>
 #include <OAF/OQL.h>
 #include <OAF/OAF.h>

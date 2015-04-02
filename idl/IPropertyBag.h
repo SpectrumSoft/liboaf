@@ -9,9 +9,7 @@
 #ifndef __IPROPERTY_BAG_H
 #define __IPROPERTY_BAG_H
 
-#include <QString>
-#include <QVariant>
-#include <QStringList>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>

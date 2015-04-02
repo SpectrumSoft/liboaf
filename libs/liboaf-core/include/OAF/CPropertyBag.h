@@ -9,16 +9,15 @@
 #ifndef __CPROPERTY_BAG_H
 #define __CPROPERTY_BAG_H
 
-#include <OAF/OafCoreGlobal.h>
-
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
+#include <QtCore>
 
 #include <idl/IUnknown.h>
 #include <idl/IPropertyBag.h>
 
 #include <OAF/CUnknown.h>
 #include <OAF/CNotifySource.h>
+
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {

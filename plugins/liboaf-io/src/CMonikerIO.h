@@ -9,6 +9,8 @@
 #ifndef __OAF_IO_CMONIKERIO_H
 #define __OAF_IO_CMONIKERIO_H
 
+#include <QtCore>
+
 #include <idl/IUnknown.h>
 #include <idl/IMoniker.h>
 

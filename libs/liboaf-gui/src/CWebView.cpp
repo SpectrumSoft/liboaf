@@ -6,10 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-
-#include <QShowEvent>
-#include <QShortcut>
-
 #include <OAF/CWebView.h>
 
 #include "ui_CWebSearchWidget.h"

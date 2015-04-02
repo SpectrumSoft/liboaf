@@ -6,13 +6,8 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QProcessEnvironment>
-#include <QSettings>
-#include <QDir>
-
 #include <OAF/Utils.h>
 #include <OAF/MimeHelpers.h>
-
 #include <OAF/IconHelpers.h>
 
 QImage

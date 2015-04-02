@@ -9,6 +9,8 @@
 #ifndef __ISEARCH_H
 #define __ISEARCH_H
 
+#include <QtCore>
+
 #include <idl/IInterface.h>
 
 namespace OAF

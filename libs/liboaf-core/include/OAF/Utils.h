@@ -9,15 +9,16 @@
 #ifndef __OAF_UTILS_H
 #define __OAF_UTILS_H
 
-#include <OAF/OafCoreGlobal.h>
-
-#include <QUuid>
-#include <QUrl>
-#include <QImage>
-#include <QComboBox>
+#include <QtCore>
+#include <QtGui>
+#if (QT_VERSION >= QT_VERSION_CHECK (5, 0, 0))
+#include <QtWidgets>
+#endif
 
 #include <idl/IInterface.h>
 #include <idl/IIODevice.h>
+
+#include <OAF/OafCoreGlobal.h>
 
 namespace OAF
 {
@@ -53,7 +54,8 @@ namespace OAF
 	/**
 	 * @brief Поиск индекса в комбобоксе по связанному идентификатору
 	 *
-	 * Qt отвратительно работает с QUuid :-(
+	 * Qt отвратительно работает с QUuid :-(. Если использовать стандартную
+	 * функцию findData, то ничего найдено не будет
 	 */
 	OAFCORE_EXPORT int findById (QComboBox* _c, const QUuid& _id);
 

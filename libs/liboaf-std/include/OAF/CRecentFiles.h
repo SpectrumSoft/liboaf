@@ -9,12 +9,9 @@
 #ifndef __OAF_CRECENTFILES_H
 #define __OAF_CRECENTFILES_H
 
-#include <OAF/OafStdGlobal.h>
+#include <QtCore>
 
-#include <QObject>
-#include <QPair>
-#include <QStack>
-#include <QScopedPointer>
+#include <OAF/OafStdGlobal.h>
 
 namespace OAF
 {

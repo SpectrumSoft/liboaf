@@ -6,9 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QUrl>
-#include <QCryptographicHash>
-
 #include "CDeviceBuffer.h"
 
 using namespace OAF::IO;
@@ -32,8 +29,36 @@ CDeviceBuffer::getInfo (DeviceInfo _what)
 		case PATH:
 		{
 			QUrl url (QString ("raw:%1").arg (QString (m_data.toHex ())));
+
+			//
+			// Если задан идентификатор копии
+			//
 			if (!m_copy_id.isNull ())
-				url.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
+			{
+				//
+				// Параметры URL
+				//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+				QUrl query (url);
+#else
+				QUrlQuery query (url);
+#endif
+
+				//
+				// Добавляем идентификатор копии
+				//
+				query.addQueryItem ("oaf_copy_id", m_copy_id.toString ());
+
+				//
+				// Устанавливаем новые параметры
+				//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+				url.setEncodedQuery (query.encodedQuery ());
+#else
+				url.setQuery (query);
+#endif
+			}
+
 			res = url.toString ();
 			break;
 		}
@@ -76,26 +101,35 @@ CDeviceBuffer::setInfo (DeviceInfo _what, const QVariant& _v)
 		//
 		// Разбираем переданный URI
 		//
-		QUrl raw_data (_v.value<QString> ());
+		QUrl url (_v.value<QString> ());
+
+		//
+		// Разбираем параметры
+		//
+#if (QT_VERSION < QT_VERSION_CHECK (5, 0, 0))
+		QUrl query (url);
+#else
+		QUrlQuery query (url);
+#endif
 
 		//
 		// Специальная обработка параметра as_copy
 		//
-		if (raw_data.hasQueryItem ("oaf_as_copy") &&
-			(raw_data.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
-			(raw_data.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
+		if (query.hasQueryItem ("oaf_as_copy") &&
+			(query.queryItemValue ("oaf_as_copy").compare ("no"   , Qt::CaseInsensitive) != 0) &&
+			(query.queryItemValue ("oaf_as_copy").compare ("false", Qt::CaseInsensitive) != 0))
 			m_copy_id = QUuid::createUuid ();
 
 		//
 		// Специальная обработка параметра oaf_copy_id
 		//
-		if (raw_data.hasQueryItem ("oaf_copy_id"))
-			m_copy_id = QUuid (raw_data.queryItemValue ("oaf_copy_id"));
+		if (query.hasQueryItem ("oaf_copy_id"))
+			m_copy_id = QUuid (query.queryItemValue ("oaf_copy_id"));
 
 		//
 		// Устанавливаем реальные данные
 		//
-		m_data = QByteArray::fromHex (raw_data.toString (QUrl::RemoveScheme|QUrl::RemoveQuery).toAscii ());
+		m_data = QByteArray::fromHex (url.toString (QUrl::RemoveScheme|QUrl::RemoveQuery).toLatin1 ());
 	}
 }
 

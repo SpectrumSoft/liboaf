@@ -9,6 +9,8 @@
 #ifndef __IINTERFACE_H
 #define __IINTERFACE_H
 
+#include <QtCore>
+
 //
 // Снимает warning MSVS-компилятора о "inherits via dominance" - когда идет вызов метода
 // базового класса без указания, из какого конкретно базового класса его вызывать.
@@ -19,12 +21,6 @@
 #ifdef _MSC_VER
 #pragma warning (disable: 4250)
 #endif
-
-#include <cstddef>
-
-#include <QMetaType>
-#include <QUuid>
-#include <QSet>
 
 /**
  * @name Декларации метатипов для QUuid и QSet<QUuid>

@@ -6,9 +6,6 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#include <QTabBar>
-#include <QVariant>
-
 #include <OAF/CTabWidget.h>
 
 void

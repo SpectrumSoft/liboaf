@@ -14,6 +14,8 @@
 #include "buffer.h"
 #include <stdarg.h>
 
+#include "intl/libgit2_intl.h"
+
 /********************************************
  * New error handling
  ********************************************/
@@ -51,7 +53,9 @@ void giterr_set(int error_class, const char *string, ...)
 	int error_code = (error_class == GITERR_OS) ? errno : 0;
 
 	va_start(arglist, string);
-	git_buf_vprintf(&buf, string, arglist);
+	char* msg = qt_translate (string);
+	git_buf_vprintf(&buf, msg, arglist);
+	git__free (msg);
 	va_end(arglist);
 
 	if (error_class == GITERR_OS) {

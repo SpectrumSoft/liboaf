@@ -9,16 +9,7 @@
 #ifndef __IGENERIC_FACTORY_H
 #define __IGENERIC_FACTORY_H
 
-//
-// Функции createObject и dllCanUnloadNow для MSVS-компилятора должны быть
-// объявлены с этим ключевым словом. Для остальных компиляторов преобразуем
-// данное объявление в пустую строку
-//
-#ifndef _MSC_VER
-#define __declspec(x)
-#endif
-
-#include <QString>
+#include <QtCore>
 
 #include <idl/IInterface.h>
 #include <idl/IUnknown.h>
