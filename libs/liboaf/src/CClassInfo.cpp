@@ -113,8 +113,8 @@ OAF::CClassInfo::enumClassInfo ()
 		//
 		// Для UNIX добавляем к списку директорию по умолчанию
 		//
-#ifndef WIN32
-		paths.append ("/usr/lib/oaf-qt4/plugins");
+#ifndef Q_OS_UNIX
+		paths.append ("/usr/lib/oaf/plugins");
 #endif
 
 		//
