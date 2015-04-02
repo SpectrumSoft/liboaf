@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>CInputDialog</name>
     <message>
@@ -22,92 +22,92 @@
 <context>
     <name>CMainWindow</name>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="23"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="20"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="24"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="21"/>
         <source>Unsaved data will be lost...</source>
         <translation>Несохранённые данные будут потеряны...</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="178"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="175"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="225"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="222"/>
         <source>Save as file</source>
         <translation>Сохранить как файл</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="243"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="240"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="243"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="240"/>
         <source>QTextEdit 0.5.0</source>
         <translation>Текстовый редактор</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="290"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="287"/>
         <source>&amp;New window</source>
         <translation>&amp;Новое окно</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="296"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="293"/>
         <source>&amp;New text</source>
         <translation>&amp;Новый текст</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="302"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="299"/>
         <source>&amp;New HTML</source>
         <translation>&amp;Новый HTML</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="308"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="305"/>
         <source>&amp;Open ...</source>
         <translation>&amp;Открыть ...</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="314"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="311"/>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="320"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="317"/>
         <source>Save &amp;As ...</source>
         <translation>Сохранить &amp;Как ...</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="326"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="323"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="332"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="329"/>
         <source>&amp;Exit</source>
         <translation>&amp;Выйти</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="337"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="334"/>
         <source>&amp;About ...</source>
         <translation>&amp;О программе ...</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="453"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="450"/>
         <source>&amp;amp;File</source>
         <translation>&amp;amp;Файл</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="454"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="451"/>
         <source>&amp;amp;Help</source>
         <translation>&amp;amp;Помощь</translation>
     </message>
     <message>
-        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="455"/>
+        <location filename="../programs/qtextedit/src/CMainWindow.cpp" line="452"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -269,42 +269,42 @@
 <context>
     <name>OAF::CLineEdit</name>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="62"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="55"/>
         <source>&amp;Undo</source>
         <translation>&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="69"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="62"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повторить</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="76"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="69"/>
         <source>Cu&amp;t</source>
         <translation>Вы&amp;резать</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="83"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="76"/>
         <source>&amp;Copy</source>
         <translation>&amp;Копировать</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="90"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="83"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вставить</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="97"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="90"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="103"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="96"/>
         <source>Select All</source>
         <translation>Выбрать все</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="349"/>
+        <location filename="../libs/liboaf-gui/src/CLineEdit.cpp" line="342"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
@@ -320,22 +320,22 @@
 <context>
     <name>OAF::CWebView</name>
     <message>
-        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="276"/>
+        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="272"/>
         <source>Find text (Quick)</source>
         <translation>Поиск текста (быстрый)</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="283"/>
+        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="279"/>
         <source>Find Next</source>
         <translation>Перейти к следующему</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="288"/>
+        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="284"/>
         <source>Find Previous</source>
         <translation>Перейти к предыдущему</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="389"/>
+        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="385"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
@@ -343,7 +343,7 @@
 <context>
     <name>OAF::CWebViewSearch</name>
     <message>
-        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="198"/>
+        <location filename="../libs/liboaf-gui/src/CWebView.cpp" line="194"/>
         <source>Not Found</source>
         <translation>Совпадений не найдено</translation>
     </message>
@@ -351,7 +351,7 @@
 <context>
     <name>OAF::MimeTypeInfo</name>
     <message>
-        <location filename="../libs/liboaf-std/src/MimeHelpers.cpp" line="1485"/>
+        <location filename="../libs/liboaf-std/src/MimeHelpers.cpp" line="1471"/>
         <source>All supported files</source>
         <translation>Все поддерживаемые файлы</translation>
     </message>
@@ -359,350 +359,350 @@
 <context>
     <name>OAF::TXT::CHTMLEdit</name>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="109"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="93"/>
         <source>The image in the clipboard have too large size to be embedded in document directly.
 Do you want to save this image as file and embed it as link?</source>
         <translation>Изображение в буфере обмена слишком велико для вставки в документ.
 Хотите записать изображение на диск и вставить ссылку на него?</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="121"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="105"/>
         <source>Could not save image in specified location</source>
         <translation>Невозможно записать изображение по заданному адресу</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="243"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="227"/>
         <source>&amp;Undo</source>
         <translation>&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="249"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="233"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повторить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="255"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="239"/>
         <source>Cu&amp;t</source>
         <translation>Вы&amp;резать</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="261"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="245"/>
         <source>&amp;Copy</source>
         <translation>&amp;Копировать</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="267"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="251"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вставить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="274"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="258"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="279"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="263"/>
         <source>Select &amp;All</source>
         <translation>Выбра&amp;ть все</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="285"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="269"/>
         <source>&amp;Insert image</source>
         <translation>&amp;Вставить рисунок</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="291"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1361"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="275"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1345"/>
         <source>Resize image</source>
         <translation>Размер рисунка</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="301"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="285"/>
         <source>&amp;Bold</source>
         <translation>&amp;Жирный</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="312"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="296"/>
         <source>&amp;Italic</source>
         <translation>&amp;Наклонный</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="323"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="307"/>
         <source>&amp;Underline</source>
         <translation>&amp;Подчёркнутый</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="338"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="322"/>
         <source>&amp;Left</source>
         <translation>&amp;Влево</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="345"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="329"/>
         <source>C&amp;enter</source>
         <translation>По &amp;центру</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="352"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="336"/>
         <source>&amp;Right</source>
         <translation>В&amp;право</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="359"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="343"/>
         <source>&amp;Justify</source>
         <translation>По &amp;ширине</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="368"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="352"/>
         <source>&amp;Color ...</source>
         <translation>&amp;Цвет ...</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="376"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="360"/>
         <source>Increase Indent</source>
         <translation>Увеличить отступ</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="383"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="367"/>
         <source>Decrease Indent</source>
         <translation>Уменьшить отступ</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="394"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="378"/>
         <source>Insert Table</source>
         <translation>Вставить таблицу</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="401"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="385"/>
         <source>Remove current row</source>
         <translation>Удалить текущую строку</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="406"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="390"/>
         <source>Remove current column</source>
         <translation>Удалить текущую колонку</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="438"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="471"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="422"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="455"/>
         <source>Custom ...</source>
         <translation>Произвольно ...</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="477"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="461"/>
         <source>Merge two adjacent cells</source>
         <translation>Объединить две соседние ячейки</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="482"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="466"/>
         <source>Split the cell into two ones</source>
         <translation>Разделить ячейку на две части</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="487"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="471"/>
         <source>Setup table appreance ...</source>
         <translation>Настройка параметров таблицы...</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="492"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="476"/>
         <source>Change rows height ...</source>
         <translation>Изменить высоту строк ...</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="497"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="481"/>
         <source>Change columns width ...</source>
         <translation>Изменить ширину колонок ...</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="510"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="494"/>
         <source>Font of selected text</source>
         <translation>Фонт выбранного текста</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="534"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="518"/>
         <source>Size of selected text</source>
         <translation>Размер выбранного текста</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="570"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="554"/>
         <source>List style of selected text</source>
         <translation>Стиль выбранного текста</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="572"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="556"/>
         <source>Standard</source>
         <translation>Обычный</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="573"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="557"/>
         <source>Bullet List (Disc)</source>
         <translation>Маркер (Точка)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="574"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="558"/>
         <source>Bullet List (Circle)</source>
         <translation>Маркер (Круг)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="575"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="559"/>
         <source>Bullet List (Square)</source>
         <translation>Маркер (Квадрат)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="576"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="560"/>
         <source>Ordered List (Decimal)</source>
         <translation>Нумерация (1, 2, 3)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="577"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="561"/>
         <source>Ordered List (Alpha lower)</source>
         <translation>Нумерация (а, б, в)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="578"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="562"/>
         <source>Ordered List (Alpha upper)</source>
         <translation>Нумерация (А, Б. В)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="579"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="563"/>
         <source>Ordered List (Roman lower)</source>
         <translation>Нумерация (i, ii, iii)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="580"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="564"/>
         <source>Ordered List (Roman upper)</source>
         <translation>Нумерация (I, II, III)</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="619"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="603"/>
         <source>Add rows before selected</source>
         <translation>Добавить строки перед выделенной</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="626"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="610"/>
         <source>Add columns before selected</source>
         <translation>Добавить колонки перед выделенной</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1038"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1022"/>
         <source>Insert table</source>
         <translation>Выставить таблицу</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1106"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1090"/>
         <source>Enter required number of rows</source>
         <translation>Введите требуемое число строк</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1106"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1090"/>
         <source>Row count: </source>
         <translation>Число строк:</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1127"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1111"/>
         <source>Enter required number of columns</source>
         <translation>Введите требуемое число колонок</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1127"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1111"/>
         <source>Column count: </source>
         <translation>Число колонок:</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1195"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1179"/>
         <source>Table appreance</source>
         <translation>Параметры таблицы</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1238"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1222"/>
         <source>Enter required width of columns</source>
         <translation>Введите требуемую ширину колонок</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1239"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1223"/>
         <source>Width: </source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="111"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="120"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1351"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1377"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1383"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="95"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="104"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1335"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1361"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1367"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="113"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1260"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="97"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1244"/>
         <source>Select an image to insert</source>
         <translation>Выберите рисунок для вставки</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1351"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1335"/>
         <source>No images found!</source>
         <translation>Изображение не найдено!</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1377"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1361"/>
         <source>Can&apos;t set specified width or height!</source>
         <translation>Не могу установить заданную ширину или высоту!</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1383"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1367"/>
         <source>Minimal allowed size of image is 1x1 pixels!</source>
         <translation>Минимальный разрешённый размер равен 1x1 пиксел!</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1547"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1531"/>
         <source>All Image Files</source>
         <translation>Все файлы изображений</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1649"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1633"/>
         <source>Text Edit</source>
         <translation>Текстовый Редактор</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1769"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1770"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1772"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1773"/>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1779"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1753"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1754"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1756"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1757"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1763"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1770"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1754"/>
         <source>Font color</source>
         <translation>Цвет шрифта</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1771"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1755"/>
         <source>Indentation</source>
         <translation>Отступ</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1774"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1758"/>
         <source>Table</source>
         <translation>Таблица</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1775"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1759"/>
         <source>Insert rows before this</source>
         <translation>Вставить строки перед текущей</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1776"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1760"/>
         <source>Insert columns before this</source>
         <translation>Вставить колонки перед текущей</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1780"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1764"/>
         <source>Format</source>
         <translation>Формат</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1781"/>
+        <location filename="../plugins/liboaf-txt/src/CHTMLEdit.cpp" line="1765"/>
         <source>Alignment</source>
         <translation>Выравнивание</translation>
     </message>
@@ -710,48 +710,48 @@ Do you want to save this image as file and embed it as link?</source>
 <context>
     <name>OAF::TXT::CPlainEdit</name>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="52"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="36"/>
         <source>&amp;Undo</source>
         <translation>&amp;Отменить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="58"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="42"/>
         <source>&amp;Redo</source>
         <translation>&amp;Повторить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="64"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="48"/>
         <source>Cu&amp;t</source>
         <translation>Вы&amp;резать</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="70"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="54"/>
         <source>&amp;Copy</source>
         <translation>&amp;Копировать</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="76"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="60"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вставить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="83"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="67"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="88"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="72"/>
         <source>Select &amp;All</source>
         <translation>Выбра&amp;ть все</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="295"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="279"/>
         <source>Text Edit</source>
         <translation>Текстовый Редактор</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="340"/>
-        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="343"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="324"/>
+        <location filename="../plugins/liboaf-txt/src/CPlainEdit.cpp" line="327"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
@@ -759,55 +759,47 @@ Do you want to save this image as file and embed it as link?</source>
 <context>
     <name>QTranslator</name>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="38"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="30"/>
         <source>Error with code %1 was occured during %2:
  %3</source>
         <translation>Произошла ошибка с кодом %1 в процессе выполнения %2:
  %3</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="44"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="36"/>
         <source>Error during </source>
         <translation>Произошла ошибка в процессе </translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="44"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="36"/>
         <source> was occured</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="112"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="195"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="283"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="104"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="187"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="275"/>
         <source>searching blob with specified SHA-1 id</source>
         <translation>поиска файла с указанным SHA-1 идентификатором</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="105"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="188"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="276"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="97"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="180"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="268"/>
         <source>searching object with specified SHA-1 id</source>
         <translation>поиска объекта с указанным SHA-1 идентификатором</translation>
     </message>
     <message>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="79"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="162"/>
-        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="250"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="71"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="154"/>
+        <location filename="../plugins/liboaf-io/src/CDeviceGIT.cpp" line="242"/>
         <source>opening repository</source>
         <translation>загрузки репозитория</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-std/src/HtmlHelpers.cpp" line="26"/>
+        <location filename="../libs/liboaf-std/src/HtmlHelpers.cpp" line="24"/>
         <source>Final report</source>
         <translation>Итоговый отчёт</translation>
-    </message>
-</context>
-<context>
-    <name>helpers_txt</name>
-    <message>
-        <location filename="../libs/liboaf-std/src/HelpersTXT.cpp" line="115"/>
-        <source>Invalid symbols were skipped during saving the module</source>
-        <translation>Недопустимые символы пропущены при записи модуля</translation>
     </message>
 </context>
 <context>
