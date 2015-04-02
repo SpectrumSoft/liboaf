@@ -1,3 +1,0 @@
-#/bin/sh
-
-lupdate-qt4 -no-obsolete liboaf.pro

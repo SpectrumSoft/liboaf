@@ -1,0 +1,3 @@
+#/bin/sh
+
+qtchooser -run-tool=lrelease -qt=5 liboaf.pro

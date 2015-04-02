@@ -1,0 +1,3 @@
+#/bin/sh
+
+qtchooser -run-tool=linguist -qt=5 translate/liboaf_ru.ts

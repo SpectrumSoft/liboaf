@@ -1,0 +1,3 @@
+#/bin/sh
+
+qtchooser -run-tool=lupdate -qt=5 -no-obsolete liboaf.pro
