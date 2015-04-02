@@ -113,7 +113,7 @@ OAF::CClassInfo::enumClassInfo ()
 		//
 		// Для UNIX добавляем к списку директорию по умолчанию
 		//
-#ifndef Q_OS_UNIX
+#ifdef Q_OS_UNIX
 		paths.append ("/usr/lib/oaf/plugins");
 #endif
 
