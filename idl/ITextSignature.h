@@ -56,8 +56,12 @@ namespace OAF
 	{
 		/**
 		 * @brief Вычислить сигнатуру для текста
+		 *
+		 * Конкретный смысл возвращаемой последовательности байт определяется компонентом,
+		 * реализующим данный интерфейс. Как правило используется один из криптографических
+		 * хэшей, определённых для Qt.
 		 */
-		virtual quint32 signature (const QString& _s, ITextSignatureCheck* _checker = NULL) = 0;
+		virtual QByteArray signature (const QString& _s, ITextSignatureCheck* _checker = NULL) = 0;
 	};
 }
 
