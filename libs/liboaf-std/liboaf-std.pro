@@ -9,8 +9,7 @@ CONFIG += qt thread warn_on
 #
 # Use standard widgets library in Qt5
 #
-greaterThan(QT_MAJOR_VERSION, 4)
-{
+greaterThan(QT_MAJOR_VERSION, 4) {
 	QT += widgets
 }
 
