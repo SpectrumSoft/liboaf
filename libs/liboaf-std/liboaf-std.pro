@@ -110,11 +110,11 @@ HEADERS += \
 	include/OAF/CRecentFiles.h \
 	include/OAF/Helpers.h \
 	include/OAF/HelpersTXT.h \
+	include/OAF/HelpersHTML.h \
+	include/OAF/HelpersIcon.h \
+	include/OAF/HelpersMIME.h \
 	include/OAF/diff_match_patch.h \
-	include/OAF/HtmlHelpers.h \
 	include/OAF/ExchangeHelpers.h \
-	include/OAF/MimeHelpers.h \
-	include/OAF/IconHelpers.h \
 	include/OAF/CProgressWatcher.h \
 	include/OAF/CGitUrl.h \
 	include/OAF/Consts.h
@@ -127,10 +127,10 @@ SOURCES += \
 	src/CRecentFiles.cpp \
 	src/Helpers.cpp \
 	src/HelpersTXT.cpp \
+	src/HelpersHTML.cpp \
+	src/HelpersIcon.cpp \
+	src/HelpersMIME.cpp \
 	src/diff_match_patch.cpp \
-	src/HtmlHelpers.cpp \
 	src/ExchangeHelpers.cpp \
-	src/MimeHelpers.cpp \
-	src/IconHelpers.cpp \
 	src/CProgressWatcher.cpp \
 	src/CGitUrl.cpp

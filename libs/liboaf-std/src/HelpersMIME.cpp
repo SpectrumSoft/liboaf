@@ -10,7 +10,7 @@
 
 #include <OAF/OAF.h>
 #include <OAF/Utils.h>
-#include <OAF/MimeHelpers.h>
+#include <OAF/HelpersMIME.h>
 
 static bool
 tokenIsOperator (const QString& _token)

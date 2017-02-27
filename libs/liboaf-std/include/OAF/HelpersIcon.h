@@ -6,8 +6,8 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#ifndef __OAF_ICONHELPERS_H
-#define __OAF_ICONHELPERS_H
+#ifndef __OAF_HELPERS_ICON_H
+#define __OAF_HELPERS_ICON_H
 
 #include <QtCore>
 #include <QtGui>
@@ -65,4 +65,4 @@ namespace OAF
 	OAFSTD_EXPORT void convertToGrayscale (QImage& _img);
 }
 
-#endif /* __ICONHELPERS_H */
+#endif /* __OAF_HELPERS_ICON_H */

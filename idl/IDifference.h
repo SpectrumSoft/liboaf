@@ -20,7 +20,7 @@ namespace OAF
 	 * FIXME: использовать поток вместо класса, а CHTMLGenerator сделать форматтером
 	 *        поверх потока
 	 */
-	class CHtmlGenerator;
+	class CHTMLGenerator;
 
 	/**
 	 * @brief Поддержка генерации HTML-отчета о различиях с другим объектом данных
@@ -41,7 +41,7 @@ namespace OAF
 		 * @param _inserted Был ли объект данных добавлен или удален в другом модуле
 		 * @return HTML-таблица (зеленая - если объект данных добавлен, красная - если удален)
 		 */
-		virtual void diff (CHtmlGenerator& _hg, bool _inserted = true) = 0;
+		virtual void diff (CHTMLGenerator& _hg, bool _inserted = true) = 0;
 
 		/**
 		 * @brief Возвращает HTML-отчет о различиях с указанным объектом данных;
@@ -55,7 +55,7 @@ namespace OAF
 		 *
 		 * @return HTML-таблица (зеленый текст - добавленный в другом модуле, красный - удаленный)
 		 */
-		virtual void diff (CHtmlGenerator& _hg, OAF::IUnknown* _other) = 0;
+		virtual void diff (CHTMLGenerator& _hg, OAF::IUnknown* _other) = 0;
 	};
 }
 

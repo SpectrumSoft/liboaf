@@ -44,7 +44,7 @@ OAF::CClassInfo::createObject (const QString& _cid) const
 			{
 				typedef OAF::IUnknown* (*CreateObject) (const QString&);
 
-				if (CreateObject create_object = (CreateObject)m_library.resolve ("createObject"))
+				if (CreateObject create_object = reinterpret_cast<CreateObject> (m_library.resolve ("createObject")))
 					return create_object (_cid);
 
 				qWarning ("Can't resolve 'createObject' symbol with reason: %s", qPrintable (m_library.errorString ()));
@@ -69,9 +69,6 @@ OAF::CClassInfo::createObject (const QString& _cid) const
 					qWarning ("Can't find class info for cid %s", qPrintable (m_location));
 			};
 			break;
-
-		default:
-			break;
 	}
 
 	return OAF::URef<OAF::IUnknown> ();
@@ -84,7 +81,7 @@ OAF::CClassInfo::unloadUnusedLibrary () const
 	{
 		typedef bool (*DllCanUnloadNow) ();
 
-		if (DllCanUnloadNow dll_can_unload_now = (DllCanUnloadNow)m_library.resolve ("dllCanUnloadNow"))
+		if (DllCanUnloadNow dll_can_unload_now = reinterpret_cast<DllCanUnloadNow> (m_library.resolve ("dllCanUnloadNow")))
 		{
 			if (dll_can_unload_now ())
 				m_library.unload ();

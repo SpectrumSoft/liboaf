@@ -351,7 +351,7 @@
 <context>
     <name>OAF::MimeTypeInfo</name>
     <message>
-        <location filename="../libs/liboaf-std/src/MimeHelpers.cpp" line="1471"/>
+        <location filename="../libs/liboaf-std/src/HelpersMIME.cpp" line="1471"/>
         <source>All supported files</source>
         <translation>Все поддерживаемые файлы</translation>
     </message>
@@ -797,7 +797,7 @@ Do you want to save this image as file and embed it as link?</source>
         <translation>загрузки репозитория</translation>
     </message>
     <message>
-        <location filename="../libs/liboaf-std/src/HtmlHelpers.cpp" line="24"/>
+        <location filename="../libs/liboaf-std/src/HelpersHTML.cpp" line="25"/>
         <source>Final report</source>
         <translation>Итоговый отчёт</translation>
     </message>

@@ -53,7 +53,7 @@ namespace OAF
 			 */
 			int m_column_idx;
 
-        public Q_SLOTS:
+        public slots:
 			/**
 			 * @brief Найти совпадения
 			 */

@@ -43,7 +43,7 @@ namespace OAF
 
 		bool eventFilter (QObject* _o, QEvent* _ev);
 
-    Q_SIGNALS:
+    signals:
 		void activated (const QModelIndex& _idx);
 
 	public:

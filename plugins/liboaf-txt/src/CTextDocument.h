@@ -145,8 +145,8 @@ namespace OAF
 			 */
 			/** @{*/
 			bool isDiffer (IUnknown* _other);
-			void diff (OAF::CHtmlGenerator& _hg, bool _inserted = true);
-			void diff (OAF::CHtmlGenerator& _hg, IUnknown* _other);
+			void diff (OAF::CHTMLGenerator& _hg, bool _inserted = true);
+			void diff (OAF::CHTMLGenerator& _hg, IUnknown* _other);
 			/** @{*/
 
 			/**

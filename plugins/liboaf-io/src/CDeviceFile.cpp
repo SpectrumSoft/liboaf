@@ -7,7 +7,7 @@
  *            full terms see the included COPYING file.
  */
 #include <OAF/StreamUtils.h>
-#include <OAF/MimeHelpers.h>
+#include <OAF/HelpersMIME.h>
 
 #include "CDeviceFile.h"
 

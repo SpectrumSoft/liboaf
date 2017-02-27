@@ -8,7 +8,7 @@
  */
 #include <git2.h>
 
-#include <OAF/MimeHelpers.h>
+#include <OAF/HelpersMIME.h>
 
 #include "CDeviceGIT.h"
 

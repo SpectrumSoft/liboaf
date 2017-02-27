@@ -10,7 +10,7 @@
 
 #include <OAF/OAF.h>
 #include <OAF/HelpersTXT.h>
-#include <OAF/HtmlHelpers.h>
+#include <OAF/HelpersHTML.h>
 #include <OAF/StreamUtils.h>
 #include <OAF/diff_match_patch.h>
 
@@ -457,7 +457,7 @@ CTextDocument::getFlags (const Key& _key) const
 }
 
 void
-CTextDocument::diff (OAF::CHtmlGenerator& _hg, bool _inserted)
+CTextDocument::diff (OAF::CHTMLGenerator& _hg, bool _inserted)
 {
 	Q_UNUSED (_inserted);
 
@@ -475,7 +475,7 @@ CTextDocument::diff (OAF::CHtmlGenerator& _hg, bool _inserted)
 //	ff.setBackground (QBrush (QColor (_inserted ? "#e6ffe6" : "ffe6e6")));
 //	rootFrame ()->setFrameFormat (ff);
 
-	_hg.insertHtml (toHtml ());
+	_hg.insertHTML (toHtml ());
 }
 
 bool
@@ -485,10 +485,10 @@ CTextDocument::isDiffer (IUnknown* _d)
 }
 
 void
-CTextDocument::diff (OAF::CHtmlGenerator& _hg, IUnknown* _d)
+CTextDocument::diff (OAF::CHTMLGenerator& _hg, IUnknown* _d)
 {
 	if (OAF::URef<QTextDocument> d = OAF::queryInterface<QTextDocument> (_d))
-		_hg.insertHtml (findPlainDiff (this, d));
+		_hg.insertHTML (findPlainDiff (this, d));
 }
 
 int

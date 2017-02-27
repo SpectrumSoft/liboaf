@@ -6,8 +6,8 @@
  *            distributed under the GNU GPL v2 with a Linking Exception. For
  *            full terms see the included COPYING file.
  */
-#ifndef __OAF_MIMEHELPERS_H
-#define __OAF_MIMEHELPERS_H
+#ifndef __OAF_HELPERS_MIME_H
+#define __OAF_HELPERS_MIME_H
 
 #include <QtCore>
 
@@ -355,4 +355,4 @@ namespace OAF
 	};
 }
 
-#endif /* __OAF_MIMEHELPERS_H */
+#endif /* __OAF_HELPERS_MIME_H */

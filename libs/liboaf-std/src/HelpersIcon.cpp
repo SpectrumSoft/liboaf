@@ -7,8 +7,8 @@
  *            full terms see the included COPYING file.
  */
 #include <OAF/Utils.h>
-#include <OAF/MimeHelpers.h>
-#include <OAF/IconHelpers.h>
+#include <OAF/HelpersMIME.h>
+#include <OAF/HelpersIcon.h>
 
 QImage
 OAF::CIconDatabase::findImageByName (const QString& _name)

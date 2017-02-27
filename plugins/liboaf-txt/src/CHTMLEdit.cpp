@@ -9,7 +9,7 @@
 #include <OAF/OAF.h>
 #include <OAF/StreamUtils.h>
 #include <OAF/Helpers.h>
-#include <OAF/MimeHelpers.h>
+#include <OAF/HelpersMIME.h>
 #include <OAF/CNotifySource.h>
 
 #include "CHTMLEdit.h"
