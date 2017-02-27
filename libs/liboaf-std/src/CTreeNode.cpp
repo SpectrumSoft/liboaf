@@ -11,9 +11,7 @@
 #include <OAF/Helpers.h>
 #include <OAF/CTreeNode.h>
 
-OAF::CTreeNode::CTreeNode () :
-	m_parent (NULL), m_prev (NULL), m_next (NULL),
-	m_first_child (NULL), m_last_child (NULL)
+OAF::CTreeNode::CTreeNode () : m_parent (NULL), m_prev (NULL), m_next (NULL), m_first_child (NULL), m_last_child (NULL)
 {}
 
 OAF::CTreeNode::~CTreeNode ()
@@ -667,8 +665,6 @@ OAF::CTreeNode::compare (OAF::ITreeNode* _a, OAF::ITreeNode* _b)
 	return 0;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 OAF::CNotifyTreeNode::CNotifyTreeNode ()
 {}
 
@@ -812,8 +808,6 @@ OAF::CNotifyTreeNode::removeChild (OAF::ITreeNode* _old, OAF::INotifyListener* _
 
 	return node;
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void
 OAF::CCollectionTreeNode::append (const QUuid& _id, OAF::ITreeNode* _n)
