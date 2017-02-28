@@ -140,8 +140,7 @@ static const QString device_derived_cid = "OAF/DeviceDerived:1.0";
 
 CDeviceDerived::CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base) : CUnknown (device_derived_cid), m_base (_base)
 {
-	m_buffer = new QBuffer (this);
-	m_buffer->setBuffer (_data);
+	m_buffer.setBuffer (_data);
 }
 
 CDeviceDerived::~CDeviceDerived ()
@@ -169,7 +168,7 @@ CDeviceDerived::setInfo (DeviceInfo _what, const QVariant& _v)
 QIODevice*
 CDeviceDerived::device ()
 {
-	return m_buffer;
+	return &m_buffer;
 }
 
 bool
