@@ -8,11 +8,35 @@
  */
 #include <QtCore>
 
-#include "util.h"
 #include "libgit2_intl.h"
 
-extern "C" char*
+/**
+ * @brief Кэш переводов
+ *
+ * Проблема в том, что вернуть необходимо указатель на где-то сохранённые данные. Для
+ * того, чтобы не заниматься постоянно распределением и освобождением памяти кэшируем
+ * переведённые данные и возвращаем их из кэша. Если в кэше данных нет, то запрашиваем
+ * перевод и сохраняем результат в кэше.
+ *
+ * При этом ключём является адрес исходной строки. Это нормально, так как все строки
+ * для перевода распределены статически и их положение в памяти в течении работы программы
+ * не меняется.
+ */
+static QMap<const char*, QByteArray> __translation_cache;
+
+extern "C" const char*
 qt_translate (const char* _str)
 {
-	return git__strdup (QCoreApplication::translate ("libgit2", _str, "libgit2").toUtf8 ().data ());
+	//
+	// Ищем перевод в кэше
+	//
+	QMap<const char*, QByteArray>::const_iterator t = __translation_cache.find (_str);
+
+	//
+	// Если перевода нет, то загружаем его в кэш
+	//
+	if (t == __translation_cache.end ())
+		t = __translation_cache.insert (_str, QCoreApplication::translate ("libgit2", _str, "libgit2").toUtf8 ());
+
+	return t.value ().data ();
 }

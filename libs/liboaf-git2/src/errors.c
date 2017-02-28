@@ -53,9 +53,7 @@ void giterr_set(int error_class, const char *string, ...)
 	int error_code = (error_class == GITERR_OS) ? errno : 0;
 
 	va_start(arglist, string);
-	char* msg = qt_translate (string);
-	git_buf_vprintf(&buf, msg, arglist);
-	git__free (msg);
+	git_buf_vprintf(&buf, qt_translate (string), arglist);
 	va_end(arglist);
 
 	if (error_class == GITERR_OS) {

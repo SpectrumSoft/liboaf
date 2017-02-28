@@ -14,7 +14,13 @@ extern "C"
 {
 #endif
 
-char* qt_translate (const char * _str);
+/**
+ * @brief Возвращает перевод заданной строки
+ *
+ * Перевод выполняется с использованием QTranslator. Возвращённый указатель
+ * на память освобождать нельзя!
+ */
+const char* qt_translate (const char * _str);
 
 #ifdef __cplusplus
 }
