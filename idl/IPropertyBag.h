@@ -176,8 +176,6 @@ namespace OAF
 	 */
 	struct IPropertyNotify : virtual public OAF::IInterface
 	{
-		Q_DISABLE_COPY (IPropertyNotify)
-
 		/**
 		 * @brief Исключение, позволяющее отменить изменения атрибута
 		 *

@@ -511,8 +511,6 @@ OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const CSlicePropertyBagOb
 	CUnknown (_bag), CNotifySource (_bag), CSlicePropertyBag (_bag)
 {}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 //
 // Пространство имён свойств
 //

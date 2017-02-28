@@ -147,7 +147,8 @@ namespace OAF
 			bool dataIsMatching (const QByteArray& _header_data) const;
 		};
 
-		typedef std::map<uint /*priority*/, QList<MagicMatchExpr> /*magic value desc*/, std::greater<uint> > MagicExpressions;
+		typedef std::map<uint/*priority*/, QList<MagicMatchExpr>/*magic value desc*/, std::greater<uint> > MagicExpressions;
+
 		/**
 		 * @brief Коллекция magic-данных для определения принадлежности потока данных MIME-типу
 		 *
@@ -244,8 +245,6 @@ namespace OAF
 	 */
 	class OAFSTD_EXPORT CMimeDatabase
 	{
-		Q_DISABLE_COPY (CMimeDatabase)
-
 		/**
 		 * @brief Коллекция описаний MIME-типов
 		 */

@@ -104,8 +104,6 @@ namespace OAF
 	 */
 	struct IObjectNotify : virtual public OAF::IInterface
 	{
-		Q_DISABLE_COPY(IObjectNotify)
-
 		/**
 		 * @brief Исключение, прерывающее добавление/удаление объекта
 		 *

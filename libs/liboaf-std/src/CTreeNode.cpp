@@ -1048,8 +1048,6 @@ OAF::CCollectionTreeNode::getObject (const QString& _oid)
 	return NULL;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 void
 OAF::CCollectionTreeNodeProxy::notify (OAF::IInterface* _event, OAF::INotifySource* _source, OAF::INotifyListener* _origin)
 {

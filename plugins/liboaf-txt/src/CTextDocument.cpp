@@ -21,16 +21,13 @@ using namespace OAF::TXT;
 /**
  * @brief Читаем данные как поток байт
  */
-static size_t
+static int
 readAll (QDataStream& _is, QByteArray& _out)
 {
 	char buf[1024];
 
 	while (int count = _is.readRawData (buf, sizeof (buf)))
 	{
-		if (count < 0)
-			break;
-
 		_out.append (buf, count);
 
 		if (_is.atEnd ())
@@ -42,6 +39,8 @@ readAll (QDataStream& _is, QByteArray& _out)
 
 /**
  * @brief Проверяет, есть ли хоть одно различие в указанных документах
+ *
+ * Документы сравниваются как простые тексты
  */
 static bool
 hasPlainDiff (QTextDocument* _d1, QTextDocument* _d2)
@@ -49,18 +48,16 @@ hasPlainDiff (QTextDocument* _d1, QTextDocument* _d2)
 	//
 	// Движок для сравнения простых текстов
 	//
-	QScopedPointer<Google::diff_match_patch> differ (new Google::diff_match_patch ());
+	Google::diff_match_patch diff_engine;
 
 	//
-	// Тексты для сравнения
+	// Сравниваем два документа преобразовав их предварительно к простому тексту
 	//
-	QString d1 = _d1->toPlainText ();
-	QString d2 = _d2->toPlainText ();
+	QList<Google::Diff> diff = diff_engine.diff_main (_d1->toPlainText (), _d2->toPlainText ());
 
 	//
 	// Если нашли хоть одно изменение, то возвращаем true
 	//
-	QList<Google::Diff> diff = differ->diff_main (d1, d2);
 	foreach (Google::Diff d, diff)
 	{
 		if (d.operation != Google::_EQUAL)
@@ -82,18 +79,12 @@ findPlainDiff (QTextDocument* _d1, QTextDocument* _d2)
 	//
 	// Движок для сравнения простых текстов
 	//
-	QScopedPointer<Google::diff_match_patch> differ (new Google::diff_match_patch ());
+	Google::diff_match_patch diff_engine;
 
 	//
-	// Тексты для сравнения
+	// Сравниваем тексты и генерируем отчет об изменениях в виде HTML-текста
 	//
-	QString d1 = _d1->toPlainText ();
-	QString d2 = _d2->toPlainText ();
-
-	//
-	// Генерируем отчет об изменениях в виде HTML-текста
-	//
-	return differ->diff_prettyHtml (differ->diff_main (d1, d2));
+	return diff_engine.diff_prettyHtml (diff_engine.diff_main (_d1->toPlainText (), _d2->toPlainText ()));
 }
 
 QVariant
@@ -444,7 +435,7 @@ CTextDocument::enumKeys (KeyList& _out) const
 	CNotifyPropertyBag::enumKeys (_out);
 	_out.append ("path");
 
-	return _out.size ();
+	return static_cast<std::size_t> (_out.size ());
 }
 
 OAF::IPropertyBag::PropertyFlags
@@ -508,7 +499,7 @@ CTextDocument::exportMimeTypes (QStringList& _out) const
 {
 	_out << "application/pdf" << "text/html" << "text/plain";
 
-	return _out.size ();
+	return static_cast<std::size_t> (_out.size ());
 }
 
 std::size_t
@@ -516,7 +507,7 @@ CTextDocument::exportFeatures (QStringList& _out, const QString& _mime_type)
 {
 	Q_UNUSED (_mime_type);
 
-	return _out.size ();
+	return static_cast<std::size_t> (_out.size ());
 }
 
 void
@@ -601,7 +592,7 @@ CTextDocument::importMimeTypes (QStringList& _out) const
 {
 	_out << "text/html" << "text/plain";
 
-	return _out.size ();
+	return static_cast<std::size_t> (_out.size ());
 }
 
 QDataStream&
@@ -682,10 +673,161 @@ CTextDocument::showConfigurationDialog ()
 	//
 }
 
+/**
+ * @brief Максимальный размер аннотации
+ *
+ * Это не строгий максимальный размер, реальный максимальный размер равен 2*MAX_BLOCK_LENGTH + 3.
+ * Такой размер связан с тем, что мы копируем текст поблочно пока данная константа не окажется
+ * превышена, при этом из каждого блока мы копируем не более чем MAX_BLOCK_LENGTH символов и если
+ * документ скопирован не весь, то в конце добавляется троеточие.
+ *
+ * Данная величина подобрана экспериментально для экрана ноутбука 13".
+ */
+#define MAX_BLOCK_LENGTH 600
+
 QString
 CTextDocument::getDocumentAnnotation ()
 {
-	return OAF::getAnnonation (*this);
+	//
+	// Документ для аннотации и курсор для его заполнения
+	//
+	QTextDocument ann_document;
+	QTextCursor   ann_cursor (&ann_document);
+
+	//
+	// Максимальный размер аннотации
+	//
+	int limit = MAX_BLOCK_LENGTH;
+
+	//
+	// Копируем формат корневого фрейма документа
+	//
+	ann_document.rootFrame ()->setFrameFormat (rootFrame ()->frameFormat ());
+
+	//
+	// Переменные для копирования блоков, входящих в списки
+	//
+	QTextList* list_old = NULL;
+	QTextList* list_new = NULL;
+
+	//
+	// Копируем блоки корневого фрейма документа до тех пор, пока не исчерпаем их или
+	// не закончится лимит. Вложенные фреймы, изображения и таблицы пропускаем.
+	//
+	for (QTextFrame::iterator f = rootFrame ()->begin (); f != rootFrame ()->end (); ++f)
+	{
+		//
+		// Блоки вложенных фреймов пропускаем. Поскольку таблицы являются вложенными фреймами,
+		// то таблицы тоже пропускаем
+		//
+		if (f.currentFrame ())
+			continue;
+
+		//
+		// Блок корневого фрейма
+		//
+		QTextBlock block = f.currentBlock ();
+
+		//
+		// Если это не первый блок документа, то создаём новый блок (первый блок документа
+		// создаётся автоматически)
+		//
+		if (!ann_cursor.atStart ())
+			ann_cursor.insertBlock ();
+
+		//
+		// Копируем формат блока
+		//
+		ann_cursor.setBlockFormat (block.blockFormat ());
+
+		//
+		// Копируем формат символов блока по умолчанию
+		//
+		ann_cursor.setCharFormat (block.charFormat ());
+
+		//
+		// Проходим по всем фрагментам текста в исходном блоке и копируем их в созданный блок
+		//
+		for (QTextBlock::iterator c = block.begin (); c != block.end (); ++c)
+		{
+			//
+			// Фрагмент текста
+			//
+			QTextFragment fragment = c.fragment ();
+
+			//
+			// Фрагменты с рисунками пропускаем
+			//
+			QTextImageFormat imgf = fragment.charFormat ().toImageFormat ();
+			if (imgf.isValid ())
+				continue;
+
+			//
+			// Текст фрагмента для копирования
+			//
+			QString text_to_copy = fragment.text ().left (MAX_BLOCK_LENGTH);
+
+			//
+			// Копируем текст фрагмента вместе с форматированием
+			//
+			ann_cursor.insertText (text_to_copy, fragment.charFormat ());
+
+			//
+			// Уменьшаем лимит на размер скопированного текста
+			//
+			limit -= text_to_copy.length ();
+
+			//
+			// Если лимит исчерпан, то завершаем обработку текста
+			//
+			if (limit < 0)
+				break;
+		}
+
+		//
+		// Если копируемый блок находится в списке
+		//
+		if (block.textList ())
+		{
+			//
+			// Если блок находится в новом списке
+			//
+			if (list_old != block.textList ())
+				list_new = ann_cursor.createList ((list_old = block.textList ())->format ());
+			//
+			// Иначе блок находится в том же списке
+			//
+			else
+				list_new->add (ann_cursor.block ());
+		}
+
+		//
+		// Если лимит аннотации исчерпан
+		//
+		if (limit < 0)
+		{
+			//
+			// Если документ скопирован в аннотацию не весь
+			//
+			if (!f.atEnd ())
+			{
+				//
+				// Добавляем троеточие
+				//
+				QTextBlockFormat fmtb;
+				fmtb.setAlignment (Qt::AlignHCenter);
+				ann_cursor.insertBlock (fmtb);
+				ann_cursor.insertText ("...");
+			}
+
+			break;
+		}
+	}
+
+	//
+	// В качестве аннотации возвращаем созданный документ, преобразованный в HTML
+	//
+	return ann_document.toHtml ();
 }
 
 bool

@@ -86,8 +86,6 @@ namespace OAF
 	 */
 	struct IOperationNotify : virtual public OAF::IInterface
 	{
-		Q_DISABLE_COPY(IOperationNotify)
-
 		/**
 		 * @brief Статус операции
 		 *

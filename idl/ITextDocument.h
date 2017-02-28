@@ -45,8 +45,6 @@ namespace OAF
 	 */
 	struct ITextDocumentNotify : virtual public OAF::IInterface
 	{
-		Q_DISABLE_COPY(ITextDocumentNotify)
-
 		/**
 		 * @brief Изменённый документ
 		 *

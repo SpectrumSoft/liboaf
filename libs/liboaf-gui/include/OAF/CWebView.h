@@ -36,7 +36,6 @@ namespace OAF
 	class OAFGUI_EXPORT CSearchBar : public QWidget
 	{
 		Q_OBJECT
-		Q_DISABLE_COPY (CSearchBar)
 
 		/**
 		 * @brief Виджет, в котором собственно и будем искать текст
@@ -122,7 +121,6 @@ namespace OAF
 	class OAFGUI_EXPORT CWebViewSearch : public CSearchBar
 	{
 		Q_OBJECT
-		Q_DISABLE_COPY (CWebViewSearch)
 
 		/**
 		 * @brief Найти введенный пользователем текст в QWebView

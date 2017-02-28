@@ -34,11 +34,6 @@ namespace OAF
 	 * Запись выполняется в CDATA-секцию XML-потока
 	 */
 	OAFSTD_EXPORT QXmlStreamWriter& saveTXTToXML (QXmlStreamWriter& _os, const QStringList& _mime_types, OAF::ITextDocument* _document);
-
-	/**
-	 * @brief Сделать аннотацию для QTextDocument
-	 */
-	OAFSTD_EXPORT QString getAnnonation (const QTextDocument& _doc);
 }
 
 #endif /* __OAF_HELPERS_TXT_H */

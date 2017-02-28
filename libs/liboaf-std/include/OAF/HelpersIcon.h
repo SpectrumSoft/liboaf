@@ -26,8 +26,6 @@ namespace OAF
 	 */
 	class OAFSTD_EXPORT CIconDatabase
 	{
-		Q_DISABLE_COPY (CIconDatabase)
-
 		/**
 		 * @brief Список директорий, в которых ищутся значки
 		 */

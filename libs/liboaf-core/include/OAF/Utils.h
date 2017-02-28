@@ -28,27 +28,24 @@ namespace OAF
 	template<typename _Value>
 	class ScopedValue
 	{
-		Q_DISABLE_COPY (ScopedValue)
-
 		_Value& m_value;
 		_Value  m_end;
 
 	public:
-		ScopedValue (_Value& _value, const _Value& _begin, const _Value& _end) :
-			m_value (_value), m_end (_end)
+		ScopedValue (_Value& _value, const _Value& _begin, const _Value& _end) : m_value (_value), m_end (_end)
 		{
 			m_value = _begin;
-		};
+		}
 
 		~ScopedValue ()
 		{
 			m_value = m_end;
-		};
+		}
 
 		const _Value& value () const
 		{
 			return m_value;
-		};
+		}
 	};
 
 	/**
