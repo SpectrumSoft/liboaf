@@ -587,13 +587,13 @@ OAF::loadXML (OAF::IPropertyBag::PropertySet& _out, QXmlStreamReader& _xml)
 					//
 					if (aattrs.hasAttribute ("value"))
 					{
-						if (aattrs.value ("value").compare ("true", Qt::CaseInsensitive) == 0)
+						if (aattrs.value ("value").compare (QString ("true"), Qt::CaseInsensitive) == 0)
 							_out.insert (aattrs.value ("name").toString (), true);
-						else if (aattrs.value ("value").compare ("yes", Qt::CaseInsensitive) == 0)
+						else if (aattrs.value ("value").compare (QString ("yes"), Qt::CaseInsensitive) == 0)
 							_out.insert (aattrs.value ("name").toString (), true);
-						else if (aattrs.value ("value").compare ("false", Qt::CaseInsensitive) == 0)
+						else if (aattrs.value ("value").compare (QString ("false"), Qt::CaseInsensitive) == 0)
 							_out.insert (aattrs.value ("name").toString (), false);
-						else if (aattrs.value ("value").compare ("no", Qt::CaseInsensitive) == 0)
+						else if (aattrs.value ("value").compare (QString ("no"), Qt::CaseInsensitive) == 0)
 							_out.insert (aattrs.value ("name").toString (), false);
 					}
 				}

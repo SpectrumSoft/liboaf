@@ -254,13 +254,13 @@ OAF::CClassInfo::enumClassInfo ()
 									//
 									if (c && aattrs.hasAttribute ("value"))
 									{
-										if (aattrs.value ("value").compare ("true", Qt::CaseInsensitive))
+										if (aattrs.value ("value").compare (QString ("true"), Qt::CaseInsensitive))
 											c->setValue (aattrs.value ("name").toString (), true);
-										else if (aattrs.value ("value").compare ("yes", Qt::CaseInsensitive))
+										else if (aattrs.value ("value").compare (QString ("yes"), Qt::CaseInsensitive))
 											c->setValue (aattrs.value ("name").toString (), true);
-										else if (aattrs.value ("value").compare ("false", Qt::CaseInsensitive))
+										else if (aattrs.value ("value").compare (QString ("false"), Qt::CaseInsensitive))
 											c->setValue (aattrs.value ("name").toString (), false);
-										else if (aattrs.value ("value").compare ("no", Qt::CaseInsensitive))
+										else if (aattrs.value ("value").compare (QString ("no"), Qt::CaseInsensitive))
 											c->setValue (aattrs.value ("name").toString (), false);
 									}
 								}

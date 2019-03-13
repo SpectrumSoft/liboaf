@@ -178,7 +178,7 @@ OQL_CQuery::limit () const
 %}
 
 %error-verbose
-%name-prefix="OQL_"
+%name-prefix "OQL_"
 %locations
 
 %token    _INTEGER _DECIMAL _FLOAT NAME CNAME STRING
