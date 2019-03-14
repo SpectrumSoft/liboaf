@@ -25,4 +25,4 @@ else {
 #       т.к. пробелы в ней расцениваются как отдельные символы - нам же
 #       нужна вся строка целиком
 #
-QMAKE_CXXFLAGS += -DBUILD_VER=\"\\\"$${BUILD_VER}\"\\\"
+QMAKE_CXXFLAGS += -DBUILD_VER=\"\\\"$${BUILD_VER}\\\"\"
