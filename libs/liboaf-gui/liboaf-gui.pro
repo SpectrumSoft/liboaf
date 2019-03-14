@@ -7,7 +7,12 @@ TEMPLATE = lib
 CONFIG += qt thread warn_on
 
 #
-# Use standard widgets library in Qt5
+# Use standard modules
+#
+QT += core gui webkit
+
+#
+# Use standard widgets and webkitwidgets modules in Qt5
 #
 greaterThan(QT_MAJOR_VERSION, 4) {
 	QT += widgets webkitwidgets
