@@ -80,7 +80,7 @@ OAF::CNotifySource::notifyListeners (OAF::IInterface* _event, OAF::INotifyListen
 	Q_ASSERT_X (!m_notify_in_progress, Q_FUNC_INFO, "Notification not allowed during notify handling");
 	Q_ASSERT_X (_event, Q_FUNC_INFO, "Event is NULL");
 
-	OAF::ScopedValue<bool> notify_in_progress (m_notify_in_progress, true, false);
+	OAF::ScopedValue<bool> notify_in_progress (m_notify_in_progress, true);
 	for (QMap<OAF::INotifyListener*, QString>::const_iterator l = m_listeners.begin (); l != m_listeners.end (); ++l)
 		l.key ()->notify (_event, this, _origin);
 }

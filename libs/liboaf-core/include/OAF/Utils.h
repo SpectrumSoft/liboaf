@@ -23,23 +23,34 @@
 namespace OAF
 {
 	/**
-	 * @brief Шаблон установки и сброса значения переменной в области видимости
+	 * @brief Шаблон временной установки значения переменной в текущей области
+	 *        видимости
+	 *
+	 * После выхода из области видимости значение переменной возвращается к
+	 * предыдущему значению
 	 */
 	template<typename _Value>
 	class ScopedValue
 	{
+		/**
+		 * @brief Ссылка на переменную
+		 */
 		_Value& m_value;
-		_Value  m_end;
+
+		/**
+		 * @brief Предыдущее значение переменной
+		 */
+		_Value m_prev;
 
 	public:
-		ScopedValue (_Value& _value, const _Value& _begin, const _Value& _end) : m_value (_value), m_end (_end)
+		ScopedValue (_Value& _value, const _Value& _new) : m_value (_value), m_prev (_value)
 		{
-			m_value = _begin;
+			m_value = _new;
 		}
 
 		~ScopedValue ()
 		{
-			m_value = m_end;
+			m_value = m_prev;
 		}
 
 		const _Value& value () const
