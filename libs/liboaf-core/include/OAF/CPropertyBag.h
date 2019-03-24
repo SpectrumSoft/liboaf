@@ -25,10 +25,10 @@ namespace OAF
 	 * @brief Базовая реализация контейнера атрибутов
 	 */
 	class OAFCORE_EXPORT CPropertyBag :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IPropertyBag
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IPropertyBag
 	{
 		/**
 		 * @brief Список атрибутов
@@ -105,16 +105,16 @@ namespace OAF
 	 *       связанный с ним OAF::IPropertyBag это поддерживает
 	 */
 	class OAFCORE_EXPORT CSlicePropertyBag :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::INotifySource,
-			virtual public OAF::INotifyListener,
-			virtual public OAF::IPropertyBag,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CNotifySource
+		//
+		// Импортируемые реализации
+		//
+		public CNotifySource,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::INotifySource,
+		virtual public OAF::INotifyListener,
+		virtual public OAF::IPropertyBag
 	{
 		/**
 		 * @brief Префикс
@@ -169,16 +169,16 @@ namespace OAF
 	 * @brief Контейнер атрибутов с рассылкой уведомлений об их изменении
 	 */
 	class OAFCORE_EXPORT CNotifyPropertyBag :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IPropertyBag,
-			virtual public OAF::INotifySource,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CPropertyBag,
-			virtual public CNotifySource
+		//
+		// Импортируемые реализации
+		//
+		public CPropertyBag,
+		public CNotifySource,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IPropertyBag,
+		virtual public OAF::INotifySource
 	{
 	public:
 		CNotifyPropertyBag ();
@@ -204,17 +204,17 @@ namespace OAF
 	 * полноценного объекта контейнера атрибутов.
 	 */
 	class OAFCORE_EXPORT CPropertyBagObject :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUnknown,
-			virtual public OAF::IPropertyBag,
-			virtual public OAF::INotifySource,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CNotifyPropertyBag
+		//
+		// Импортируемые реализации
+		//
+		public CUnknown,
+		public CNotifyPropertyBag,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUnknown,
+		virtual public OAF::IPropertyBag,
+		virtual public OAF::INotifySource
 	{
 	public:
 		CPropertyBagObject (const QString& _cid);
@@ -229,17 +229,17 @@ namespace OAF
 	 * полноценного объекта контейнера атрибутов.
 	 */
 	class OAFCORE_EXPORT CSlicePropertyBagObject :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUnknown,
-			virtual public OAF::IPropertyBag,
-			virtual public OAF::INotifySource,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CSlicePropertyBag
+		//
+		// Импортируемые реализации
+		//
+		public CUnknown,
+		public CSlicePropertyBag,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUnknown,
+		virtual public OAF::IPropertyBag,
+		virtual public OAF::INotifySource
 	{
 	public:
 		CSlicePropertyBagObject (const QString& _cid, const QString& _prefix, OAF::IPropertyBag* _props, bool _auto = true);

@@ -95,14 +95,14 @@ namespace OAF
 	 */
 	class OAFCORE_EXPORT CDeviceDerived : public QObject,
 		//
+		// Импортируемые реализации
+		//
+		public CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IUnknown,
-		virtual public OAF::IIODevice,
-		//
-		// Импортируемые реализации
-		//
-		virtual public CUnknown
+		virtual public OAF::IIODevice
 	{
 		Q_OBJECT
 

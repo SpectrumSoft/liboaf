@@ -29,16 +29,16 @@ namespace OAF
 		 */
 		class CMonikerIO :
 			//
+			// Импортируемые реализации
+			//
+			public CUnknown,
+			public CMoniker,
+			public CCommon,
+			//
 			// Экспортируемые интерфейсы
 			//
 			virtual public OAF::IUnknown,
-			virtual public OAF::IMoniker,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CMoniker,
-			virtual public CCommon
+			virtual public OAF::IMoniker
 		{
 			/**
 			 * @brief Фабрика устройств

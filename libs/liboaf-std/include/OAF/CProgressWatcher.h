@@ -21,14 +21,14 @@
 namespace OAF
 {
 	class OAFSTD_EXPORT CProgressWatcher :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::INotifySource,
-			//
-			// Импортируемые реализации
-			//
-			virtual public OAF::CNotifySource
+		//
+		// Импортируемые реализации
+		//
+		public OAF::CNotifySource,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::INotifySource
 	{
 		/**
 		 * @brief Текущее состояние операции

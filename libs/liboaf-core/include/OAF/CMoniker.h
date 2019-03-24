@@ -23,10 +23,10 @@ namespace OAF
 	 * @brief Базовая реализация моникера
 	 */
 	class OAFCORE_EXPORT CMoniker :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IMoniker
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IMoniker
 	{
 		/**
 		 * @brief Ссылка на "левый" моникер

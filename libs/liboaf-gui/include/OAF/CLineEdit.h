@@ -32,10 +32,10 @@ namespace OAF
 	 * и управление временем жизни остальных виджетов.
 	 */
 	class OAFGUI_EXPORT CLineEdit : public QLineEdit,
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUIComponent
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUIComponent
 	{
 		Q_OBJECT
 

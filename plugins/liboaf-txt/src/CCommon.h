@@ -34,13 +34,13 @@ namespace OAF
 
 			CCommon ()
 			{
-				m_objects++;
-            }
+				++m_objects;
+			}
 
 			~CCommon ()
 			{
-				m_objects--;
-            }
+				--m_objects;
+			}
 
 			/**
 			 * @brief Доступ к глобальному счетчику объектов
@@ -48,7 +48,7 @@ namespace OAF
 			static long objects ()
 			{
 				return m_objects;
-            }
+			}
 		};
 	}
 }

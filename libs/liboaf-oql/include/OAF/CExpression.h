@@ -29,15 +29,15 @@ namespace OQL
 	 */
 	class OAFOQL_EXPORT CExpressionConst :
 		//
+		// Импортируемые реализации
+		//
+		public OAF::CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IInterface,
 		virtual public OAF::IUnknown,
-		virtual public OAF::IExpression,
-		//
-		// Импортируемые реализации
-		//
-		virtual public OAF::CUnknown
+		virtual public OAF::IExpression
 	{
 		/**
 		 * @brief Значение константы
@@ -61,15 +61,15 @@ namespace OQL
 	 */
 	class OAFOQL_EXPORT CExpressionVariable :
 		//
+		// Импортируемые реализации
+		//
+		public OAF::CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IInterface,
 		virtual public OAF::IUnknown,
-		virtual public OAF::IExpression,
-		//
-		// Импортируемые реализации
-		//
-		virtual public OAF::CUnknown
+		virtual public OAF::IExpression
 	{
 		/**
 		 * @brief Имя переменной
@@ -98,15 +98,15 @@ namespace OQL
 	 */
 	class OAFOQL_EXPORT CExpressionFunction :
 		//
+		// Импортируемые реализации
+		//
+		public OAF::CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IInterface,
 		virtual public OAF::IUnknown,
-		virtual public OAF::IExpression,
-		//
-		// Импортируемые реализации
-		//
-		virtual public OAF::CUnknown
+		virtual public OAF::IExpression
 	{
 		/**
 		 * @brief Функция
@@ -158,15 +158,15 @@ namespace OQL
 	 */
 	class OAFOQL_EXPORT CExpressionList :
 		//
+		// Импортируемые реализации
+		//
+		public OAF::CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IInterface,
 		virtual public OAF::IUnknown,
-		virtual public OAF::IExpression,
-		//
-		// Импортируемые реализации
-		//
-		virtual public OAF::CUnknown
+		virtual public OAF::IExpression
 	{
 		/**
 		 * @brief Список выражений
@@ -209,15 +209,15 @@ namespace OQL
 	 */
 	class OAFOQL_EXPORT CExpressionOrder :
 		//
+		// Импортируемые реализации
+		//
+		public OAF::CUnknown,
+		//
 		// Экспортируемые интерфейсы
 		//
 		virtual public OAF::IInterface,
 		virtual public OAF::IUnknown,
-		virtual public OAF::IExpression,
-		//
-		// Импортируемые реализации
-		//
-		virtual public OAF::CUnknown
+		virtual public OAF::IExpression
 	{
 		/**
 		 * @brief Вычисляемое выражение
@@ -299,7 +299,6 @@ namespace OQL
 	public:
 		Comparator (const QList<QVariant>& _desc) : m_desc (_desc)
 		{}
-		;
 
 		/**
 		 * @brief Оператор сравнения двух объектов по вычисленным для них
@@ -333,7 +332,7 @@ namespace OQL
 			}
 
 			return true;
-		};
+		}
 	};
 }
 

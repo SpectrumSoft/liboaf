@@ -22,6 +22,8 @@ namespace OAF
 	 */
 	struct OAFSTD_EXPORT MimeTypeInfo
 	{
+		typedef QPair<QString/* *.ext */, bool/* case-sensitive */> Extension;
+
 		/**
 		 * @brief Наименование MIME-типа (например, "text/plain")
 		 */
@@ -44,7 +46,6 @@ namespace OAF
 		 */
 		QStringList parent_mimes;
 
-		typedef QPair<QString /* *.ext */, bool /* case-sensitive */> Extension;
 		/**
 		 * @brief Расширения, которые могут иметь файлы данного MIME-типа
 		 */

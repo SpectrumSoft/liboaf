@@ -42,6 +42,12 @@ namespace OAF
 		 */
 		class CTextDocument : public QTextDocument,
 			//
+			// Импортируемые реализации
+			//
+			public CUnknown,
+			public CNotifyPropertyBag,
+			public CCommon,
+			//
 			// Экспортируемые интерфейсы
 			//
 			virtual public OAF::IUnknown,
@@ -54,13 +60,7 @@ namespace OAF
 			virtual public OAF::IExportable,
 			virtual public OAF::IImportable,
 			virtual public OAF::IConfigurable,
-			virtual public OAF::ITextDocument,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CNotifyPropertyBag,
-			virtual public CCommon
+			virtual public OAF::ITextDocument
 		{
 			Q_OBJECT
 

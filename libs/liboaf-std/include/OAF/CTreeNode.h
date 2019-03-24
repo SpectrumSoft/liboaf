@@ -26,10 +26,10 @@ namespace OAF
 	 * @brief Реализация узла DOM-подобного дерева
 	 */
 	class OAFSTD_EXPORT CTreeNode :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::ITreeNode
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::ITreeNode
 	{
 		/**
 		 * @brief Родительский узел
@@ -162,16 +162,16 @@ namespace OAF
 	 * В качестве уведомления рассылаются уведомления OAF::IObjectNotify.
 	 */
 	class OAFSTD_EXPORT CNotifyTreeNode :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::INotifySource,
-			virtual public OAF::ITreeNode,
-			//
-			// Импортируемые реализации
-			//
-			virtual public OAF::CNotifySource,
-			virtual public CTreeNode
+		//
+		// Импортируемые реализации
+		//
+		public OAF::CNotifySource,
+		public CTreeNode,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::INotifySource,
+		virtual public OAF::ITreeNode
 	{
 	public:
 		CNotifyTreeNode ();
@@ -200,16 +200,16 @@ namespace OAF
 	 * обязательный атрибут id типа QUuid.
 	 */
 	class OAFSTD_EXPORT CCollectionTreeNode :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::INotifySource,
-			virtual public OAF::ITreeNode,
-			virtual public OAF::IObjectCollection,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CNotifyTreeNode
+		//
+		// Импортируемые реализации
+		//
+		public CNotifyTreeNode,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::INotifySource,
+		virtual public OAF::ITreeNode,
+		virtual public OAF::IObjectCollection
 	{
 		/**
 		 * @brief Индекс по идентификаторам всех объектов коллекции
@@ -256,22 +256,22 @@ namespace OAF
 	 * одного и того же узла DOM-подобного дерева
 	 */
 	class OAFSTD_EXPORT CCollectionTreeNodeProxy :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUnknownExtender,
-			virtual public OAF::IUnknownProxy,
-			virtual public OAF::INotifySource,
-			virtual public OAF::ITreeNode,
-			virtual public OAF::IObjectCollection,
-			//
-			// Внутренний интерфейс
-			//
-			virtual public OAF::INotifyListener,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CCollectionTreeNode
+		//
+		// Импортируемые реализации
+		//
+		public CCollectionTreeNode,
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUnknownExtender,
+		virtual public OAF::IUnknownProxy,
+		virtual public OAF::INotifySource,
+		virtual public OAF::ITreeNode,
+		virtual public OAF::IObjectCollection,
+		//
+		// Внутренний интерфейс
+		//
+		virtual public OAF::INotifyListener
 	{
 	protected:
 		/**

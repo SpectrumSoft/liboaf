@@ -43,9 +43,6 @@ namespace OAF
 
 		bool eventFilter (QObject* _o, QEvent* _ev);
 
-    signals:
-		void activated (const QModelIndex& _idx);
-
 	public:
 		explicit CSearchLineWidget (QWidget* _parent = NULL);
 		~CSearchLineWidget ();
@@ -61,6 +58,9 @@ namespace OAF
 		 * @note Эта функция должна вызываться только после setView()
 		 */
 		void setSearchColumn (int _idx);
+
+	signals:
+		void activated (const QModelIndex& _idx);
 	};
 }
 

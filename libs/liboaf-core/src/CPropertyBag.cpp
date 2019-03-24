@@ -39,8 +39,7 @@ OAF::CPropertyBag::CPropertyBag ()
 OAF::CPropertyBag::CPropertyBag (const PropertySet& _values) : m_values (_values)
 {}
 
-OAF::CPropertyBag::CPropertyBag (const CPropertyBag& _bag) : OAF::IInterface (_bag), OAF::IPropertyBag (_bag),
-	m_values (_bag.m_values)
+OAF::CPropertyBag::CPropertyBag (const CPropertyBag& _bag) : m_values (_bag.m_values)
 {}
 
 std::size_t
@@ -328,7 +327,6 @@ OAF::CNotifyPropertyBag::CNotifyPropertyBag (const PropertySet& _values) :
 {}
 
 OAF::CNotifyPropertyBag::CNotifyPropertyBag (const CNotifyPropertyBag& _bag) :
-	OAF::IInterface (_bag), OAF::IPropertyBag (_bag), OAF::INotifySource (_bag),
 	CPropertyBag (_bag), CNotifySource (_bag)
 {}
 
@@ -498,8 +496,7 @@ OAF::CPropertyBagObject::CPropertyBagObject (const QString& _cid, const Property
 {}
 
 OAF::CPropertyBagObject::CPropertyBagObject (const CPropertyBagObject& _bag) :
-	OAF::IInterface (_bag), OAF::IUnknown (_bag), OAF::IPropertyBag (_bag), OAF::INotifySource (_bag),
-	CUnknown (_bag), CPropertyBag (_bag), CNotifySource (_bag), CNotifyPropertyBag (_bag)
+	CUnknown (_bag), CNotifyPropertyBag (_bag)
 {}
 
 OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const QString& _cid, const QString& _prefix, OAF::IPropertyBag* _props, bool _auto) :
@@ -507,8 +504,7 @@ OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const QString& _cid, cons
 {}
 
 OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const CSlicePropertyBagObject& _bag) :
-	OAF::IInterface (_bag), OAF::IUnknown (_bag), OAF::IPropertyBag (_bag), OAF::INotifySource (_bag),
-	CUnknown (_bag), CNotifySource (_bag), CSlicePropertyBag (_bag)
+	CUnknown (_bag), CSlicePropertyBag (_bag)
 {}
 
 //

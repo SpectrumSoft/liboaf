@@ -30,10 +30,10 @@ namespace OAF
 	 * контейнеру
 	 */
 	class OAFGUI_EXPORT CUIContainer_Simple :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUIContainer
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUIContainer
 	{
 		/**
 		 * @brief Контейнер, к которому подключён этот контейнер
@@ -71,10 +71,10 @@ namespace OAF
 	 * дополнителные контейнеры интерфейса пользователя
 	 */
 	class OAFGUI_EXPORT CUIContainer_Managed :
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUIContainer_Simple
+		//
+		// Импортируемые реализации
+		//
+		public CUIContainer_Simple
 	{
 		/**
 		 * @brief Менеджер контейнеров интерфейса этого контенера компонентов

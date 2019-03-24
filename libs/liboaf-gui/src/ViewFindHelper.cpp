@@ -23,6 +23,15 @@ ViewFindHelper::view ()
 }
 
 void
+ViewFindHelper::setSearchColumn (int _idx)
+{
+	if ((_idx >= 0) && (_idx < m_view->model ()->columnCount ()))
+		m_column_idx = _idx;
+	else
+		Q_ASSERT (0);
+}
+
+void
 ViewFindHelper::findMatched (const QString &_pattern)
 {
 	//
@@ -91,13 +100,4 @@ ViewFindHelper::findNext ()
 
 		m_view->setCurrentIndex (m_matched_nodes.at (m_matched_node));
 	}
-}
-
-void
-ViewFindHelper::setSearchColumn (int _idx)
-{
-	if ((_idx >= 0) && (_idx < m_view->model ()->columnCount ()))
-		m_column_idx = _idx;
-	else
-		Q_ASSERT (0);
 }

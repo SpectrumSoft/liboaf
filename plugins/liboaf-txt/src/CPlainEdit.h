@@ -34,6 +34,11 @@ namespace OAF
 		 */
 		class CPlainEdit : public QTextEdit,
 			//
+			// Импортируемые реализации
+			//
+			public CUnknown,
+			public CCommon,
+			//
 			// Экспортируемые интерфейсы
 			//
 			virtual public OAF::IUnknown,
@@ -42,12 +47,7 @@ namespace OAF
 			//
 			// Внутренние интерфейсы
 			//
-			virtual public OAF::INotifyListener,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CCommon
+			virtual public OAF::INotifyListener
 		{
 			Q_OBJECT
 

@@ -53,7 +53,20 @@ namespace OAF
 			 */
 			int m_column_idx;
 
-        public slots:
+		public:
+			ViewFindHelper (QAbstractItemView* _view, QObject* _parent = NULL);
+
+			/**
+			 * @brief Возвращает представление, в котором выполняется поиск
+			 */
+			QAbstractItemView* view ();
+
+			/**
+			 * @brief Устанавливает индекс столбца, по которому будет осуществляться поиск
+			 */
+			void setSearchColumn (int _idx);
+
+		public slots:
 			/**
 			 * @brief Найти совпадения
 			 */
@@ -73,19 +86,6 @@ namespace OAF
 			 * @brief Найти следующее совпадение
 			 */
 			void findNext ();
-
-		public:
-			ViewFindHelper (QAbstractItemView* _view, QObject* _parent = NULL);
-
-			/**
-			 * @brief Возвращает представление, в котором выполняется поиск
-			 */
-			QAbstractItemView* view ();
-
-			/**
-			 * @brief Устанавливает индекс столбца, по которому будет осуществляться поиск
-			 */
-			void setSearchColumn (int _idx);
 		};
 	}
 }

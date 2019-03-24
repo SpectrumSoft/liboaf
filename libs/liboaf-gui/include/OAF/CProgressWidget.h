@@ -48,11 +48,11 @@ namespace OAF
 	 *       операции только "своим" виджетом, но не со стороны).
 	 */
 	class OAFGUI_EXPORT CProgressWidget : public QWidget,
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUIComponent,
-			virtual public OAF::INotifyListener
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUIComponent,
+		virtual public OAF::INotifyListener
 	{
 		Q_OBJECT
 

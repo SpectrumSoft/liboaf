@@ -27,15 +27,15 @@ namespace OAF
 		 */
 		class CFactory :
 			//
+			// Импортируемые реализации
+			//
+			public CUnknown,
+			public CCommon,
+			//
 			// Экспортируемые интерфейсы
 			//
 			virtual public OAF::IUnknown,
-			virtual public OAF::IGenericFactory,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CCommon
+			virtual public OAF::IGenericFactory
 		{
 			/**
 			 * @brief Глобальный объект фабрики

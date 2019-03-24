@@ -34,12 +34,12 @@ namespace OAF
 
 			CCommon ()
 			{
-				m_objects++;
+				++m_objects;
 			}
 
 			~CCommon ()
 			{
-				m_objects--;
+				++m_objects;
 			}
 
 			/**

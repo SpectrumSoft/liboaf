@@ -26,10 +26,10 @@ namespace OAF
 	 * которая автоматически увеличит счётчик ссылок до 1.
 	 */
 	class OAFCORE_EXPORT CUnknown :
-			//
-			// Экспортируемые интерфейсы
-			//
-			virtual public OAF::IUnknown
+		//
+		// Экспортируемые интерфейсы
+		//
+		virtual public OAF::IUnknown
 	{
 		/**
 		 * @brief Счетчик ссылок на данный объект

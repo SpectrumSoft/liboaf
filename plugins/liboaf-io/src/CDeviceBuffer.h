@@ -28,15 +28,15 @@ namespace OAF
 		 */
 		class CDeviceBuffer : public QObject,
 			//
+			// Импортируемые реализации
+			//
+			public CUnknown,
+			public CCommon,
+			//
 			// Экспортируемые интерфейсы
 			//
 			virtual public OAF::IUnknown,
-			virtual public OAF::IIODevice,
-			//
-			// Импортируемые реализации
-			//
-			virtual public CUnknown,
-			virtual public CCommon
+			virtual public OAF::IIODevice
 		{
 			Q_OBJECT
 
