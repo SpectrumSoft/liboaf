@@ -24,7 +24,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CNotifySource,
+		virtual public OAF::CNotifySource,
 		//
 		// Экспортируемые интерфейсы
 		//

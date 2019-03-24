@@ -31,7 +31,7 @@ namespace OQL
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CUnknown,
+		virtual public OAF::CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -63,7 +63,7 @@ namespace OQL
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CUnknown,
+		virtual public OAF::CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -100,7 +100,7 @@ namespace OQL
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CUnknown,
+		virtual public OAF::CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -160,7 +160,7 @@ namespace OQL
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CUnknown,
+		virtual public OAF::CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -211,7 +211,7 @@ namespace OQL
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CUnknown,
+		virtual public OAF::CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//

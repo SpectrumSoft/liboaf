@@ -165,8 +165,8 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public OAF::CNotifySource,
-		public CTreeNode,
+		virtual public OAF::CNotifySource,
+		virtual public CTreeNode,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -203,7 +203,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CNotifyTreeNode,
+		virtual public CNotifyTreeNode,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -259,7 +259,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CCollectionTreeNode,
+		virtual public CCollectionTreeNode,
 		//
 		// Экспортируемые интерфейсы
 		//

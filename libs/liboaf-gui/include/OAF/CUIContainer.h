@@ -74,7 +74,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CUIContainer_Simple
+		virtual public CUIContainer_Simple
 	{
 		/**
 		 * @brief Менеджер контейнеров интерфейса этого контенера компонентов

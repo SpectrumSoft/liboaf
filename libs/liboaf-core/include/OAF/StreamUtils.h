@@ -97,7 +97,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CUnknown,
+		virtual public CUnknown,
 		//
 		// Экспортируемые интерфейсы
 		//

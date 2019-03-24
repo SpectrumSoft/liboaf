@@ -496,7 +496,7 @@ OAF::CPropertyBagObject::CPropertyBagObject (const QString& _cid, const Property
 {}
 
 OAF::CPropertyBagObject::CPropertyBagObject (const CPropertyBagObject& _bag) :
-	CUnknown (_bag), CNotifyPropertyBag (_bag)
+	CUnknown (_bag), CPropertyBag (_bag), CNotifySource (_bag), CNotifyPropertyBag (_bag)
 {}
 
 OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const QString& _cid, const QString& _prefix, OAF::IPropertyBag* _props, bool _auto) :
@@ -504,7 +504,7 @@ OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const QString& _cid, cons
 {}
 
 OAF::CSlicePropertyBagObject::CSlicePropertyBagObject (const CSlicePropertyBagObject& _bag) :
-	CUnknown (_bag), CSlicePropertyBag (_bag)
+	CUnknown (_bag), CNotifySource (_bag), CSlicePropertyBag (_bag)
 {}
 
 //

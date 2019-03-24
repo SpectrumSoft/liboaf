@@ -108,7 +108,7 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CNotifySource,
+		virtual public CNotifySource,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -172,8 +172,8 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CPropertyBag,
-		public CNotifySource,
+		virtual public CPropertyBag,
+		virtual public CNotifySource,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -207,8 +207,8 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CUnknown,
-		public CNotifyPropertyBag,
+		virtual public CUnknown,
+		virtual public CNotifyPropertyBag,
 		//
 		// Экспортируемые интерфейсы
 		//
@@ -232,8 +232,8 @@ namespace OAF
 		//
 		// Импортируемые реализации
 		//
-		public CUnknown,
-		public CSlicePropertyBag,
+		virtual public CUnknown,
+		virtual public CSlicePropertyBag,
 		//
 		// Экспортируемые интерфейсы
 		//
