@@ -100,16 +100,15 @@ namespace OAF
 		{
 			if (_o)
 			{
-				OAF::IUnknown* o = OAF::queryInterface<OAF::IUnknown> (_o);
-
 				//
 				// Объект обязан экспортировать интерфейс OAF::IUnknown
 				//
+				OAF::IUnknown* o = OAF::queryInterface<OAF::IUnknown> (_o);
 				Q_ASSERT (o != NULL);
 
 				o->ref ();
 			}
-		};
+		}
 
 		/**
 		 * @brief Функция уменьшения счетчика ссылок с проверкой на NULL
@@ -119,16 +118,15 @@ namespace OAF
 		{
 			if (_o)
 			{
-				OAF::IUnknown* o = OAF::queryInterface<OAF::IUnknown> (_o);
-
 				//
 				// Объект обязан экспортировать интерфейс OAF::IUnknown
 				//
+				OAF::IUnknown* o = OAF::queryInterface<OAF::IUnknown> (_o);
 				Q_ASSERT (o != NULL);
 
 				o->unref ();
 			}
-		};
+		}
 
 	public:
 		/**
@@ -136,7 +134,6 @@ namespace OAF
 		 */
 		URef () : m_ref (NULL)
 		{}
-		;
 
 		/**
 		 * @brief Конструктор ссылки из указателя на объект
@@ -144,7 +141,7 @@ namespace OAF
 		URef (_Object* _ref) : m_ref (_ref)
 		{
 			ref (m_ref);
-		};
+		}
 
 		/**
 		 * @brief Конструктор копии ссылки
@@ -152,7 +149,7 @@ namespace OAF
 		URef (const URef& _ref) : m_ref (_ref.m_ref)
 		{
 			ref (m_ref);
-		};
+		}
 
 		/**
 		 * @brief Уничтожение ссылки
@@ -160,7 +157,7 @@ namespace OAF
 		~URef ()
 		{
 			unref (m_ref);
-		};
+		}
 
 		/**
 		 * @brief Присвоение ссылке нового указателя на объект
@@ -175,7 +172,7 @@ namespace OAF
 			}
 
 			return *this;
-		};
+		}
 
 		/**
 		 * @brief Присвоение ссылке нового значения в виде другой ссылки
@@ -190,7 +187,7 @@ namespace OAF
 			}
 
 			return *this;
-		};
+		}
 
 		/**
 		 * @brief Операция разыменования ссылки
@@ -198,7 +195,7 @@ namespace OAF
 		_Object& operator* () const
 		{
 			return *m_ref;
-		};
+		}
 
 		/**
 		 * @brief Операция преобразования ссылки в указатель на объект
@@ -206,7 +203,7 @@ namespace OAF
 		operator _Object* () const
 		{
 			return m_ref;
-		};
+		}
 
 		/**
 		 * @brief Операция разыменования ссылки как указателя на объект
@@ -214,7 +211,7 @@ namespace OAF
 		_Object* operator-> () const
 		{
 			return m_ref;
-		};
+		}
 
 		/**
 		 * @brief Явное получение указателя
@@ -222,7 +219,7 @@ namespace OAF
 		_Object* ptr () const
 		{
 			return m_ref;
-		};
+		}
 
 		/**
 		 * @brief Проверка ссылки на достоверность
@@ -230,7 +227,7 @@ namespace OAF
 		operator bool () const
 		{
 			return (m_ref != NULL);
-		};
+		}
 
 		/**
 		 * @brief Проверка ссылки на NULL
@@ -238,7 +235,7 @@ namespace OAF
 		bool isNull () const
 		{
 			return (m_ref == NULL);
-		};
+		}
 
 		/**
 		 * @brief Проверка ссылки на значение
@@ -246,7 +243,7 @@ namespace OAF
 		bool is (_Object* _ptr) const
 		{
 			return (m_ref == _ptr);
-		};
+		}
 
 		/**
 		 * @brief Преобразование к указателю на другой совместимый тип
@@ -255,7 +252,7 @@ namespace OAF
 		_Object2* queryInterface () const
 		{
 			return OAF::queryInterface<_Object2> (m_ref);
-		};
+		}
 
 		/**
 		 * @brief Равенство ссылок определяется равенством адресов объектов
@@ -263,7 +260,7 @@ namespace OAF
 		friend bool operator== (const OAF::URef<_Object>& _ref1, const OAF::URef<_Object>& _ref2)
 		{
 			return (_ref1.m_ref == _ref2.m_ref);
-		};
+		}
 
 		/**
 		 * @brief Не равенство ссылок определяется не равенством адресов объектов
@@ -271,7 +268,7 @@ namespace OAF
 		friend bool operator!= (const OAF::URef<_Object>& _ref1, const OAF::URef<_Object>& _ref2)
 		{
 			return (_ref1.m_ref != _ref2.m_ref);
-		};
+		}
 
 		/**
 		 * @brief Упорядочивание ссылок по возрастанию адресов объектов
@@ -283,7 +280,7 @@ namespace OAF
 		friend bool operator< (const OAF::URef<_Object>& _ref1, const OAF::URef<_Object>& _ref2)
 		{
 			return (_ref1.m_ref < _ref2.m_ref);
-		};
+		}
 
 		/**
 		 * @brief Упорядочивание ссылок по убыванию
@@ -291,7 +288,7 @@ namespace OAF
 		friend bool operator> (const OAF::URef<_Object>& _ref1, const OAF::URef<_Object>& _ref2)
 		{
 			return (_ref1.m_ref > _ref2.m_ref);
-		};
+		}
 	};
 
 	/**
