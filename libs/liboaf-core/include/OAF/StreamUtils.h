@@ -114,7 +114,7 @@ namespace OAF
 		/**
 		 * @brief Буфер для ввода/вывода
 		 */
-		QBuffer m_buffer;
+		QBuffer* m_buffer;
 
 	public:
 		CDeviceDerived (QByteArray* _data, OAF::IIODevice* _base = NULL);
