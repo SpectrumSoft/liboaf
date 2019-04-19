@@ -1140,18 +1140,15 @@ checkMimeMagic (const OAF::MimeTypeInfo& _mime_type, qint64 _size, QIODevice* _d
 	//
 	// Открываем устройство для чтения (если оно еще не открыто для чтения)
 	//
-	char* header_raw_data = new char [max_data_size];
-	memset (header_raw_data, 0, max_data_size);
+	QByteArray header_data (max_data_size, 0);
 	if ((_d->isOpen () && _d->isReadable ()) || _d->open (QIODevice::ReadOnly))
 	{
 		//
 		// Считываем данные в количестве, найденном выше
 		//
-		if (_d->read (header_raw_data, max_data_size) <= 0)
-		{
-			qWarning ("Unable to read data from device for the MIME type detection");
+		if (_d->read (header_data.data (), header_data.size ()) <= 0)
 			return false;
-		}
+
 		//
 		// Больше устройства нам не нужно, можно закрывать
 		//
@@ -1159,12 +1156,9 @@ checkMimeMagic (const OAF::MimeTypeInfo& _mime_type, qint64 _size, QIODevice* _d
 	}
 	else
 	{
-		qWarning ("Could not open specified device for the MIME type detection");
 		return false;
 	}
 
-	QByteArray header_data (header_raw_data, max_data_size);
-	delete[] header_raw_data;
 	bool matched = false;
 
 	//
