@@ -46,6 +46,7 @@ namespace OAF
 	 * QWidget могут быть добавлены в:
 	 *    - QTabWidget;
 	 *    - QToolBox;
+	 *    - QToolBar;
 	 *    - QStackedWidget;
 	 *    - QStatusBar.
 	 *
@@ -142,7 +143,6 @@ namespace OAF
 
 	public:
 		CUIManager ();
-
 		~CUIManager ();
 
 		/**
@@ -199,7 +199,7 @@ namespace OAF
 		/**
 		 * @brief Получить указатель на компонент для заданного элемента интерфейса
 		 */
-		OAF::IUIComponent* ownerOf (QObject* _object);
+		OAF::IUIComponent* ownerOf (QObject* _object) const;
 	};
 }
 

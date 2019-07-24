@@ -16,8 +16,8 @@ getPriority (const QXmlStreamAttributes& _attrs)
 {
 	int p = 0;
 
-	if (_attrs.hasAttribute ("priority"))
-		p = _attrs.value ("priority").toString ().toInt ();
+	if (_attrs.hasAttribute ("oaf:priority"))
+		p = _attrs.value ("oaf:priority").toString ().toInt ();
 
 	return p;
 }
@@ -156,8 +156,8 @@ OAF::CUIManager::addFolder (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldes
 	// Если описание папки не имеет идентификатора или не имеет метки, то мы с ней
 	// сделать ничего не можем
 	//
-	if (!attrs.hasAttribute ("id") || !attrs.hasAttribute ("label"))
-		return;
+	Q_ASSERT (attrs.hasAttribute ("id"));
+	Q_ASSERT (attrs.hasAttribute ("label"));
 
 	//
 	// Определяем приоритет
@@ -238,7 +238,7 @@ OAF::CUIManager::addFolder (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldes
 	//
 	// Иначе если папка добавляется в главное окно (панель инструментов)
 	//
-    else if (QMainWindow* mw = qobject_cast<QMainWindow*> (_to))
+	else if (QMainWindow* mw = qobject_cast<QMainWindow*> (_to))
 	{
 		//
 		// Ищем тулбар с заданным идентификатором
@@ -335,7 +335,7 @@ OAF::CUIManager::addFolder (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldes
 				addItem (_xmldef, _xmldesc, folder, _ui);
 
 			else if (_xmldef.name () == "separator")
-                addSeparator (_xmldef, _xmldesc, folder, _ui);
+				addSeparator (_xmldef, _xmldesc, folder, _ui);
 
 			//
 			// Если ещё не находимся в конце элемента, то пропускаем всё до его конца
@@ -424,8 +424,7 @@ OAF::CUIManager::addItem (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldesc,
 	//
 	// Если описание элемента не имеет идентификатора, то мы с ним сделать ничего не можем
 	//
-	if (!attrs.hasAttribute ("id"))
-		return;
+	Q_ASSERT (attrs.hasAttribute ("id"));
 
 	//
 	// Определяем приоритет
@@ -480,8 +479,7 @@ OAF::CUIManager::addItem (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldesc,
 				//
 				// Если описание элемента не имеет метки, то мы с ним сделать ничего не можем
 				//
-				if (!attrs.hasAttribute ("label"))
-					return;
+				Q_ASSERT (attrs.hasAttribute ("label"));
 
 				//
 				// @todo Порядок добавления
@@ -494,14 +492,48 @@ OAF::CUIManager::addItem (QXmlStreamReader& _xmldef, QXmlStreamWriter& _xmldesc,
 				//
 				// Если описание элемента не имеет метки, то мы с ним сделать ничего не можем
 				//
-				if (!attrs.hasAttribute ("label"))
-					return;
+				Q_ASSERT (attrs.hasAttribute ("label"));
 
 				//
 				// @todo Порядок добавления
 				// @todo Обработка тэга icon
 				//
 				bw->addItem (w, attrs.value ("label").toString ());
+			}
+			else if (QToolBar* tb = qobject_cast<QToolBar*> (_to))
+			{
+				//
+				// Создаём проксирующий виджет (он необходим, так как при удалении QAction, к
+				// которому он будет привязан, он так же будет удалён и это никак изменить не
+				// получается)
+				//
+				QWidget* wp = new QWidget ();
+				//
+				// Создаём для него упаковщик, чтобы наш виджет был нормально размещён на
+				// проксирующем виджете
+				//
+				QVBoxLayout* wplayout = new QVBoxLayout (wp);
+				//
+				// Устанавливаем этот упаковщик для проксирующего виджета
+				//
+				wp->setLayout (wplayout);
+
+				//
+				// Добавляем виджет для отображения к проксирующему виджету
+				//
+				wplayout->addWidget (w);
+
+				//
+				// Создаём действие для проксирующего виджета
+				//
+				// @todo Порядок добавления
+				//
+				QAction* a = tb->addWidget (wp);
+
+				//
+				// Запоминаем связанное с виджетом действие в самом виджете
+				//
+				w->setProperty ("action", (qulonglong)a);
 			}
 			else if (QStackedWidget* sw = qobject_cast<QStackedWidget*> (_to))
 			{
@@ -543,8 +575,7 @@ OAF::CUIManager::removeItem (QXmlStreamReader& _xmldesc, QObject* _from, UI& _ui
 	//
 	// Если описание элемента не имеет указателя, то мы с ним сделать ничего не можем
 	//
-	if (!attrs.hasAttribute ("p"))
-		return;
+	Q_ASSERT (attrs.hasAttribute ("p"));
 
 	//
 	// Элемент для удаления
@@ -586,6 +617,8 @@ OAF::CUIManager::removeItem (QXmlStreamReader& _xmldesc, QObject* _from, UI& _ui
 				tw->removeTab (tw->indexOf (w));
 			else if (QToolBox* bw = qobject_cast<QToolBox*> (_from))
 				bw->removeItem (bw->indexOf (w));
+			else if (QToolBar* tb = qobject_cast<QToolBar*> (_from))
+				tb->removeAction ((QAction*)w->property ("action").toULongLong ());
 			else if (QStackedWidget* sw = qobject_cast<QStackedWidget*> (_from))
 				sw->removeWidget (w);
 			else if (QStatusBar* sw = qobject_cast<QStatusBar*> (_from))
@@ -676,8 +709,7 @@ OAF::CUIManager::removeSeparator (QXmlStreamReader& _xmldesc, QObject* _from, UI
 	//
 	// Если описание разделителя не имеет указателя, то мы с ним сделать ничего не можем
 	//
-	if (!attrs.hasAttribute ("p"))
-		return;
+	Q_ASSERT (attrs.hasAttribute ("p"));
 
 	//
 	// Разделитель для удаления
@@ -738,7 +770,7 @@ OAF::CUIManager::isInstalled (const QString& _name) const
 bool
 OAF::CUIManager::isInstalled (QObject* _c) const
 {
-	for (QMap<QString, QObject*>::const_iterator i = m_containers.begin (); i != m_containers.end (); ++i)
+	for (auto i = m_containers.constBegin (); i != m_containers.constEnd (); ++i)
 	{
 		if (i.value () == _c)
 			return true;
@@ -995,9 +1027,9 @@ OAF::CUIManager::purgeUI (const QString& _uidef)
 }
 
 OAF::IUIComponent*
-OAF::CUIManager::ownerOf (QObject* _object)
+OAF::CUIManager::ownerOf (QObject* _object) const
 {
-	for (QMap<QUuid, UI>::iterator i = m_uidescs.begin (); i != m_uidescs.end (); ++i)
+	for (auto i = m_uidescs.constBegin (); i != m_uidescs.constEnd (); ++i)
 	{
 		if (i->ownerOf (_object))
 			return i->uic ();
