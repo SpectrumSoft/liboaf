@@ -124,7 +124,7 @@ OAF::query (QStringList& _out, const QString& _req)
 		//       пока не отсортируется нужное количество элементов и не сортировать всё
 		//
 		if (req->order ())
-			qSort (result.begin (), result.end (), OQL::Comparator<QString> (req->order ()->eval (NULL).value<QList<QVariant> > ()));
+			std::sort (result.begin (), result.end (), OQL::Comparator<QString> (req->order ()->eval (NULL).value<QList<QVariant> > ()));
 
 		//
 		// Вычисляем число записей для вывода

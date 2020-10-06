@@ -61,14 +61,28 @@ win32:DEFINES += YY_NO_UNISTD_H
 
 #
 # Для сборки под MSVC нужно явно настроить параметры запуска bison и
-# и копирования полученных файлов
+# копирования полученных файлов
 #
 win32 {
+	QMAKE_LEX              = flex
 	QMAKE_YACC             = bison
 	QMAKE_YACCFLAGS_MANGLE = -p OQLGram -b OQLGram
 	QMAKE_YACC_HEADER      = ${QMAKE_FILE_BASE}.tab.h
 	QMAKE_YACC_SOURCE      = ${QMAKE_FILE_BASE}.tab.c
 	QMAKE_MOVE             = copy
+}
+
+#
+# Для сборки с новой версией bison приходится извращаться, чтобы
+# "обмануть" qmake, который упорно хочет сделать MOVE для *_HEADER
+# и *_SOURCE
+#
+unix {
+	QMAKE_LEX              = flex
+	QMAKE_YACC             = bison
+	QMAKE_YACCFLAGS_MANGLE = -b OQLgram --output=OQLgram_gen.cpp --defines=OQLgram_gen.h
+	QMAKE_YACC_HEADER      = OQLgram_gen.h
+	QMAKE_YACC_SOURCE      = OQLgram_gen.cpp
 }
 
 #

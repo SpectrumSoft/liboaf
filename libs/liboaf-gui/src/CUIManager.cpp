@@ -103,6 +103,16 @@ OAF::CUIManager::UI::UI (OAF::IUIComponent* _uic) : m_uic (_uic)
 OAF::CUIManager::UI::UI (const UI& _ui) : m_desc (_ui.m_desc), m_uic (_ui.m_uic), m_items (_ui.m_items)
 {}
 
+OAF::CUIManager::UI&
+OAF::CUIManager::UI::operator= (const OAF::CUIManager::UI& _ui)
+{
+	m_desc  = _ui.m_desc;
+	m_uic   = _ui.m_uic;
+	m_items = _ui.m_items;
+
+	return *this;
+}
+
 void
 OAF::CUIManager::UI::add (QObject* _object)
 {

@@ -13,7 +13,7 @@
  * @brief Тип переменной для хранения текущего состояния парсера и
  *        лексического анализатора
  */
-#define YYSTYPE OAF::URef<OAF::IExpression>
+#define OQL_STYPE OAF::URef<OAF::IExpression>
 
 //
 // Для сборки с помощью MSVS-компилятора отключаем установку атрибутов
@@ -96,22 +96,22 @@ public:
 /**
  * @brief Псевдо-CID для OQL-запроса
  */
-static const QString query_cid = "OQL/CQuery:1.0";
+static const QString g_query_cid = "OQL/CQuery:1.0";
 
 /**
  * @brief Фабрика функций
  */
-static OAF::IFunctionFactory* function_factory;
+static OAF::IFunctionFactory* g_function_factory;
 
 /**
  * @brief Построенный запрос
  */
-static OAF::URef<OQL_CQuery> result;
+static OAF::URef<OQL_CQuery> g_result;
 
 /**
  * @brief Сообщение о последней ошибке парсера
  */
-static QString last_error_str;
+static QString g_last_error_str;
 
 /**
  * @brief Сохранение данных об ошибке
@@ -119,7 +119,7 @@ static QString last_error_str;
 static void
 OQL_error (const char* _str)
 {
-	last_error_str = QString::fromUtf8 (_str);
+	g_last_error_str = QString::fromUtf8 (_str);
 }
 
 /**
@@ -146,7 +146,7 @@ OQL_readInputStream (char* _buf, int _max_size)
 }
 
 OQL_CQuery::OQL_CQuery (OAF::IExpression* _where, OAF::IExpression* _order, OAF::IExpression* _limit) :
-	OAF::CUnknown (query_cid), m_where (_where), m_order (_order), m_limit (_limit)
+	OAF::CUnknown (g_query_cid), m_where (_where), m_order (_order), m_limit (_limit)
 {}
 
 OAF::IExpression*
@@ -177,8 +177,10 @@ OQL_CQuery::limit () const
 #define YYMAXDEPTH  YYINITDEPTH
 %}
 
-%error-verbose
-%name-prefix "OQL_"
+%define parse.error verbose
+%define api.header.include {"OQLgram_yacc.h"}
+%define api.prefix {OQL_}
+%define api.token.prefix {OQL_T_}
 %locations
 
 %token    _INTEGER _DECIMAL _FLOAT NAME CNAME STRING
@@ -200,15 +202,17 @@ stmt:
 		{
 			try
 			{
-				result = new OQL_CQuery ($1, $2, $3);
+				g_result = new OQL_CQuery ($1, $2, $3);
 			}
 			catch (const std::exception& _ex)
 			{
-				OQL_error (_ex.what ());
+				yyerror (_ex.what ());
+				YYERROR;
 			}
 			catch (...)
 			{
-				OQL_error ("Unknown parse error");
+				yyerror ("Unknown parse exception");
+				YYERROR;
 			}
 		}
 		;
@@ -333,11 +337,11 @@ expr:
 
 			try
 			{
-				$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, function_name, $3));
+				$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, function_name, $3));
 			}
 			catch (const OAF::ParseException& _ex)
 			{
-				OQL_error (_ex.what ());
+				yyerror (_ex.what ());
 				YYERROR;
 			};
 		}
@@ -361,11 +365,11 @@ expr:
 
 			try
 			{
-				$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, function_name, new OQL::CExpressionVariable (variable_name), $3));
+				$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, function_name, new OQL::CExpressionVariable (variable_name), $3));
 			}
 			catch (const OAF::ParseException& _ex)
 			{
-				OQL_error (_ex.what ());
+				yyerror (_ex.what ());
 				YYERROR;
 			};
 		}
@@ -375,43 +379,43 @@ expr:
 		}
 		| expr AND expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "AND", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "AND", $1, $3));
 		}
 		| expr OR expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "OR", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "OR", $1, $3));
 		}
 		| expr XOR expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "XOR", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "XOR", $1, $3));
 		}
 		| NOT expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "NOT", $2));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "NOT", $2));
 		}
 		| expr EQ expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "EQ", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "EQ", $1, $3));
 		}
 		| expr NE expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "NE", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "NE", $1, $3));
 		}
 		| expr LT expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "LT", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "LT", $1, $3));
 		}
 		| expr GT expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "GT", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "GT", $1, $3));
 		}
 		| expr LE expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "LE", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "LE", $1, $3));
 		}
 		| expr GE expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "GE", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "GE", $1, $3));
 		}
 		| ADD expr %prec UMINUS
 		{
@@ -419,23 +423,23 @@ expr:
 		}
 		| SUB expr %prec UMINUS
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "NEG", $2));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "NEG", $2));
 		}
 		| expr ADD expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "ADD", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "ADD", $1, $3));
 		}
 		| expr SUB expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "SUB", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "SUB", $1, $3));
 		}
 		| expr MUL expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "MUL", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "MUL", $1, $3));
 		}
 		| expr DIV expr
 		{
-			$$ = OQL::optimize (new OQL::CExpressionFunction (function_factory, "DIV", $1, $3));
+			$$ = OQL::optimize (new OQL::CExpressionFunction (g_function_factory, "DIV", $1, $3));
 		}
 		;
 
@@ -471,7 +475,7 @@ OQL::parseQuery (const QString& _query, OAF::IFunctionFactory* _factory)
 	//
 	// Устанавливаем фабрику функций
 	//
-	function_factory = _factory;
+	g_function_factory = _factory;
 
 	//
 	// Настраиваем входной поток
@@ -482,7 +486,7 @@ OQL::parseQuery (const QString& _query, OAF::IFunctionFactory* _factory)
 	//
 	// Запускаем парсер
 	//
-	if (OQL_parse () || !result)
+	if (OQL_parse () || !g_result)
 	{
 		//
 		// Сброс сканера в начальное состояние
@@ -492,8 +496,8 @@ OQL::parseQuery (const QString& _query, OAF::IFunctionFactory* _factory)
 		//
 		// Очищаем запрос, если он был создан, чтобы он не висел в памяти
 		//
-		if (result)
-			result = NULL;
+		if (g_result)
+			g_result = NULL;
 
 		//
 		// Очищаем переменную сканера. Если этого не сделать, то последний
@@ -505,7 +509,7 @@ OQL::parseQuery (const QString& _query, OAF::IFunctionFactory* _factory)
 		//
 		// Сообщаем об ошибке
 		//
-		throw OAF::ParseException (last_error_str);
+		throw OAF::ParseException (g_last_error_str);
 	}
 
 	//
@@ -516,7 +520,7 @@ OQL::parseQuery (const QString& _query, OAF::IFunctionFactory* _factory)
 	//
 	// Возвращаем запрос и очищаем переменную результата
 	//
-	OAF::URef<OAF::IQuery> r = result.queryInterface<OAF::IQuery> ();
-	result = NULL;
+	OAF::URef<OAF::IQuery> r = g_result.queryInterface<OAF::IQuery> ();
+	g_result = NULL;
 	return r;
 }

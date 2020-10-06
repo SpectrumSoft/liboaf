@@ -43,7 +43,7 @@ namespace OAF
 		 *
 		 * @return Количество дополнительно полученных идентификаторов
 		 */
-		virtual std::size_t enumObjects (QStringList& _out, const QString& _params = QString::null, std::size_t _loaded = 0) = 0;
+		virtual std::size_t enumObjects (QStringList& _out, const QString& _params = QString (), std::size_t _loaded = 0) = 0;
 
 		/**
 		 * @brief Получить объект с заданным идентификатором

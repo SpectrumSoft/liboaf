@@ -53,7 +53,7 @@ namespace OAF
 		if (OAF::IIODevice* d = OAF::getStreamIODevice (_s))
 			return d->getInfo (OAF::IIODevice::PATH).toString ();
 
-		return QString::null;
+		return QString ();
 	}
 
 	/**

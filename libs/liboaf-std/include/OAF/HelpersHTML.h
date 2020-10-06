@@ -69,12 +69,12 @@ namespace OAF
 		 * @param _span Сколько колонок занимает данная ячейка (по умолчанию - одну)
 		 */
 		CHTMLTableCell (const QString& _text, int _span = 0, int _width = 0,
-						const QString& _prefix = QString::null, const QString& _delim = QString::null,
-						const QString& _style = QString::null);
+						const QString& _prefix = QString (), const QString& _delim = QString (),
+						const QString& _style = QString ());
 
 		CHTMLTableCell (int _span = 0, int _width = 0,
-						const QString& _prefix = QString::null, const QString& _delim = QString::null,
-						const QString& _style = QString::null);
+						const QString& _prefix = QString (), const QString& _delim = QString (),
+						const QString& _style = QString ());
 
 		~CHTMLTableCell ();
 
@@ -173,7 +173,7 @@ namespace OAF
 		/**
 		 * @brief Инициализирует HTML-генератор, опционально с использованием CSS
 		 */
-		CHTMLGenerator (const QString& _css = QString::null, bool _header = true);
+		CHTMLGenerator (const QString& _css = QString (), bool _header = true);
 
 		/**
 		 * @brief Устанавливает CSS-стиль страницы
@@ -243,7 +243,7 @@ namespace OAF
 		 * @name Методы для работы с таблицами
 		 */
 		/** @{*/
-		void beginTable (const QString& _style = QString::null, int _mode = MODE_DEFAULT);
+		void beginTable (const QString& _style = QString (), int _mode = MODE_DEFAULT);
 		void beginRow ();
 		void beginCell (const CHTMLTableCell& _cell);
 		void endCell ();

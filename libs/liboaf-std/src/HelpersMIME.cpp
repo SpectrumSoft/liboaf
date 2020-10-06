@@ -1433,7 +1433,7 @@ OAF::CMimeDatabase::filterFromMime (const QString& _desc, const QStringList& _mi
 	filter = filter.trimmed ();
 	filter += ")";
 
-	return (found ? filter : QString::null);
+	return (found ? filter : QString ());
 }
 
 QString

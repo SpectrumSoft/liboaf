@@ -90,7 +90,7 @@ namespace OAF
 		 *
 		 * Если описание не задано, то будет использовано имя файла
 		 */
-		void push (const QString& _path, const QString& _name = QString::null);
+		void push (const QString& _path, const QString& _name = QString ());
 
 		/**
 		 * @brief Очистить список файлов
@@ -105,9 +105,9 @@ namespace OAF
 		/**
 		 * @brief Глобальный список последних открытых файлов
 		 */
-		static CRecentFiles* instance (const QString& _org = QString::null,
-									   const QString& _app = QString::null,
-									   const QString& _key = QString::null,
+		static CRecentFiles* instance (const QString& _org = QString (),
+									   const QString& _app = QString (),
+									   const QString& _key = QString (),
 									   int _max = 8);
 	};
 }

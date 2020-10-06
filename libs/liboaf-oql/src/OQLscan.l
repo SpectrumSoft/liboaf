@@ -48,66 +48,66 @@ COMMENT     "--"{NON_NEWLINE}*
 WSPACE      [[:space:]]+|{COMMENT}
 
 %%
-ORDER return ORDER;
-BY    return BY;
-ASC   return ASC;
-DESC  return DESC;
-LIMIT return LIMIT;
-NULL  return NULL_P;
+ORDER return OQL_T_ORDER;
+BY    return OQL_T_BY;
+ASC   return OQL_T_ASC;
+DESC  return OQL_T_DESC;
+LIMIT return OQL_T_LIMIT;
+NULL  return OQL_T_NULL_P;
 
-AND  return AND; // Логическое 'И'
-OR   return OR;  // Логическое 'ИЛИ'
-XOR  return XOR; // Исключающее 'ИЛИ'
-NOT  return NOT; // Логическое 'НЕ'
-"="  return EQ;  // Оператор 'РАВНО'
-"<>" return NE;  // Оператор 'НЕ РАВНО'
-"<"  return LT;  // Оператор 'МЕНЬШЕ'
-">"  return GT;  // Оператор 'БОЛЬШЕ'
-"<=" return LE;  // Оператор 'МЕНЬШЕ ИЛИ РАВНО'
-">=" return GE;  // Оператор 'БОЛЬШЕ ИЛИ РАВНО'
-"+"  return ADD; // Оператор 'СЛОЖИТЬ'
-"-"  return SUB; // Оператор 'ВЫЧЕСТЬ'
-"*"  return MUL; // Оператор 'УМНОЖИТЬ'
-"/"  return DIV; // Оператор 'РАЗДЕЛИТЬ'
+AND  return OQL_T_AND; // Логическое 'И'
+OR   return OQL_T_OR;  // Логическое 'ИЛИ'
+XOR  return OQL_T_XOR; // Исключающее 'ИЛИ'
+NOT  return OQL_T_NOT; // Логическое 'НЕ'
+"="  return OQL_T_EQ;  // Оператор 'РАВНО'
+"<>" return OQL_T_NE;  // Оператор 'НЕ РАВНО'
+"<"  return OQL_T_LT;  // Оператор 'МЕНЬШЕ'
+">"  return OQL_T_GT;  // Оператор 'БОЛЬШЕ'
+"<=" return OQL_T_LE;  // Оператор 'МЕНЬШЕ ИЛИ РАВНО'
+">=" return OQL_T_GE;  // Оператор 'БОЛЬШЕ ИЛИ РАВНО'
+"+"  return OQL_T_ADD; // Оператор 'СЛОЖИТЬ'
+"-"  return OQL_T_SUB; // Оператор 'ВЫЧЕСТЬ'
+"*"  return OQL_T_MUL; // Оператор 'УМНОЖИТЬ'
+"/"  return OQL_T_DIV; // Оператор 'РАЗДЕЛИТЬ'
 
 (TRUE|YES)	{
 				OQL_lval = new OQL::CExpressionConst (true);
-				return _BOOLEAN;
+				return OQL_T__BOOLEAN;
 			}
 
 (FALSE|NO)	{
 				OQL_lval = new OQL::CExpressionConst (false);
-				return _BOOLEAN;
+				return OQL_T__BOOLEAN;
 			}
 
 {_INTEGER}	{
 				OQL_lval = new OQL::CExpressionConst (QString::fromUtf8 (yytext).toLongLong ());
-				return _INTEGER;
+				return OQL_T__INTEGER;
 			}
 
 {_DECIMAL}	{
 				OQL_lval = new OQL::CExpressionConst (QString::fromUtf8 (yytext).toDouble ());
-				return _FLOAT;
+				return OQL_T__FLOAT;
 			}
 
 {_FLOAT}		{
 				OQL_lval = new OQL::CExpressionConst (QString::fromUtf8 (yytext).toDouble ());
-				return _FLOAT;
+				return OQL_T__FLOAT;
 			}
 
 {NAME}		{
 				OQL_lval = new OQL::CExpressionConst (QString::fromUtf8 (yytext));
-				return NAME;
+				return OQL_T_NAME;
 			}
 
 {CNAME}		{
 				OQL_lval = new OQL::CExpressionConst (QString::fromUtf8 (yytext));
-				return CNAME;
+				return OQL_T_CNAME;
 			}
 
 {STRING}	{
 				OQL_lval = new OQL::CExpressionConst (OQL_unescape (QString::fromUtf8 (yytext)));
-				return STRING;
+				return OQL_T_STRING;
 			}
 
 {WSPACE}	/*IGNORE*/

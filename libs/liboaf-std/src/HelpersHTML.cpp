@@ -57,7 +57,7 @@ OAF::CHTMLTableCell::~CHTMLTableCell ()
 
 OAF::CHTMLGenerator::CHTMLGenerator (const QString& _css, bool _header)
 {
-	setCSS (_css, QString::null, _header);
+	setCSS (_css, QString (), _header);
 }
 
 void
@@ -321,7 +321,7 @@ OAF::CHTMLGenerator::clear ()
 	if (m_header)
 		m_html = HTML4_HEADER.arg (m_css);
 
-	m_current_style = QString::null;
+	m_current_style = QString ();
 	m_current_mode  = MODE_DEFAULT;
 	m_last_cell     = OAF::CHTMLTableCell ();
 }

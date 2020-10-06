@@ -91,6 +91,7 @@ namespace OAF
 			UI ();
 			UI (OAF::IUIComponent* _uic);
 			UI (const UI& _ui);
+			UI& operator= (const UI& _ui);
 
 			/**
 			 * @brief Добавить элемент интерфейса пользователя к списку
