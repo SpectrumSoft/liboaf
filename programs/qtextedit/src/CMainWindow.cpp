@@ -235,6 +235,12 @@ CMainWindow::aboutSaveAs ()
 }
 
 void
+CMainWindow::aboutQuit ()
+{
+	QTimer::singleShot (0, qApp, SLOT (closeAllWindows ()));
+}
+
+void
 CMainWindow::aboutAboutDialog ()
 {
 	QMessageBox::about (this, tr ("About"), tr ("QTextEdit 0.5.0"));
@@ -329,7 +335,7 @@ CMainWindow::CMainWindow () : m_is_modified (false)
 	m_quit = new QAction (tr ("&Exit"), this);
 	m_quit->setObjectName ("ui:quit");
 	m_quit->setIcon (QIcon::fromTheme ("application-exit"));
-	connect (m_quit, SIGNAL (triggered(bool)), qApp, SLOT (closeAllWindows ()));
+	connect (m_quit, SIGNAL (triggered(bool)), this, SLOT (aboutQuit ()));
 
 	m_about = new QAction (tr ("&About ..."), this);
 	m_about->setObjectName ("ui:about");

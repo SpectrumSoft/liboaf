@@ -16,8 +16,8 @@ getPriority (const QXmlStreamAttributes& _attrs)
 {
 	int p = 0;
 
-	if (_attrs.hasAttribute ("oaf:priority"))
-		p = _attrs.value ("oaf:priority").toString ().toInt ();
+	if (_attrs.hasAttribute ("priority"))
+		p = _attrs.value ("priority").toString ().toInt ();
 
 	return p;
 }

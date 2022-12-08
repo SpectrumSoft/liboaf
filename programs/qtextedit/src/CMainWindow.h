@@ -153,6 +153,11 @@ private slots:
 	void aboutSaveAs ();
 
 	/**
+	 * @brief Завершить работу программы
+	 */
+	void aboutQuit ();
+
+	/**
 	 * @brief Открыть диалог "О программе"
 	 */
 	void aboutAboutDialog ();

@@ -88,7 +88,7 @@ CHTMLEdit::dropImage (const QImage& _image)
 			// Предлагаем пользователю вставить изображение-переросток в качестве ссылки на файл,
 			// для чего картинку придется предварительно сохранить на диск
 			//
-			if (_image.sizeInBytes () > MAX_EMBED_SIZE)
+			if (_image.byteCount () > MAX_EMBED_SIZE)
 			{
 				const QString msg = tr ("The image in the clipboard have too large size to be embedded in document directly.\n"
 										"Do you want to save this image as file and embed it as link?");
