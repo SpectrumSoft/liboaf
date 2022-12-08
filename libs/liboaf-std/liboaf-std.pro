@@ -4,7 +4,7 @@ TEMPLATE = lib
 #
 # Build configuration
 #
-CONFIG += qt thread warn_on
+CONFIG += qt thread warn_on c++11
 
 #
 # Use standard modules
@@ -23,11 +23,6 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #
 win32:CONFIG  += dll
 win32:DEFINES += OAFSTD_LIBRARY
-
-#
-# Принудительная сборка с c++11 расширениями
-#
-unix:QMAKE_CXXFLAGS += -std=c++11
 
 #
 # Данный набор флагов необходим для корректной работы механизма

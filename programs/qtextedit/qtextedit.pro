@@ -4,7 +4,7 @@ TEMPLATE = app
 #
 # Build configuration
 #
-CONFIG += qt thread warn_on
+CONFIG += qt thread warn_on c++11
 
 #
 # Use standard modules
@@ -17,11 +17,6 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4) {
 	QT += widgets
 }
-
-#
-# Принудительная сборка с c++11 расширениями
-#
-unix:QMAKE_CXXFLAGS += -std=c++11
 
 #
 # Данный набор флагов необходим для корректной работы механизма

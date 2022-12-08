@@ -4,18 +4,13 @@ TEMPLATE = lib
 #
 # Build configuration
 #
-CONFIG += qt thread warn_on
+CONFIG += qt thread warn_on c++11
 
 #
 # Настройка динамической линковки под Windows
 #
 win32:CONFIG  += dll
 win32:DEFINES += OAFGIT2_LIBRARY
-
-#
-# Принудительная сборка с c++11 расширениями
-#
-unix:QMAKE_CXXFLAGS += -std=c++11
 
 #
 # Данный набор флагов необходим для корректной работы механизма

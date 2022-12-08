@@ -4,12 +4,7 @@ TEMPLATE = lib
 #
 # Build configuration
 #
-CONFIG += qt thread warn_on plugin
-
-#
-# Принудительная сборка с c++11 расширениями
-#
-unix:QMAKE_CXXFLAGS += -std=c++11
+CONFIG += qt thread warn_on c++11 plugin
 
 #
 # Данный набор флагов необходим для корректной работы механизма

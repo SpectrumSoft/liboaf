@@ -4,7 +4,7 @@ TEMPLATE = lib
 #
 # Build configuration
 #
-CONFIG += qt thread warn_on plugin
+CONFIG += qt thread warn_on c++11 plugin
 
 #
 # Use standard modules
@@ -17,11 +17,6 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4) {
 	QT += widgets printsupport
 }
-
-#
-# Принудительная сборка с c++11 расширениями
-#
-unix:QMAKE_CXXFLAGS += -std=c++11
 
 #
 # Данный набор флагов необходим для корректной работы механизма
